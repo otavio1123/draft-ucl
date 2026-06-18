@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- ===================================================== -->
+  <!-- CONFIGURAÇÕES BÁSICAS -->
+  <!-- ===================================================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>DRAFT UCL</title>
+
+  <!-- ===================================================== -->
+  <!-- FONTES -->
+  <!-- ===================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" 
+    rel="stylesheet"
+  >
+
+  <!-- ===================================================== -->
+  <!-- CSS -->
+  <!-- base.css = tema, cores e botões globais -->
+  <!-- draft.css = tela de escalação/draft -->
+  <!-- campaign.css = campanha/fase de liga/mata-mata -->
+  <!-- responsive.css = mobile -->
+  <!-- ===================================================== -->
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/draft.css" />
+<link rel="stylesheet" href="css/campaign.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+</head>
+
+<body>
+  <!-- ===================================================== -->
+  <!-- PÁGINA DO DRAFT -->
+  <!-- ===================================================== -->
+<div class="draft-page" id="draftPage">
+    <!-- ===================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ===================================================== -->
+<header class="draft-header">
+  <a class="draft-brand draft-brand-link" href="index.html">
+    <h1>DRAFT</h1>
+    <span>UCL · MONTE · SIMULE</span>
+  </a>
+
+      <div class="draft-summary">
+        <span id="formationLabel">4-3-3</span>
+        <span>·</span>
+        <span id="styleLabel">Equilibrado</span>
+        <span>·</span>
+        <span>Clássico</span>
+      </div>
+
+      <button id="themeToggle" class="theme-toggle" type="button">
+        ESCURO
+      </button>
+    </header>
+
+    <!-- ===================================================== -->
+    <!-- ÁREA PRINCIPAL DA ESCALAÇÃO -->
+    <!-- ===================================================== -->
+    <main class="builder-grid">
+
+      <!-- ===================================================== -->
+      <!-- PAINEL ESQUERDO -->
+      <!-- Formação, estilo, sorteio e jogadores disponíveis -->
+      <!-- ===================================================== -->
+      <aside class="left-panel" id="draftTopSection">
+
+        <!-- ===================================================== -->
+        <!-- CONTROLES DE FORMAÇÃO E ESTILO -->
+        <!-- ===================================================== -->
+<section class="panel control-panel" id="formationPanel">
+            <h3>FORMAÇÃO</h3>
+
+          <div class="formation-grid" id="formationButtons">
+            <button class="formation-btn active" data-formation="4-3-3">4-3-3</button>
+            <button class="formation-btn" data-formation="4-4-2">4-4-2</button>
+            <button class="formation-btn" data-formation="4-2-3-1">4-2-3-1</button>
+            <button class="formation-btn" data-formation="3-5-2">3-5-2</button>
+            <button class="formation-btn" data-formation="3-4-3">3-4-3</button>
+            <button class="formation-btn" data-formation="5-3-2">5-3-2</button>
+            <button class="formation-btn" data-formation="5-4-1">5-4-1</button>
+          </div>
+
+          <h3>ESTILO</h3>
+
+          <div class="style-grid" id="styleButtons">
+            <button class="style-btn" data-style="Defensivo">Defensivo</button>
+            <button class="style-btn active" data-style="Equilibrado">Equilibrado</button>
+            <button class="style-btn" data-style="Ofensivo">Ofensivo</button>
+          </div>
+        </section>
+
+        <!-- ===================================================== -->
+        <!-- PAINEL DE SORTEIO -->
+        <!-- ===================================================== -->
+<section class="panel draw-panel">
+  <div class="draw-card" id="drawResult">
+    <small>ROLE PARA SORTEAR UM TIME</small>
+    <h2>DRAFT</h2>
+    <p>Escolha um jogador por rodada.</p>
+  </div>
+
+  <button class="roll-btn" id="drawButton" type="button">
+    <span class="roll-text">ROLAR</span>
+    <span class="roll-dice">🎲</span>
+  </button>
+  <button class="finish-draft-btn hidden" id="finishDraftButton" type="button">
+  SIMULAR A UCL →
+</button>
+</section>
+
+<section class="panel players-panel">
+  <h3>ESCOLHA UM JOGADOR</h3>
+
+  <!-- ===================================================== -->
+  <!-- FERRAMENTAS DA LISTA DE JOGADORES -->
+  <!-- Aparece depois que um time for sorteado -->
+  <!-- ===================================================== -->
+  <div class="players-tools" id="playersTools">
+
+    <!-- Re-sorteio -->
+    <div class="reroll-box">
+<small id="rerollText">NÃO CURTIU? RE-SORTEIE · 2 RESTANTES</small>
+      <button type="button" class="secondary-action-btn" id="rerollButton">
+        ↻ OUTRO TIME
+      </button>
+    </div>
+
+    <!-- Ordenação -->
+    <div class="sort-box">
+      <div class="sort-header">
+        <small>ORDENAR</small>
+
+        <button type="button" class="sort-reset-btn" data-sort="default">
+          VOLTAR PADRÃO
+        </button>
+      </div>
+
+      <div class="sort-actions">
+        <button type="button" class="sort-btn" data-sort="rating-desc">
+          MAIOR OVER
+        </button>
+
+        <button type="button" class="sort-btn" data-sort="rating-asc">
+          MENOR OVER
+        </button>
+
+        <button type="button" class="sort-btn" data-sort="name-asc">
+          A-Z
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================== -->
+  <!-- LISTA DE JOGADORES -->
+  <!-- Jogadores aparecem aqui pelo JavaScript -->
+  <!-- ===================================================== -->
+  <div id="playersList" class="players-list"></div>
+</section>
+      </aside>
+
+      <!-- ===================================================== -->
+      <!-- PAINEL CENTRAL -->
+      <!-- Campo da escalação -->
+      <!-- ===================================================== -->
+      <section class="center-panel" id="draftFieldSection">
+        <div class="pitch-frame">
+          <div class="pitch" id="pitch">
+            <!-- Slots da formação serão criados pelo JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================== -->
+      <!-- PAINEL DIREITO -->
+      <!-- Box score e lista dos jogadores escolhidos -->
+      <!-- ===================================================== -->
+      <aside class="right-panel">
+        <section class="panel score-panel">
+
+          <!-- Cabeçalho do placar geral -->
+          <div class="score-header">
+            <span>BOX SCORE · <strong id="teamCount">0/11</strong></span>
+            <span id="overallScore">—</span>
+          </div>
+
+          <!-- Barras decorativas / setores -->
+          <div class="score-bars">
+            <div>
+              <span class="attack-line"></span>
+              ATAQUE
+            </div>
+
+            <div>
+              <span class="defense-line"></span>
+              DEFESA
+            </div>
+          </div>
+<!-- Overalls por setor -->
+<div class="sector-overalls">
+  <div class="sector-row">
+    <span>ATAQUE</span>
+    <strong id="attackOverall">—</strong>
+  </div>
+
+  <div class="sector-row">
+    <span>MEIO</span>
+    <strong id="midOverall">—</strong>
+  </div>
+
+  <div class="sector-row">
+    <span>DEFESA</span>
+    <strong id="defenseOverall">—</strong>
+  </div>
+</div>
+
+<!-- Lista da escalação -->
+<div class="squad-list" id="squadList">
+  <!-- Linhas da escalação aparecem pelo JavaScript -->
+</div>
+        </section>
+      </aside>
+    </main>
+
+  </div>
+  <!-- ===================================================== -->
+  <!-- JAVASCRIPT -->
+  <!--
+    Ordem importante:
+    1. database = dados
+    2. state = estado global
+    3. helpers = funções pequenas
+    4. formations = formações e estilos
+    5. engines = lógica
+    6. renders = tela
+    7. bibliotecas externas
+    8. shareCard = compartilhar/baixar imagem
+    9. main = inicialização
+  -->
+  <!-- ===================================================== -->
+
+  <script src="js/database.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/formations.js"></script>
+
+  <script src="js/draftEngine.js"></script>
+  <script src="js/simulationEngine.js"></script>
+  <script src="js/campaignEngine.js"></script>
+  <script src="js/knockoutEngine.js"></script>
+
+  <script src="js/renderDraft.js"></script>
+  <script src="js/renderCampaign.js"></script>
+  <script src="js/renderMatch.js"></script>
+
+  <!-- Biblioteca para transformar o card em imagem PNG -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- Compartilhar / baixar card como imagem -->
+  <script src="js/shareCard.js"></script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

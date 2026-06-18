@@ -1,0 +1,1820 @@
+/* ===================================================== */
+/* CAMPAIGN.CSS - TELA DA CAMPANHA */
+/* ===================================================== */
+
+.campaign-page {
+  min-height: 100vh;
+  padding: 32px 42px 60px;
+
+  background:
+    radial-gradient(circle at top left, rgba(124, 58, 237, 0.28), transparent 32%),
+    #07111f;
+
+  color: #ffffff;
+}
+
+/* ===================================================== */
+/* CABEÇALHO DA CAMPANHA */
+/* ===================================================== */
+
+.campaign-header {
+  max-width: 1120px;
+  margin: 0 auto 28px;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+}
+
+.campaign-title-block small {
+  display: block;
+  margin-bottom: 14px;
+
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.campaign-title-block h1 {
+  margin: 0 0 14px;
+
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.campaign-title-block p {
+  margin: 0;
+
+  color: #bfdbfe;
+  font-size: 15px;
+}
+
+/* ===================================================== */
+/* SELETOR NORMAL / RÁPIDO */
+/* ===================================================== */
+
+.campaign-speed-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  color: #ffffff;
+}
+
+.campaign-speed-box span {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+.campaign-speed-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.campaign-speed-btn {
+  min-width: 92px;
+  height: 36px;
+
+  background: transparent;
+  border: 1px solid rgba(147, 197, 253, 0.45);
+  color: #93c5fd;
+
+  font-family: var(--font-title);
+  font-size: 14px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+/* Botão selecionado */
+.campaign-speed-btn.active {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+  border-color: #a78bfa;
+  color: #ffffff;
+
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.45);
+}
+
+.campaign-speed-btn:hover:not(:disabled) {
+  border-color: #8b5cf6;
+  color: #ffffff;
+}
+
+.campaign-speed-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===================================================== */
+/* RESUMO DA CAMPANHA */
+/* ===================================================== */
+
+.campaign-summary {
+  max-width: 1120px;
+  margin: 0 auto 28px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.campaign-summary-card {
+  padding: 18px 20px;
+
+  background: rgba(15, 29, 50, 0.94);
+  border: 1px solid rgba(147, 197, 253, 0.18);
+}
+
+.campaign-summary-card small {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.campaign-summary-card h2 {
+  margin: 0 0 8px;
+
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.campaign-summary-card p {
+  margin: 0;
+
+  color: #bfdbfe;
+  font-size: 14px;
+}
+
+/* ===================================================== */
+/* LISTA DE JOGOS */
+/* ===================================================== */
+
+.league-matches-section {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.section-title {
+  margin-bottom: 16px;
+}
+
+.section-title small {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.section-title h2 {
+  margin: 0;
+
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.league-matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===================================================== */
+/* CARD DE CADA JOGO */
+/* ===================================================== */
+
+.league-match-card {
+  min-height: 78px;
+  padding: 18px 20px;
+
+  display: grid;
+  grid-template-columns: 110px 1fr 160px;
+  align-items: center;
+  gap: 18px;
+
+  background: rgba(15, 29, 50, 0.96);
+  border: 1px solid rgba(147, 197, 253, 0.20);
+}
+
+.league-match-card.live {
+  border-left: 4px solid #8b5cf6;
+}
+
+/* ===================================================== */
+/* RESULTADO DO JOGO FINALIZADO */
+/* Vitória do DRAFT = verde */
+/* Empate = neutro */
+/* Derrota do DRAFT = vermelho */
+/* ===================================================== */
+
+.league-match-card.finished.win {
+  border-left: 4px solid #22c55e;
+}
+
+.league-match-card.finished.draw {
+  border-left: 4px solid #ffffff;
+}
+
+.league-match-card.finished.loss {
+  border-left: 4px solid #ef4444;
+}
+/* Coluna JOGO 1 / status */
+.match-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.match-card-top small {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.match-card-top span {
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Nome dos times */
+.match-teams-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.team-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+
+  color: #ffffff;
+}
+
+.team-name small {
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.draft-team-name {
+  color: #ffffff;
+}
+
+.match-versus {
+  color: #bfdbfe;
+  font-size: 18px;
+}
+
+/* Botão revelar */
+.reveal-match-btn {
+  width: 140px;
+  height: 44px;
+  justify-self: end;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.reveal-match-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* Jogo bloqueado */
+.locked-match-label {
+  justify-self: end;
+
+  color: #93c5fd;
+  font-size: 34px;
+  font-weight: 900;
+  opacity: 0.75;
+}
+.finished-score-btn {
+  justify-self: end;
+
+  background: transparent;
+  border: none;
+
+  font-family: var(--font-title);
+  font-size: 34px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+/* Cor do placar conforme o resultado do DRAFT */
+.finished-score-btn.win {
+  color: #22c55e;
+}
+
+.finished-score-btn.draw {
+  color: #ffffff;
+}
+
+.finished-score-btn.loss {
+  color: #ef4444;
+}
+
+/* ===================================================== */
+/* ÁREA AO VIVO - CRONÔMETRO / PLACAR / GOLS */
+/* Depois vamos usar no simulationEngine.js */
+/* ===================================================== */
+
+.match-live-area {
+  grid-column: 2 / 4;
+
+  margin-top: 14px;
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(147, 197, 253, 0.18);
+}
+
+.match-clock {
+  text-align: center;
+
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.match-score {
+  margin-top: 4px;
+  text-align: center;
+
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.match-events-list,
+.match-details-area {
+  margin-top: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.match-event-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.match-event-row span {
+  min-width: 48px;
+}
+
+.match-event-row small {
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 0.8;
+}
+
+/* Gol do DRAFT */
+.goal-for {
+  color: #22c55e;
+}
+
+/* Gol do adversário */
+.goal-against {
+  color: #ef4444;
+}
+/* ===================================================== */
+/* CARD AO VIVO - CONFRONTO / TEMPO / PLACAR CENTRALIZADOS */
+/* No modo ao vivo, criamos uma coluna central real:
+   - esquerda: status do jogo;
+   - centro: confronto, tempo e placar;
+   - direita: espaço vazio igual ao da esquerda.
+*/
+/* ===================================================== */
+
+.league-match-card.live {
+  grid-template-columns: 110px minmax(0, 1fr) 110px;
+  align-items: start;
+}
+
+/* Linha dos times centralizada na coluna do meio */
+.league-match-card.live .match-teams-line {
+  grid-column: 2 / 3;
+
+  width: 100%;
+  max-width: 760px;
+
+  justify-self: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  text-align: center;
+}
+
+/* Nome dos times também centralizado */
+.league-match-card.live .team-name {
+  justify-content: center;
+  text-align: center;
+}
+
+/* Área do cronômetro e placar na mesma coluna dos times */
+.league-match-card.live .match-live-area {
+  grid-column: 2 / 3;
+
+  width: 100%;
+  max-width: 760px;
+
+  justify-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Cronômetro e placar no mesmo eixo */
+.league-match-card.live .match-clock {
+  width: 180px;
+  text-align: center;
+}
+
+.league-match-card.live .match-score {
+  width: 180px;
+  text-align: center;
+}
+
+/* Lista dos gols abaixo, mas sem deslocar o placar */
+.league-match-card.live .match-events-list {
+  width: 100%;
+  max-width: 620px;
+
+  align-self: center;
+}
+
+/* ===================================================== */
+/* DETALHES DO JOGO FINALIZADO */
+/* Abre abaixo do card ao clicar no placar */
+/* ===================================================== */
+
+.league-match-card.finished.expanded {
+  align-items: start;
+}
+
+/* Área dos gols quando o jogo finalizado está aberto */
+.league-match-card.finished .match-details-area {
+  grid-column: 1 / -1;
+
+  margin-top: 14px;
+  padding-top: 14px;
+  padding-left: 128px;
+
+  border-top: 1px solid rgba(147, 197, 253, 0.18);
+}
+
+/* Linhas dos gols no detalhe */
+.league-match-card.finished .match-details-area .match-event-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* Minuto do gol */
+.league-match-card.finished .match-details-area .match-event-row span {
+  min-width: 54px;
+}
+
+/* Assistência menor */
+.league-match-card.finished .match-details-area .match-event-row small {
+  font-size: 12px;
+  opacity: 0.85;
+} 
+/* ===================================================== */
+/* BOTÃO VER CLASSIFICAÇÃO */
+/* Aparece depois do oitavo jogo */
+/* ===================================================== */
+
+.league-finish-actions {
+  margin: 28px auto 0;
+
+  display: flex;
+  justify-content: center;
+}
+
+.view-standings-btn {
+  min-width: 300px;
+  min-height: 56px;
+  padding: 0 34px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.view-standings-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* ===================================================== */
+/* CLASSIFICAÇÃO GERAL */
+/* ===================================================== */
+
+.standings-page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 0 60px;
+}
+
+.standings-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.standings-header small {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.standings-header h1 {
+  margin: 0;
+
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.standings-header p {
+  margin: 6px 0 0;
+
+  color: #bfdbfe;
+  font-size: 15px;
+}
+
+.standings-table-wrapper {
+  border: 1px solid rgba(147, 197, 253, 0.22);
+  overflow: hidden;
+}
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  background: rgba(15, 29, 50, 0.96);
+  color: #ffffff;
+}
+
+.standings-table th {
+  padding: 12px 10px;
+
+  background: rgba(15, 29, 50, 1);
+  color: #93c5fd;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-align: left;
+}
+
+.standings-table td {
+  padding: 13px 10px;
+
+  border-top: 1px solid rgba(147, 197, 253, 0.12);
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.standings-table td:not(:nth-child(2)),
+.standings-table th:not(:nth-child(2)) {
+  text-align: center;
+}
+
+.standings-table td:nth-child(2) {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.standings-table td:nth-child(2) small {
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* 1º ao 8º */
+.standing-round16 {
+  background: rgba(34, 197, 94, 0.10);
+}
+
+/* 9º ao 24º */
+.standing-playoffs {
+  background: rgba(245, 158, 11, 0.10);
+}
+
+/* 25º ao 36º */
+.standing-eliminated {
+  background: rgba(239, 68, 68, 0.10);
+}
+
+/* Linha do DRAFT */
+.draft-standing-row {
+  outline: 2px solid #8b5cf6;
+  outline-offset: -2px;
+
+  background: rgba(139, 92, 246, 0.20);
+}
+
+.standing-status {
+  display: inline-flex;
+  min-width: 88px;
+  height: 24px;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.standing-status.round16 {
+  background: rgba(34, 197, 94, 0.16);
+  color: #22c55e;
+}
+
+.standing-status.playoffs {
+  background: rgba(245, 158, 11, 0.16);
+  color: #f59e0b;
+}
+
+.standing-status.eliminated {
+  background: rgba(239, 68, 68, 0.16);
+  color: #ef4444;
+}
+
+/* Botão final */
+.standing-action-area {
+  margin-top: 28px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.standing-action-btn {
+  min-width: 360px;
+  min-height: 58px;
+  padding: 0 36px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.standing-action-btn:hover {
+  filter: brightness(1.08);
+}
+
+.standing-action-btn.replay {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border-color: #fca5a5;
+}
+/* ===================================================== */
+/* TELA DO MATA-MATA */
+/* ===================================================== */
+
+.knockout-page {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 0 60px;
+}
+.knockout-header {
+  margin-bottom: 14px;
+  text-align: center;
+}
+.knockout-header small {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.knockout-header h1 {
+  margin: 0;
+
+  color: #ffffff;
+  font-size: 44px;
+  font-weight: 900;
+}
+
+.knockout-header p {
+  margin: 6px 0 0;
+
+  color: #bfdbfe;
+  font-size: 15px;
+}
+
+.knockout-main-card {
+  margin-bottom: 24px;
+  padding: 22px 26px;
+
+  display: grid;
+ grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+
+  background: rgba(15, 29, 50, 0.96);
+  border: 1px solid rgba(147, 197, 253, 0.22);
+}
+
+.knockout-stage-label small,
+.knockout-aggregate-box small {
+  display: block;
+  margin-bottom: 6px;
+
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.knockout-stage-label h2 {
+  margin: 0;
+
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.knockout-stage-label h2 span {
+  color: #93c5fd;
+}
+
+.knockout-stage-label h2 small {
+  margin: 0;
+
+  color: #93c5fd;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.knockout-aggregate-box {
+  min-width: 280px;
+  text-align: right;
+}
+
+.knockout-aggregate-box strong {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.knockout-legs-list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.knockout-leg-card {
+  width: 100%;
+  min-height: 76px;
+  padding: 16px 18px;
+
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) 170px;
+  gap: 18px;
+  align-items: center;
+
+  background: rgba(8, 18, 34, 0.96);
+  border: 1px solid rgba(147, 197, 253, 0.16);
+}
+.knockout-leg-card.waiting {
+  border-left: 4px solid #8b5cf6;
+}
+
+.knockout-leg-card.finished.win {
+  border-left: 4px solid #22c55e;
+}
+
+.knockout-leg-card.finished.draw {
+  border-left: 4px solid #ffffff;
+}
+
+.knockout-leg-card.finished.loss {
+  border-left: 4px solid #ef4444;
+}
+
+.knockout-leg-info small {
+  display: block;
+  margin-bottom: 4px;
+
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.knockout-leg-info strong {
+  color: #bfdbfe;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.knockout-leg-teams {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.knockout-leg-teams small {
+  color: #93c5fd;
+  font-size: 12px;
+}
+
+.knockout-leg-teams b {
+  color: #93c5fd;
+}
+
+.knockout-leg-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.knockout-reveal-btn {
+  min-width: 140px;
+  min-height: 42px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.knockout-reveal-btn:hover {
+  filter: brightness(1.08);
+}
+
+.knockout-locked-label {
+  color: #64748b;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.knockout-final-score,
+.knockout-live-score {
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.knockout-final-score {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.knockout-final-score.win {
+  color: #22c55e;
+}
+
+.knockout-final-score.draw {
+  color: #ffffff;
+}
+
+.knockout-final-score.loss {
+  color: #ef4444;
+}
+/* ===================================================== */
+/* AO VIVO NO MATA-MATA */
+/* ===================================================== */
+
+.knockout-leg-card.live {
+  border-left: 4px solid #f59e0b;
+}
+
+.knockout-live-area {
+  grid-column: 1 / -1;
+
+  margin-top: 14px;
+  padding-top: 14px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-top: 1px solid rgba(147, 197, 253, 0.16);
+}
+
+.knockout-live-area .match-clock {
+  width: 180px;
+  text-align: center;
+}
+
+.knockout-live-area .match-score {
+  width: 180px;
+  text-align: center;
+}
+
+.knockout-live-area .match-events-list {
+  width: 100%;
+  max-width: 620px;
+  margin-top: 10px;
+}
+
+/* ===================================================== */
+/* CARD FINAL DO CONFRONTO */
+/* ===================================================== */
+
+.knockout-result-card {
+  margin-top: 24px;
+  padding: 24px 28px;
+
+  text-align: center;
+
+  background: rgba(15, 29, 50, 0.96);
+  border: 1px solid rgba(147, 197, 253, 0.22);
+}
+
+.knockout-result-card small {
+  display: block;
+  margin-bottom: 8px;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.knockout-result-card h2 {
+  margin: 0;
+
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.knockout-result-card p {
+  margin: 8px 0 20px;
+
+  color: #bfdbfe;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.knockout-result-card.classified {
+  border-left: 4px solid #22c55e;
+}
+
+.knockout-result-card.classified small {
+  color: #22c55e;
+}
+
+.knockout-result-card.eliminated {
+  border-left: 4px solid #ef4444;
+}
+
+.knockout-result-card.eliminated small {
+  color: #ef4444;
+}
+
+.knockout-result-card.penalties-needed {
+  border-left: 4px solid #f59e0b;
+}
+
+.knockout-result-card.penalties-needed small {
+  color: #f59e0b;
+}
+
+.knockout-next-btn,
+.knockout-replay-btn {
+  min-width: 300px;
+  min-height: 52px;
+  padding: 0 30px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.knockout-next-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.knockout-replay-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border-color: #fca5a5;
+}
+/* ===================================================== */
+/* VELOCIDADE NO MATA-MATA */
+/* ===================================================== */
+
+.knockout-speed-box {
+  margin: 0 auto 22px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.knockout-speed-box small {
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.knockout-speed-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.knockout-speed-btn {
+  min-width: 96px;
+  height: 36px;
+
+  background: rgba(15, 29, 50, 0.96);
+  border: 1px solid rgba(147, 197, 253, 0.28);
+  color: #bfdbfe;
+
+  font-family: var(--font-title);
+  font-size: 15px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.knockout-speed-btn.active {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border-color: #a78bfa;
+  color: #ffffff;
+}
+
+.knockout-speed-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===================================================== */
+/* DETALHES DO JOGO FINALIZADO NO MATA-MATA */
+/* ===================================================== */
+
+.knockout-leg-card.finished.expanded {
+  align-items: start;
+}
+
+.knockout-details-area {
+  grid-column: 1 / -1;
+
+  margin-top: 14px;
+  padding-top: 14px;
+  padding-left: 128px;
+
+  border-top: 1px solid rgba(147, 197, 253, 0.18);
+}
+
+.knockout-details-area .match-event-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.knockout-details-area .match-event-row span {
+  min-width: 54px;
+}
+
+.knockout-details-area .match-event-row small {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.no-events-text {
+  margin: 0;
+
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.knockout-result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.knockout-card-btn {
+  min-width: 260px;
+  min-height: 52px;
+  padding: 0 30px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.knockout-card-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* ===================================================== */
+/* PÊNALTIS AO VIVO */
+/* ===================================================== */
+
+.start-penalties-btn {
+  min-width: 300px;
+  min-height: 52px;
+  padding: 0 30px;
+
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.start-penalties-btn:hover {
+  filter: brightness(1.08);
+}
+
+.penalty-shootout-card {
+  margin-top: 24px;
+  padding: 24px 28px;
+
+  text-align: center;
+
+  background: rgba(15, 29, 50, 0.96);
+  border: 1px solid rgba(147, 197, 253, 0.22);
+  border-left: 4px solid #f59e0b;
+}
+
+.penalty-shootout-card > small {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #f59e0b;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.penalty-shootout-card h2 {
+  margin: 0 0 22px;
+
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.penalty-board {
+  max-width: 720px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.penalty-team-line {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 10px 16px;
+  align-items: center;
+
+  text-align: left;
+}
+
+.penalty-team-line > strong {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.penalty-marks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.penalty-mark {
+  width: 26px;
+  height: 26px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.penalty-mark.scored {
+  color: #22c55e;
+}
+
+.penalty-mark.missed {
+  color: #ef4444;
+}
+
+.penalty-mark.empty {
+  color: #64748b;
+}
+
+.penalty-names {
+  grid-column: 2 / 3;
+
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.penalty-player-name.scored {
+  color: #22c55e;
+}
+
+.penalty-player-name.missed {
+  color: #ef4444;
+}
+
+.penalty-current-kick {
+  margin-top: 24px;
+  padding-top: 16px;
+
+  border-top: 1px solid rgba(147, 197, 253, 0.18);
+}
+
+.penalty-current-kick small {
+  display: block;
+  margin-bottom: 6px;
+
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.penalty-current-kick strong {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.penalty-current-kick strong.scored {
+  color: #22c55e;
+}
+
+.penalty-current-kick strong.missed {
+  color: #ef4444;
+}
+
+.penalty-current-kick span {
+  color: #bfdbfe;
+  font-size: 12px;
+}
+/* ===================================================== */
+/* MEU CARD DA CAMPANHA */
+/* ===================================================== */
+
+.campaign-card-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 0 60px;
+}
+
+.campaign-card-capture {
+  padding: 32px;
+
+  background: rgba(15, 29, 50, 0.98);
+  border: 1px solid rgba(147, 197, 253, 0.24);
+  color: #ffffff;
+}
+
+.campaign-card-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.campaign-card-header small {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.campaign-card-header h1 {
+  margin: 0;
+
+  font-size: 44px;
+  font-weight: 900;
+}
+
+.campaign-card-header strong {
+  display: inline-flex;
+  margin-top: 10px;
+  padding: 8px 18px;
+
+  background: rgba(139, 92, 246, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.38);
+  color: #c4b5fd;
+
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.campaign-card-squad {
+  margin-bottom: 22px;
+}
+
+.campaign-card-squad > small,
+.campaign-card-ranking-box > small {
+  display: block;
+  margin-bottom: 10px;
+
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.campaign-card-squad-grid,
+.campaign-card-summary,
+.campaign-card-results {
+  display: grid;
+  gap: 12px;
+}
+
+.campaign-card-squad-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.campaign-card-summary {
+  margin-bottom: 22px;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.campaign-card-results {
+  margin-top: 22px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.campaign-card-squad-grid div,
+.campaign-card-summary div,
+.campaign-card-results div {
+  padding: 14px;
+
+  background: rgba(8, 18, 34, 0.86);
+  border: 1px solid rgba(147, 197, 253, 0.14);
+
+  text-align: center;
+}
+
+.campaign-card-squad-grid span,
+.campaign-card-summary span,
+.campaign-card-results span {
+  display: block;
+  margin-bottom: 6px;
+
+  color: #93c5fd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.campaign-card-squad-grid strong,
+.campaign-card-summary strong,
+.campaign-card-results strong {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.campaign-card-rankings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.campaign-card-ranking-box {
+  padding: 16px;
+
+  background: rgba(8, 18, 34, 0.86);
+  border: 1px solid rgba(147, 197, 253, 0.14);
+}
+
+.campaign-card-ranking-box ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.campaign-card-ranking-box li {
+  margin-bottom: 10px;
+
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.campaign-card-ranking-box li:last-child {
+  margin-bottom: 0;
+}
+
+.campaign-card-ranking-box li span {
+  display: inline-block;
+  min-width: 150px;
+}
+
+.campaign-card-ranking-box li strong {
+  color: #bfdbfe;
+  font-size: 13px;
+}
+
+.empty-ranking-text {
+  margin: 0;
+
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.campaign-card-actions {
+  margin-top: 22px;
+
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.campaign-card-games-btn,
+.campaign-card-share-btn,
+.campaign-card-replay-btn {
+  min-width: 250px;
+  min-height: 52px;
+  padding: 0 24px;
+
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.campaign-card-games-btn,
+.campaign-card-share-btn {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+}
+
+.campaign-card-replay-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border-color: #fca5a5;
+}
+
+.campaign-card-games-btn:hover,
+.campaign-card-share-btn:hover,
+.campaign-card-replay-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* ===================================================== */
+/* MEU CARD - CAMPEÃO */
+/* ===================================================== */
+
+/* Remove qualquer troféu antigo se ainda existir no HTML */
+.campaign-card-trophy {
+  display: none !important;
+}
+
+/* MEU CARD dourado somente quando for campeão */
+.campaign-card-page.champion .campaign-card-title,
+.campaign-card-capture.champion .campaign-card-title {
+  color: #facc15;
+  text-shadow:
+    0 0 10px rgba(250, 204, 21, 0.45),
+    0 3px 0 rgba(0, 0, 0, 0.40);
+}
+
+/* Selo CAMPEÃO DA CHAMPIONS dourado */
+.campaign-card-page.champion .campaign-card-header strong,
+.campaign-card-capture.champion .campaign-card-header strong {
+  color: #facc15;
+  border-color: rgba(250, 204, 21, 0.55);
+  background: rgba(250, 204, 21, 0.10);
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.16);
+}
+
+/* Botão compartilhar quando for campeão */
+.campaign-card-share-btn.champion {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  border-color: #86efac;
+  color: #ffffff;
+}
+/* ===================================================== */
+/* JOGOS DA CAMPANHA */
+/* ===================================================== */
+
+.campaign-games-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 0 60px;
+}
+
+.campaign-games-capture {
+  padding: 32px;
+
+  background: rgba(15, 29, 50, 0.98);
+  border: 1px solid rgba(147, 197, 253, 0.24);
+  color: #ffffff;
+}
+
+.campaign-games-header {
+  margin-bottom: 26px;
+  text-align: center;
+}
+
+.campaign-games-header small {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.campaign-games-header h1 {
+  margin: 0;
+
+  font-size: 40px;
+  font-weight: 900;
+}
+
+.campaign-games-header p {
+  margin: 8px 0 0;
+
+  color: #bfdbfe;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.campaign-games-section {
+  margin-top: 22px;
+}
+
+.campaign-games-section h2 {
+  margin: 0 0 10px;
+
+  color: #93c5fd;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.campaign-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campaign-game-row {
+  min-height: 48px;
+  padding: 10px 14px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 90px;
+  gap: 16px;
+  align-items: center;
+
+  background: rgba(8, 18, 34, 0.86);
+  border: 1px solid rgba(147, 197, 253, 0.14);
+}
+
+.campaign-game-row.win {
+  border-left: 4px solid #22c55e;
+}
+
+.campaign-game-row.draw {
+  border-left: 4px solid #ffffff;
+}
+
+.campaign-game-row.loss {
+  border-left: 4px solid #ef4444;
+}
+
+.campaign-game-teams {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.campaign-game-teams b {
+  color: #93c5fd;
+}
+
+.campaign-game-teams small {
+  color: #93c5fd;
+  font-size: 11px;
+}
+
+.campaign-game-score {
+  justify-self: end;
+
+  font-family: var(--font-title);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.campaign-game-row.win .campaign-game-score {
+  color: #22c55e;
+}
+
+.campaign-game-row.draw .campaign-game-score {
+  color: #ffffff;
+}
+
+.campaign-game-row.loss .campaign-game-score {
+  color: #ef4444;
+}
+
+.campaign-game-penalty-row {
+  min-height: 40px;
+  padding: 8px 14px 8px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  background: rgba(245, 158, 11, 0.10);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.campaign-game-penalty-row.win {
+  color: #22c55e;
+}
+
+.campaign-game-penalty-row.loss {
+  color: #ef4444;
+}
+
+.campaign-game-penalty-row strong {
+  font-family: var(--font-title);
+  font-size: 20px;
+}
+
+.campaign-games-actions {
+  margin-top: 22px;
+
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.campaign-games-back-btn,
+.campaign-games-share-btn,
+.campaign-games-replay-btn {
+  min-width: 250px;
+  min-height: 52px;
+  padding: 0 24px;
+
+  border: 1px solid #a78bfa;
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.campaign-games-back-btn,
+.campaign-games-share-btn {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+}
+
+.campaign-games-replay-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border-color: #fca5a5;
+}
+
+.campaign-games-back-btn:hover,
+.campaign-games-share-btn:hover,
+.campaign-games-replay-btn:hover {
+  filter: brightness(1.08);
+}
+.draft-brand-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.draft-brand-link:hover {
+  opacity: 0.9;
+}

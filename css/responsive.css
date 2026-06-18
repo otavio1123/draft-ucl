@@ -1,0 +1,2453 @@
+/* ===================================================== */
+/* RESPONSIVE.CSS */
+/*
+  Arquivo exclusivo para responsividade.
+
+  Regras de segurança:
+  - Não alterar visual desktop fora de @media.
+  - Usar max-width em ordem do maior para o menor.
+  - Ajustar primeiro layout, depois fonte, depois espaçamento.
+  - Evitar !important, usar só quando alguma regra antiga estiver vencendo.
+*/
+/* ===================================================== */
+
+
+/* ===================================================== */
+/* ATÉ 1024px */
+/*
+  Tablet, notebook pequeno e telas intermediárias.
+
+  Objetivo:
+  - reduzir larguras;
+  - diminuir espaçamentos;
+  - evitar barra horizontal;
+  - manter estrutura parecida com desktop.
+*/
+/* ===================================================== */
+
+@media (max-width: 1024px) {
+  /* ===================================================== */
+  /* TABLET DEITADO / NOTEBOOK PEQUENO */
+  /*
+    Foco: 1024 × 768.
+
+    Objetivo:
+    - manter aparência parecida com desktop;
+    - reduzir larguras e fontes;
+    - evitar estouro lateral;
+    - não afetar celular, porque celular já tem blocos próprios.
+  */
+  /* ===================================================== */
+
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .home-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 18px 22px 32px;
+  }
+
+  .home-header {
+    max-width: 100%;
+    margin: 0 auto 22px;
+    padding: 16px 18px;
+  }
+
+  .home-brand h1 {
+    font-size: 44px;
+  }
+
+  .home-main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-section {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+    gap: 24px;
+
+    padding: 30px 26px;
+  }
+
+  .hero-content h2 {
+    max-width: 100%;
+
+    font-size: 56px;
+    line-height: 0.9;
+  }
+
+  .hero-content p {
+    max-width: 100%;
+
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .hero-actions {
+    margin-top: 22px;
+  }
+
+  .mission-card {
+    padding: 22px 18px;
+  }
+
+  .mission-number {
+    font-size: 58px;
+  }
+
+  .mission-title {
+    font-size: 24px;
+  }
+
+  .mini-pitch {
+    min-height: 250px;
+    max-height: 280px;
+    overflow: hidden;
+  }
+
+  .how-section {
+    width: 100%;
+    margin-top: 34px;
+  }
+
+  .section-title h3 {
+    font-size: 40px;
+    line-height: 0.95;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .step-card {
+    min-height: auto;
+    padding: 18px 18px;
+  }
+
+  .step-card h4 {
+    font-size: 25px;
+    line-height: 1;
+  }
+
+  .step-card p {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .home-stats-bar {
+    width: 100%;
+    max-width: 100%;
+
+    margin-top: 22px;
+    padding: 16px;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+
+    box-sizing: border-box;
+  }
+
+  .home-stats-bar strong {
+  min-width: 0;
+  padding: 0 12px;
+
+  font-size: 12px;
+  line-height: 1.15;
+  text-align: center;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Fecha o @media (max-width: 1024px) da HOME */
+}
+
+/* ===================================================== */
+/* DRAFT - TABLET DEITADO / 1024 × 768 */
+/*
+  Objetivo:
+  - manter o Draft em 3 colunas;
+  - reduzir painel esquerdo e direito;
+  - impedir corte lateral;
+  - deixar o campo cabendo melhor;
+  - não alterar celular, que já está correto.
+*/
+/* ===================================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .draft-page {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+
+    padding: 16px 18px 28px;
+
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  .draft-header {
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0 auto 14px;
+    padding: 14px 18px;
+
+    box-sizing: border-box;
+  }
+
+  .draft-brand h1 {
+    font-size: 42px;
+    line-height: 0.85;
+  }
+
+  .draft-summary {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    white-space: nowrap;
+  }
+
+  /*
+    Grade principal:
+    continua em 3 colunas, mas mais compacta.
+  */
+  .builder-grid {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr) 180px;
+    gap: 14px;
+
+    align-items: start;
+
+    transform: none;
+    box-sizing: border-box;
+  }
+
+  .left-panel,
+  .center-panel,
+  .right-panel {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    box-sizing: border-box;
+  }
+
+  .panel,
+  .draw-panel,
+  .players-panel,
+  .score-panel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+  }
+
+  /*
+    Painel esquerdo:
+    botões menores para não cortar.
+  */
+  .formation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .style-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .formation-btn,
+  .style-btn {
+    min-height: 34px;
+    padding: 8px 6px;
+
+    font-size: 10.5px;
+    line-height: 1.1;
+  }
+
+  .panel-label {
+    margin-bottom: 8px;
+
+    font-size: 9px;
+    letter-spacing: 0.28em;
+  }
+
+  .draw-card {
+    min-height: 94px;
+    padding: 12px 10px;
+  }
+
+  .draw-card h2 {
+    font-size: 30px;
+  }
+
+  .draw-card p {
+    font-size: 11px;
+  }
+
+  .roll-btn {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  /* Campo - tablet deitado 1024 × 768 */
+.pitch-frame {
+  width: 100%;
+  max-width: 100%;
+
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.pitch {
+  width: 100%;
+  height: 590px;
+}
+
+/* Slots maiores no tablet deitado */
+.pitch-slot {
+  width: 68px;
+  height: 68px;
+
+  font-size: 16px;
+}
+
+.slot-empty {
+  font-size: 15px;
+}
+
+/*
+  Jogador preenchido:
+  aumenta card, rating e nome no tablet deitado.
+*/
+.pitch-slot.filled {
+  width: 84px;
+  height: 84px;
+}
+
+.pitch-player-card {
+  width: 80px;
+  height: 80px;
+}
+
+.pitch-rating-ball {
+  width: 64px;
+  height: 64px;
+
+  font-size: 25px;
+}
+
+/*
+  Nome do jogador:
+  maior e mais legível.
+*/
+.pitch-player-name {
+  top: 74px;
+
+  max-width: 125px;
+
+  font-size: 13.5px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.78),
+    0 0 6px rgba(0, 0, 0, 0.55);
+}
+
+
+  /*
+    Painel direito:
+    deixa o box score caber na largura.
+  */
+  .score-panel {
+    padding: 14px 12px;
+  }
+
+  .score-header {
+    font-size: 12px;
+  }
+
+  #overallScore {
+    font-size: 18px;
+  }
+
+  .squad-row {
+    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    min-height: 32px;
+    gap: 6px;
+  }
+
+  .score-panel .squad-row .squad-player-name {
+    font-size: 13px !important;
+  }
+
+  .score-panel .squad-row .squad-player-rating {
+    font-size: 15px !important;
+  }
+}
+
+
+
+/* ===================================================== */
+/* ATÉ 768px */
+/*
+  Entrada real do mobile.
+
+  Ajusta primeiro a HOME:
+  - header em coluna;
+  - hero em coluna;
+  - botões empilhados;
+  - cards em uma coluna;
+  - evita overflow horizontal.
+*/
+/* ===================================================== */
+
+@media (max-width: 768px) {
+  /* Segurança geral de largura no tablet */
+.home-page,
+.home-main,
+.hero-section,
+.how-section,
+.home-stats-bar {
+  box-sizing: border-box;
+}
+  /* Segurança geral contra estouro lateral */
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* HOME - página */
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 14px 14px 24px;
+}
+
+  /* HOME - cabeçalho */
+  .home-header {
+    max-width: 100%;
+    margin: 0 auto 22px;
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .home-brand h1 {
+    font-size: 42px;
+  }
+
+  .home-brand span {
+    font-size: 8px;
+    letter-spacing: 0.28em;
+  }
+
+  .home-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .home-nav a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  /* HOME - área principal */
+  .home-main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* HERO - vira coluna no mobile */
+ .hero-section {
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 22px 18px;
+}
+
+  .hero-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-content small {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+  }
+
+  .hero-content h2 {
+    max-width: 100%;
+    margin: 12px auto 16px;
+
+    font-size: 52px;
+    line-height: 0.9;
+    text-align: center;
+  }
+
+  .hero-content p {
+    max-width: 100%;
+    margin: 0 auto;
+
+    font-size: 15px;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  /* Botões da home */
+  .hero-actions {
+    width: 100%;
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-actions a,
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .challenge-pill {
+    width: 100%;
+    margin-top: 16px;
+
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  /* Card visual da direita */
+  .hero-card {
+    width: 100%;
+  }
+
+  .mission-card {
+    width: 100%;
+    padding: 22px 16px;
+  }
+
+  .mission-number {
+    font-size: 58px;
+    line-height: 0.8;
+  }
+
+  .mission-title {
+    font-size: 25px;
+  }
+
+  .mini-pitch {
+    width: 100%;
+    min-height: 210px;
+  }
+
+  /* COMO JOGAR */
+.how-section {
+  width: 100%;
+  margin-top: 28px;
+}
+
+  .section-title {
+    text-align: center;
+  }
+
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.step-card {
+  width: 100%;
+  padding: 16px 16px;
+}
+
+.section-title h3 {
+  font-size: 36px;
+  line-height: 0.95;
+}
+
+.step-card h4 {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.step-card p {
+  font-size: 13px;
+  line-height: 1.35;
+}
+}
+
+
+/* ===================================================== */
+/* ATÉ 480px */
+/*
+  Foco principal: celular padrão 390 × 844.
+
+  Segurança:
+  - Não altera desktop.
+  - Ajusta telas mobile até 480px.
+  - Inclui HOME, DRAFT, CAMPANHA, CLASSIFICAÇÃO,
+    MATA-MATA E MEU CARD.
+  - Usado para celulares comuns como 360px, 390px,
+    393px, 412px, 414px e até 480px.
+*/
+/* ===================================================== */
+
+@media (max-width: 480px) {
+  /* Evita barra lateral horizontal */
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Página inicial */
+  .home-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 14px 12px 28px;
+  }
+
+  /* Header da home */
+  .home-header {
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0 auto 20px;
+    padding: 14px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .home-brand h1 {
+    font-size: 38px;
+    line-height: 0.85;
+  }
+
+  .home-brand span {
+    font-size: 8px;
+    letter-spacing: 0.26em;
+  }
+
+  .home-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .home-nav a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  /* Área principal */
+  .home-main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Hero em coluna */
+  .hero-section {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 24px 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .hero-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-content small {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+  }
+
+  .hero-content h2 {
+    max-width: 100%;
+    margin: 12px auto 16px;
+
+    font-size: 44px;
+    line-height: 0.9;
+    text-align: center;
+  }
+
+  .hero-content p {
+    max-width: 100%;
+    margin: 0 auto;
+
+    font-size: 14px;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  /* Botões da home */
+  .hero-actions {
+    width: 100%;
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-actions a,
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .challenge-pill {
+    width: 100%;
+    margin-top: 16px;
+
+    font-size: 11px;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  /* Card visual */
+  .hero-card {
+    width: 100%;
+  }
+
+  .mission-card {
+    width: 100%;
+    padding: 22px 16px;
+  }
+
+  .mission-number {
+    font-size: 52px;
+    line-height: 0.8;
+  }
+
+  .mission-title {
+    font-size: 22px;
+    line-height: 0.95;
+  }
+
+  .mission-subtitle {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+  }
+
+  .mini-pitch {
+    width: 100%;
+    min-height: 190px;
+  }
+
+  /* Como jogar */
+  .how-section {
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .section-title {
+    text-align: center;
+  }
+
+  .section-title small {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+  }
+
+  .section-title h3 {
+    font-size: 36px;
+    line-height: 0.95;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .step-card {
+    width: 100%;
+    padding: 20px 18px;
+  }
+
+  .step-card h4 {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .step-card p {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  /* Barra de estatísticas */
+  .home-stats-bar {
+    width: 100%;
+    margin-top: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    text-align: center;
+  }
+  .home-stats-bar strong {
+    font-size: 13px;
+  }
+}
+/* ===================================================== */
+/* TABLET - 481px até 768px */
+/*
+  Foco: iPad Mini / tablet em pé.
+
+  Objetivo:
+  - não usar layout tão alto quanto celular;
+  - colocar hero em duas colunas;
+  - compactar cards de "Como jogar";
+  - fazer mais conteúdo aparecer na tela.
+*/
+/* ===================================================== */
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .home-page {
+    padding: 14px 18px 24px;
+  }
+
+  .home-header {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+  }
+
+  .home-brand h1 {
+    font-size: 38px;
+  }
+
+  /*
+    No tablet, volta para duas colunas.
+    Isso reduz muito a altura da tela inicial.
+  */
+  .hero-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
+    align-items: center;
+    gap: 18px;
+
+    padding: 22px 20px;
+  }
+
+  .hero-content {
+    text-align: left;
+  }
+
+  .hero-content h2 {
+    margin: 10px 0 14px;
+
+    font-size: 42px;
+    line-height: 0.9;
+    text-align: left;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .hero-actions {
+    margin-top: 18px;
+    gap: 10px;
+  }
+
+  .hero-actions a,
+  .primary-btn,
+  .secondary-btn {
+    min-height: 44px;
+  }
+
+  .challenge-pill {
+    margin-top: 12px;
+    font-size: 10px;
+  }
+
+  .hero-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mission-card {
+    padding: 18px 14px;
+  }
+
+  .mission-number {
+    font-size: 46px;
+  }
+
+  .mission-title {
+    font-size: 20px;
+  }
+
+  .mini-pitch {
+    min-height: 220px;
+    max-height: 240px;
+    overflow: hidden;
+  }
+
+  /*
+    Como jogar mais compacto no tablet.
+  */
+  .how-section {
+    margin-top: 24px;
+  }
+
+  .section-title h3 {
+    font-size: 34px;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .step-card {
+    min-height: auto;
+    padding: 14px 16px;
+  }
+
+  .step-card h4 {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .step-card p {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+/*
+  Rodapé / estatísticas da HOME no tablet.
+  Mantém os 3 itens lado a lado no iPad/tablet.
+*/
+.home-stats-bar {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 16px auto 0;
+  padding: 14px;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+
+  background:
+    linear-gradient(90deg, rgba(124, 58, 237, 0.18), rgba(234, 179, 8, 0.08)),
+    var(--panel);
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  box-sizing: border-box;
+}
+
+.home-stats-bar > * {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  box-sizing: border-box;
+}
+
+.home-stats-bar strong {
+  min-width: 0;
+  min-height: 32px;
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+}
+/* ===================================================== */
+/* MOBILE - DRAFT / CAMPANHA / CLASSIFICAÇÃO / MATA-MATA */
+/*
+  Segurança:
+  - tudo abaixo só vale até 480px;
+  - impede o CSS mobile de afetar o desktop;
+  - não altera lógica do jogo.
+*/
+/* ===================================================== */
+
+@media (max-width: 480px) {
+
+/* ===================================================== */
+/* HEADER DO DRAFT - MOBILE */
+/* ===================================================== */
+/* HEADER DO DRAFT - MOBILE */
+/*
+  Objetivo:
+  - manter logo à esquerda;
+  - manter formação/estilo à direita;
+  - impedir quebra feia do "4-3-3";
+  - não mexer no desktop.
+*/
+/* ===================================================== */
+
+.draft-header {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0 auto 14px;
+  padding: 14px 12px;
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+
+.draft-brand {
+  min-width: 86px;
+}
+
+.draft-brand h1 {
+  font-size: 37px;
+  line-height: 0.82;
+}
+
+.draft-brand span {
+  margin-top: 6px;
+
+  font-size: 8px;
+  letter-spacing: 0.24em;
+}
+
+/* Texto: 4-3-3 · EQUILIBRADO · CLÁSSICO */
+.draft-summary {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+/* Evita quebrar cada parte do resumo */
+.draft-summary span,
+.draft-summary strong,
+.draft-summary b {
+  white-space: nowrap;
+}
+
+/* Grid principal vira coluna */
+.builder-grid {
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  transform: none;
+}
+
+/* Todos os painéis ocupam a tela */
+.left-panel,
+.center-panel,
+.right-panel {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Ordem no mobile */
+.left-panel {
+  order: 1;
+}
+
+.center-panel {
+  order: 2;
+}
+
+.right-panel {
+  order: 3;
+}
+
+/* Painéis */
+.panel,
+.draw-panel,
+.players-panel,
+.score-panel {
+  width: 100%;
+}
+
+/* ===================================================== */
+/* DRAFT MOBILE - FORMAÇÕES E MODOS MAIS ESPAÇADOS */
+/*
+  Objetivo:
+  - deixar botões menos grudados;
+  - melhorar toque no celular;
+  - separar melhor formação e estilo;
+  - não altera lógica do draft.
+*/
+/* ===================================================== */
+
+.formation-grid,
+.style-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.formation-btn,
+.style-btn {
+  min-height: 46px;
+  padding: 10px 8px;
+
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+/* Dá mais respiro entre os blocos do painel esquerdo */
+.left-panel .panel {
+  gap: 18px;
+}
+
+/* Espaçamento entre título e botões */
+.panel-label {
+  margin-bottom: 10px;
+}
+
+/* Sorteio */
+.draw-card {
+  min-height: 110px;
+  padding: 16px 12px;
+}
+
+.draw-card h2 {
+  font-size: 36px;
+}
+
+.draw-card p {
+  font-size: 12px;
+}
+
+.roll-btn {
+  min-height: 52px;
+}
+
+/* Lista de jogadores */
+.draft-page.draft-started .players-panel {
+  height: auto;
+  max-height: none;
+
+  padding: 14px 12px;
+
+  overflow: visible;
+}
+
+.player-option {
+  min-height: 64px;
+}
+
+.player-info strong {
+  font-size: 18px;
+}
+
+.player-info span {
+  font-size: 10px;
+}
+
+.player-action b {
+  font-size: 24px;
+}
+
+/* Campo */
+.pitch-frame {
+  width: 100%;
+  padding: 8px;
+}
+
+.pitch {
+  width: 100%;
+  height: 560px;
+}
+
+/* Slots menores para caber no celular */
+.pitch-slot {
+  width: 56px;
+  height: 56px;
+
+  font-size: 14px;
+}
+
+.slot-empty {
+  font-size: 13px;
+}
+
+/* Jogador preenchido no campo */
+.pitch-slot.filled {
+  width: 62px;
+  height: 62px;
+}
+
+.pitch-player-card {
+  width: 58px;
+  height: 58px;
+}
+
+.pitch-rating-ball {
+  width: 50px;
+  height: 50px;
+
+  font-size: 20px;
+}
+/* ===================================================== */
+/* CAMPO MOBILE - NOMES DOS JOGADORES */
+/*
+  Padrão simples:
+  - nomes centralizados;
+  - sem empurrar laterais/pontas;
+  - visual mais limpo;
+  - não altera desktop.
+*/
+/* ===================================================== */
+
+.pitch {
+  overflow: hidden;
+}
+
+.pitch-player-name {
+  top: 58px;
+
+  max-width: 90px;
+
+  font-size: 11.5px;
+  line-height: 1;
+
+  white-space: nowrap;
+  text-align: center;
+
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.78),
+    0 0 6px rgba(0, 0, 0, 0.55);
+}
+/* Box score embaixo do campo */
+.score-panel {
+  min-width: 0;
+  width: 100%;
+
+  padding: 16px 14px;
+}
+
+.score-header {
+  font-size: 13px;
+}
+
+#overallScore {
+  font-size: 20px;
+}
+
+.squad-row {
+  grid-template-columns: 42px minmax(0, 1fr) 42px;
+  min-height: 36px;
+}
+
+.score-panel .squad-row .squad-player-name {
+  font-size: 16px !important;
+}
+
+.score-panel .squad-row .squad-player-rating {
+  font-size: 18px !important;
+}
+/* ===================================================== */
+/* JOGADOR SELECIONADO NA LISTA */
+/*
+  Aparece depois que o usuário clica no jogador.
+  Ajuda principalmente no mobile, antes de escolher o slot.
+*/
+/* ===================================================== */
+
+.player-option.selected-player {
+  border-color: #d8b45a;
+  background: #1b2f50;
+
+  box-shadow:
+    0 0 0 2px rgba(216, 180, 90, 0.18),
+    0 0 16px rgba(216, 180, 90, 0.18);
+}
+
+.player-option.selected-player .player-info strong {
+  color: #ffffff;
+}
+
+.player-option.selected-player .player-info span {
+  color: #ffe7a3;
+}
+
+.player-option.selected-player .player-action em {
+  background: #d8b45a;
+  border-color: #f0cf7a;
+  color: #07111f;
+}
+/* ===================================================== */
+/* CAMPANHA MOBILE - FASE DE LIGA COMPACTA */
+/*
+  Objetivo:
+  - deixar a campanha encaixada no celular;
+  - reduzir fontes e espaçamentos;
+  - evitar corte lateral;
+  - manter leitura boa em 390px.
+*/
+/* ===================================================== */
+
+.campaign-page,
+.campaign-page * {
+  box-sizing: border-box;
+}
+
+.campaign-page {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 16px 10px 28px;
+
+  overflow-x: hidden;
+}
+
+/* Header */
+.campaign-header {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+
+  overflow: hidden;
+}
+
+.campaign-title-block {
+  width: 100%;
+  max-width: 100%;
+}
+
+.campaign-title-block small {
+  display: block;
+
+  font-size: 8px;
+  letter-spacing: 2.5px;
+}
+
+.campaign-title-block h1 {
+  max-width: 100%;
+
+  margin: 8px 0 8px;
+
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.campaign-title-block p {
+  max-width: 100%;
+
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.25;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Modo de jogo */
+.campaign-speed-box {
+  width: 100%;
+  max-width: 100%;
+
+  gap: 6px;
+}
+
+.campaign-speed-box span {
+  font-size: 8px;
+  letter-spacing: 2.5px;
+}
+
+.campaign-speed-buttons {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.campaign-speed-btn {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+
+  font-size: 12px;
+}
+
+/* Cards TIME / FASE */
+.campaign-summary {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0 0 18px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.campaign-summary-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  min-height: 96px;
+  padding: 12px 10px;
+
+  overflow: hidden;
+}
+
+.campaign-summary-card small {
+  display: block;
+
+  font-size: 8px;
+  letter-spacing: 2.5px;
+}
+
+.campaign-summary-card h2 {
+  max-width: 100%;
+
+  font-size: 22px;
+  line-height: 1;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.campaign-summary-card p {
+  max-width: 100%;
+
+  font-size: 11px;
+  line-height: 1.18;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Calendário */
+.league-matches-section {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0;
+  overflow: hidden;
+}
+
+.section-title {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.section-title small {
+  font-size: 8px;
+  letter-spacing: 2.5px;
+}
+
+.section-title h2 {
+  max-width: 100%;
+
+  font-size: 18px;
+  line-height: 1.08;
+  letter-spacing: 0;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Lista de jogos */
+.league-matches-list {
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Card de jogo */
+.league-match-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  padding: 12px 8px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+
+  overflow: hidden;
+}
+
+.match-card-top {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  text-align: center;
+}
+
+.match-card-top small {
+  font-size: 12px;
+}
+
+.match-card-top span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+/* Times */
+.match-teams-line {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  font-size: 18px;
+  line-height: 1.08;
+  text-align: center;
+
+  overflow-wrap: anywhere;
+}
+
+.team-name {
+  min-width: 0;
+
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.team-name small {
+  font-size: 9px;
+}
+
+.match-versus {
+  font-size: 15px;
+}
+
+/* Botões e estados */
+.reveal-match-btn {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+
+  font-size: 16px;
+}
+
+.locked-match-label {
+  width: 100%;
+
+  text-align: center;
+  font-size: 24px;
+}
+
+.finished-score-btn {
+  width: 100%;
+
+  text-align: center;
+  font-size: 26px;
+}
+
+/* Ao vivo */
+.league-match-card.live {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.league-match-card.live .match-teams-line,
+.match-live-area,
+.league-match-card.live .match-live-area,
+.match-details-area {
+  grid-column: 1 / -1;
+
+  width: 100%;
+  max-width: 100%;
+}
+
+.match-clock {
+  font-size: 18px;
+}
+
+.match-score {
+  font-size: 34px;
+}
+
+.match-events-list {
+  width: 100%;
+  max-width: 100%;
+  gap: 8px;
+}
+
+.match-event-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+/* Botão classificação */
+.league-finish-actions {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.view-standings-btn {
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+
+  padding: 0 16px;
+
+  font-size: 18px;
+}
+/* ===================================================== */
+/* CLASSIFICAÇÃO MOBILE - 390 × 844 */
+/*
+  Objetivo:
+  - mostrar só dados essenciais;
+  - esconder GP, GC, SG e SITUAÇÃO;
+  - evitar estouro horizontal;
+  - deixar POS, TIME, J, PTS, V, E, D legíveis.
+*/
+/* ===================================================== */
+
+.standings-page {
+  width: 100%;
+  max-width: 100%;
+
+  padding: 22px 12px 36px;
+  overflow-x: hidden;
+}
+
+.standings-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.standings-header small {
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+
+.standings-header h1 {
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+.standings-header p {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* Tabela sem barra horizontal */
+.standings-table-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.22);
+}
+
+.standings-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Esconde colunas menos importantes no mobile:
+   8 = GP
+   9 = GC
+   10 = SG
+   11 = SITUAÇÃO
+*/
+.standings-table th:nth-child(8),
+.standings-table th:nth-child(9),
+.standings-table th:nth-child(10),
+.standings-table th:nth-child(11),
+.standings-table td:nth-child(8),
+.standings-table td:nth-child(9),
+.standings-table td:nth-child(10),
+.standings-table td:nth-child(11) {
+  display: none;
+}
+
+/* Larguras mobile das colunas visíveis */
+.standings-table th:nth-child(1),
+.standings-table td:nth-child(1) {
+  width: 34px;
+}
+
+.standings-table th:nth-child(2),
+.standings-table td:nth-child(2) {
+  width: auto;
+}
+
+.standings-table th:nth-child(3),
+.standings-table td:nth-child(3),
+.standings-table th:nth-child(4),
+.standings-table td:nth-child(4),
+.standings-table th:nth-child(5),
+.standings-table td:nth-child(5),
+.standings-table th:nth-child(6),
+.standings-table td:nth-child(6),
+.standings-table th:nth-child(7),
+.standings-table td:nth-child(7) {
+  width: 32px;
+}
+
+/* Cabeçalho da tabela */
+.standings-table th {
+  padding: 10px 4px;
+
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* Linhas da tabela */
+.standings-table td {
+  padding: 12px 4px;
+
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Coluna TIME */
+.standings-table td:nth-child(2) {
+  display: block;
+
+  text-align: left;
+  line-height: 1.05;
+}
+
+.standings-table td:nth-child(2) strong {
+  display: block;
+
+  font-size: 14px;
+  line-height: 1.05;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.standings-table td:nth-child(2) small {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 10px;
+  line-height: 1;
+}
+
+/* DRAFT destacado continua visível sem estourar */
+.draft-standing-row {
+  outline: 2px solid #8b5cf6;
+  outline-offset: -2px;
+}
+
+/* Botão final */
+.standing-action-area {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.standing-action-btn {
+  width: 100%;
+  min-width: 0;
+  min-height: 54px;
+
+  padding: 0 18px;
+
+  font-size: 20px;
+}
+/* ===================================================== */
+/* MATA-MATA MOBILE - 390 × 844 */
+/*
+  Objetivo:
+  - impedir estouro horizontal;
+  - deixar confronto e agregado em coluna;
+  - organizar cards de ida/volta;
+  - manter padrão visual escuro;
+  - botões ocupando largura confortável no celular.
+*/
+/* ===================================================== */
+
+.knockout-page {
+  width: 100%;
+  max-width: 100%;
+
+  padding: 22px 12px 36px;
+
+  overflow-x: hidden;
+}
+
+/* Cabeçalho: OITAVAS / QUARTAS / SEMIFINAL / FINAL */
+.knockout-header {
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.knockout-header small {
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+
+.knockout-header h1 {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.knockout-header p {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* Velocidade NORMAL / RÁPIDO */
+.knockout-speed-box {
+  width: 100%;
+  margin: 0 auto 20px;
+
+  gap: 8px;
+}
+
+.knockout-speed-box small {
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.knockout-speed-buttons {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.knockout-speed-btn {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+
+  font-size: 14px;
+}
+
+/* Card principal do confronto */
+.knockout-main-card {
+  width: 100%;
+
+  margin-bottom: 22px;
+  padding: 18px 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  text-align: center;
+}
+
+/* Bloco CONFRONTO */
+.knockout-stage-label {
+  width: 100%;
+}
+
+.knockout-stage-label small {
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.knockout-stage-label h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 28px;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.knockout-stage-label h2 span {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.knockout-stage-label h2 small {
+  font-size: 13px;
+}
+
+/* Bloco AGREGADO */
+.knockout-aggregate-box {
+  width: 100%;
+  min-width: 0;
+
+  text-align: center;
+}
+
+.knockout-aggregate-box small {
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.knockout-aggregate-box strong {
+  display: block;
+
+  font-size: 20px;
+  line-height: 1.15;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Lista dos jogos de ida/volta */
+.knockout-legs-list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Card de cada jogo */
+.knockout-leg-card {
+  width: 100%;
+  min-height: auto;
+
+  padding: 16px 14px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+
+  overflow: hidden;
+}
+
+/* Info: JOGO DE IDA / AGUARDANDO */
+.knockout-leg-info {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.knockout-leg-info small {
+  margin-bottom: 0;
+
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.knockout-leg-info strong {
+  font-size: 11px;
+  text-align: right;
+}
+
+/* Times do jogo */
+.knockout-leg-teams {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  font-size: 23px;
+  line-height: 1.05;
+  text-align: center;
+
+  overflow-wrap: anywhere;
+}
+
+.knockout-leg-teams span {
+  min-width: 0;
+
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  text-align: center;
+}
+
+.knockout-leg-teams .team-name {
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.knockout-leg-teams small {
+  font-size: 12px;
+}
+
+.knockout-leg-teams b {
+  font-size: 18px;
+}
+
+/* Área de ação */
+.knockout-leg-action {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* Botão revelar */
+.knockout-reveal-btn {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+
+  font-size: 18px;
+}
+
+/* Jogo bloqueado */
+.knockout-locked-label {
+  width: 100%;
+
+  text-align: center;
+
+  font-size: 28px;
+}
+
+/* Placar final / placar ao vivo */
+.knockout-final-score,
+.knockout-live-score {
+  width: 100%;
+
+  display: block;
+
+  text-align: center;
+  font-size: 30px;
+}
+
+/* Área ao vivo */
+.knockout-live-area {
+  grid-column: 1 / -1;
+
+  width: 100%;
+  max-width: 100%;
+
+  margin-top: 8px;
+  padding-top: 12px;
+}
+
+.knockout-live-area .match-clock,
+.knockout-live-area .match-score {
+  width: 100%;
+  text-align: center;
+}
+
+.knockout-live-area .match-events-list {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Detalhes do jogo finalizado */
+.knockout-details-area {
+  grid-column: 1 / -1;
+
+  width: 100%;
+
+  margin-top: 8px;
+  padding-top: 12px;
+  padding-left: 0;
+}
+
+.knockout-details-area .match-event-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+/* Card de resultado do confronto */
+.knockout-result-card {
+  width: 100%;
+
+  margin-top: 22px;
+  padding: 20px 16px;
+
+  text-align: center;
+}
+
+.knockout-result-card small {
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.knockout-result-card h2 {
+  font-size: 28px;
+  line-height: 1.05;
+}
+
+.knockout-result-card p {
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+/* Botões finais */
+.knockout-next-btn,
+.knockout-replay-btn,
+.knockout-card-btn,
+.start-penalties-btn {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+
+  padding: 0 18px;
+
+  font-size: 19px;
+}
+
+.knockout-result-actions {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* ===================================================== */
+/* MEU CARD MOBILE - 390 × 844 */
+/*
+  Objetivo:
+  - impedir estouro horizontal;
+  - organizar estatísticas em colunas menores;
+  - deixar rankings em uma coluna;
+  - manter card normal, eliminado, vice e campeão funcionando;
+  - não alterar o desktop.
+*/
+/* ===================================================== */
+
+.campaign-card-page {
+  width: 100%;
+  max-width: 100%;
+
+  margin: 0 auto;
+  padding: 22px 12px 36px;
+
+  overflow-x: hidden;
+}
+
+/* Card capturado/compartilhado */
+.campaign-card-capture {
+  width: 100%;
+  max-width: 100%;
+
+  padding: 22px 16px;
+
+  overflow: hidden;
+}
+
+/* Cabeçalho do card */
+.campaign-card-header {
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+.campaign-card-header small {
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.campaign-card-header h1,
+.campaign-card-title {
+  font-size: 34px;
+  line-height: 1;
+}
+
+/* Selo: PAROU NAS QUARTAS / CAMPEÃO DA CHAMPIONS */
+.campaign-card-header strong {
+  max-width: 100%;
+
+  margin-top: 12px;
+  padding: 8px 12px;
+
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 1.2;
+
+  text-align: center;
+  justify-content: center;
+
+  white-space: normal;
+}
+
+/* ===================================================== */
+/* ELENCO DRAFT */
+/* ===================================================== */
+
+.campaign-card-squad {
+  margin-bottom: 18px;
+}
+
+.campaign-card-squad > small,
+.campaign-card-ranking-box > small {
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+/* Overall / Formação / Estilo */
+.campaign-card-squad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* O bloco Estilo ocupa a largura toda para não estourar "Equilibrado" */
+.campaign-card-squad-grid div:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.campaign-card-squad-grid div,
+.campaign-card-summary div,
+.campaign-card-results div {
+  min-width: 0;
+
+  padding: 12px 10px;
+}
+
+.campaign-card-squad-grid span,
+.campaign-card-summary span,
+.campaign-card-results span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  line-height: 1.15;
+}
+
+.campaign-card-squad-grid strong,
+.campaign-card-summary strong,
+.campaign-card-results strong {
+  font-size: 20px;
+  line-height: 1.05;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ===================================================== */
+/* RESUMO DO CARD */
+/* Posição, campanha, gols, sofridos, saldo */
+/* ===================================================== */
+
+.campaign-card-summary {
+  margin-bottom: 18px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Campanha ocupa largura inteira para 7V - 3E - 2D ficar bonito */
+.campaign-card-summary div:nth-child(2) {
+  grid-column: 1 / -1;
+}
+
+/* ===================================================== */
+/* RANKINGS */
+/* ===================================================== */
+
+.campaign-card-rankings {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.campaign-card-ranking-box {
+  padding: 14px 12px;
+}
+
+.campaign-card-ranking-box ol {
+  padding-left: 20px;
+}
+
+.campaign-card-ranking-box li {
+  margin-bottom: 9px;
+
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.campaign-card-ranking-box li span {
+  display: block;
+  min-width: 0;
+
+  margin-bottom: 2px;
+
+  overflow-wrap: anywhere;
+}
+
+.campaign-card-ranking-box li strong {
+  display: block;
+
+  font-size: 12px;
+}
+
+/* ===================================================== */
+/* RESULTADOS: vitórias / empates / derrotas */
+/* ===================================================== */
+
+.campaign-card-results {
+  margin-top: 18px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.campaign-card-results strong {
+  font-size: 22px;
+}
+
+/* ===================================================== */
+/* BOTÕES DO CARD */
+/* ===================================================== */
+
+.campaign-card-actions {
+  width: 100%;
+
+  margin-top: 22px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.campaign-card-games-btn,
+.campaign-card-share-btn,
+.campaign-card-replay-btn {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+
+  padding: 0 18px;
+
+  font-size: 18px;
+}
+
+/* ===================================================== */
+/* CARD CAMPEÃO MOBILE */
+/*
+  Mantém o dourado do campeão, apenas ajusta tamanho.
+*/
+/* ===================================================== */
+
+.campaign-card-page.champion .campaign-card-title,
+.campaign-card-capture.champion .campaign-card-title {
+  font-size: 34px;
+}
+
+.campaign-card-page.champion .campaign-card-header strong,
+.campaign-card-capture.champion .campaign-card-header strong {
+  max-width: 100%;
+
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+} }

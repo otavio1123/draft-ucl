@@ -1,0 +1,556 @@
+/* ===================================================== */
+/* HOME.CSS - TELA INICIAL DO DRAFT */
+/* ===================================================== */
+
+/* Página principal */
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ===================================================== */
+/* CABEÇALHO */
+/* ===================================================== */
+
+.home-header {
+  width: 100%;
+  max-width: 1180px;
+
+  margin: 0 auto;
+  padding: 22px 18px 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Marca DRAFT */
+.home-brand h1 {
+  margin: 0;
+
+  font-family: var(--font-title);
+  font-size: 56px;
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+}
+.home-brand span {
+  display: block;
+
+  margin-top: 8px;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.34em;
+
+  color: var(--muted);
+}
+/* Navegação */
+.home-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.home-nav a {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #dbeafe;
+  text-transform: uppercase;
+}
+.home-nav a:hover {
+  color: #ffffff;
+}
+/* ===================================================== */
+/* ÁREA PRINCIPAL */
+/* ===================================================== */
+
+.home-main {
+  width: 100%;
+  max-width: 1180px;
+
+  margin: 0 auto;
+  padding: 18px;
+}
+
+/* ===================================================== */
+/* HERO PRINCIPAL - MODELO CARD GRANDE */
+/* ===================================================== */
+
+.hero-section {
+  min-height: 0;
+
+  margin-top: 34px;
+  padding: 48px 38px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.94fr);
+  gap: 42px;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.32), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent),
+    var(--panel);
+
+  border: 1px solid var(--border);
+  border-radius: 26px;
+
+  box-shadow: var(--shadow);
+}
+
+/* Detalhe roxo no fundo */
+.hero-section::before {
+  content: "";
+
+  position: absolute;
+  right: -120px;
+  bottom: -140px;
+
+  width: 380px;
+  height: 380px;
+
+  background: rgba(124, 58, 237, 0.22);
+  filter: blur(70px);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+/* Texto principal */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content small {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color: var(--primary-2);
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+}
+
+.hero-content h2 {
+  max-width: 640px;
+
+  margin: 0;
+
+  font-family: var(--font-title);
+  font-size: 82px;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.hero-content p {
+  max-width: 560px;
+
+  margin: 24px 0 0;
+
+  color: var(--muted);
+
+  font-size: 16px;
+  line-height: 1.62;
+}
+
+/* Botões do hero */
+.hero-actions {
+  margin-top: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* Aviso amarelo */
+.challenge-pill {
+  width: fit-content;
+  max-width: 100%;
+
+  margin-top: 18px;
+  padding: 8px 15px;
+
+  border: 1px solid rgba(234, 179, 8, 0.45);
+  border-radius: 999px;
+
+  background: rgba(234, 179, 8, 0.08);
+  color: #facc15;
+
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.2;
+
+  box-shadow: 0 0 22px rgba(234, 179, 8, 0.08);
+}
+
+/* ===================================================== */
+/* CARD VISUAL DO HERO */
+/* ===================================================== */
+
+.hero-card {
+  min-height: 390px;
+  padding: 0;
+
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+
+  box-shadow: none;
+}
+
+/* Card 11 lendários */
+.mission-card {
+  width: 100%;
+  padding: 24px 18px;
+
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+
+  background: linear-gradient(135deg, var(--primary), #5b21b6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+
+  box-shadow: 0 16px 38px rgba(124, 58, 237, 0.28);
+}
+
+.mission-number {
+  font-family: var(--font-title);
+  font-size: 82px;
+  line-height: 0.78;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+
+  color: #ffffff;
+}
+
+.mission-title {
+  margin-top: 8px;
+
+  font-family: var(--font-title);
+  font-size: 34px;
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+
+  color: #ffffff;
+}
+
+.mission-subtitle {
+  width: fit-content;
+
+  margin: 10px auto 0;
+  padding: 5px 12px;
+
+  color: rgba(255, 255, 255, 0.92);
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+
+/* ===================================================== */
+/* MINI CAMPO DECORATIVO */
+/* ===================================================== */
+
+.mini-pitch {
+  height: 250px;
+
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid rgba(34, 197, 94, 0.42);
+  border-radius: 18px;
+
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.12) 50%, rgba(34, 197, 94, 0.18) 50%),
+    rgba(22, 101, 52, 0.82);
+
+  background-size:
+    26px 26px,
+    26px 26px,
+    80px 100%,
+    100% 100%;
+}
+
+/* Linha do meio do campo */
+.mini-pitch::before {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  top: 0;
+
+  width: 1px;
+  height: 100%;
+
+  background: rgba(255, 255, 255, 0.20);
+}
+
+/* Círculo do meio */
+.mini-pitch::after {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 72px;
+  height: 72px;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+}
+
+/* Bolinhas numeradas */
+.mini-dot {
+  width: 32px;
+  height: 32px;
+
+  position: absolute;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: #0f172a;
+
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+
+  box-shadow:
+    0 0 0 5px rgba(255, 255, 255, 0.08),
+    0 10px 22px rgba(0, 0, 0, 0.22);
+}
+
+/* ===================================================== */
+/* POSIÇÕES DO MINI CAMPO - 4-3-3 REALISTA */
+/* ===================================================== */
+
+/* Ataque */
+.dot-1 {
+  left: 24%;
+  top: 22%;
+}
+
+.dot-2 {
+  left: 50%;
+  top: 14%;
+  transform: translateX(-50%);
+}
+
+.dot-3 {
+  right: 24%;
+  top: 22%;
+}
+
+/* Meio-campo */
+.dot-4 {
+  left: 36%;
+  top: 44%;
+}
+
+.dot-5 {
+  right: 36%;
+  top: 44%;
+}
+
+.dot-6 {
+  left: 50%;
+  top: 55%;
+  transform: translateX(-50%);
+}
+
+/* Defesa */
+.dot-7 {
+  left: 16%;
+  bottom: 23%;
+}
+
+.dot-8 {
+  left: 38%;
+  bottom: 20%;
+}
+
+.dot-9 {
+  right: 38%;
+  bottom: 20%;
+}
+
+.dot-10 {
+  right: 16%;
+  bottom: 23%;
+}
+
+/* Goleiro */
+.dot-11 {
+  left: 50%;
+  bottom: 7%;
+  transform: translateX(-50%);
+}
+
+/* ===================================================== */
+/* BARRA DE ESTATÍSTICAS */
+/* ===================================================== */
+
+.home-stats-bar {
+  margin-top: 18px;
+  padding: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  background:
+    linear-gradient(90deg, rgba(124, 58, 237, 0.18), rgba(234, 179, 8, 0.08)),
+    var(--panel);
+
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+.home-stats-bar strong {
+  min-height: 34px;
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: 900;
+}
+/* ===================================================== */
+/* COMO JOGAR */
+/* Mantido no modelo atual, só pequenos ajustes */
+/* ===================================================== */
+
+.how-section {
+  padding: 70px 0 34px;
+}
+
+.section-title {
+  text-align: center;
+}
+
+.section-title small {
+  display: block;
+
+  color: var(--primary-2);
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+}
+
+.section-title h3 {
+  margin: 10px 0 0;
+
+  font-family: var(--font-title);
+  font-size: 58px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+/* Grid das etapas */
+.steps-grid {
+  margin-top: 34px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Card de etapa */
+.step-card {
+  min-height: 220px;
+  padding: 22px;
+
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+
+.step-card span {
+  color: var(--primary-2);
+
+  font-family: var(--font-title);
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.step-card h4 {
+  margin: 18px 0 8px;
+
+  font-family: var(--font-title);
+  font-size: 30px;
+  line-height: 0.95;
+}
+
+.step-card p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ===================================================== */
+/* RODAPÉ */
+/* ===================================================== */
+
+.home-footer {
+  width: 100%;
+  max-width: 1180px;
+
+  margin: 0 auto;
+  padding: 26px 18px 32px;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  font-weight: 700;
+}
