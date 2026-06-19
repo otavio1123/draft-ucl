@@ -1128,9 +1128,11 @@ const historicTeams = [
     { position: "GOL", positions: ["GOL"], name: "Petr Kouba", rating: 83 }
   ]
 },
-  {
+  
+{
   id: "psv_eindhoven_1988_1989",
-  season: "1988/89",
+  club: "PSV Eindhoven",
+  season: "1988/1989",
   type: "Histórico europeu",
   categoryType: "historic",
   tier: "strong",
