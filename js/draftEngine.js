@@ -13,13 +13,103 @@
 
 
 /* ===================================================== */
-/* SORTEIA UM TIME DO BANCO */
+/* CONTROLE ANTI-REPETIÇÃO DE CLUBE NO DRAFT */
+/*
+  Objetivo:
+  - Evitar que o mesmo clube caia várias vezes seguidas;
+  - Funciona mesmo quando o clube tem temporadas diferentes;
+  - Exemplo: Barcelona 2008/2009 bloqueia Barcelona 2010/2011 por algumas rolagens;
+  - Não remove times da database;
+  - Não impede o clube de aparecer para sempre;
+  - Se o filtro bloquear todos os times disponíveis, o sorteio volta ao normal para não travar o jogo.
+*/
 /* ===================================================== */
+
+const DRAFT_CLUB_COOLDOWN = 3;
+
+function normalizeClubName(name) {
+  if (!name) return "";
+
+  return name
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "")
+    .trim();
+}
+
+function getTeamClubKey(team) {
+  if (!team) return "";
+
+  return normalizeClubName(team.club || team.name || team.id || "");
+}
+
+function getRecentDraftClubs() {
+  const state = window.gameState;
+
+  if (!state) {
+    return [];
+  }
+
+  if (!Array.isArray(state.recentDraftClubs)) {
+    state.recentDraftClubs = [];
+  }
+
+  return state.recentDraftClubs;
+}
+
+function rememberDraftClub(team) {
+  const recentClubs = getRecentDraftClubs();
+  const clubKey = getTeamClubKey(team);
+
+  if (!clubKey) {
+    return;
+  }
+
+  recentClubs.push(clubKey);
+
+  while (recentClubs.length > DRAFT_CLUB_COOLDOWN) {
+    recentClubs.shift();
+  }
+}
+
+function pickTeamAvoidingRecentClubs(teams) {
+  if (!Array.isArray(teams) || teams.length === 0) {
+    return null;
+  }
+
+  const recentClubs = new Set(getRecentDraftClubs());
+
+  const filteredTeams = teams.filter((team) => {
+    const clubKey = getTeamClubKey(team);
+
+    if (!clubKey) {
+      return true;
+    }
+
+    return !recentClubs.has(clubKey);
+  });
+
+  /*
+    Se ainda houver times depois do filtro, sorteia deles.
+    Se o filtro bloquear tudo, usa a lista original para evitar bug/travamento.
+  */
+  const finalPool = filteredTeams.length > 0 ? filteredTeams : teams;
+
+  const randomIndex = Math.floor(Math.random() * finalPool.length);
+
+  return finalPool[randomIndex];
+}
 
 /* ===================================================== */
 /* SORTEIA UM TIME VÁLIDO */
 /* Só sorteia times que ainda tenham pelo menos */
 /* 1 jogador disponível para entrar no campo */
+/*
+  Agora também evita repetir o mesmo clube em sequência,
+  mesmo que seja de outra temporada.
+*/
 /* ===================================================== */
 
 function drawRandomTeam() {
@@ -30,8 +120,14 @@ function drawRandomTeam() {
     return null;
   }
 
-  const randomIndex = Math.floor(Math.random() * availableTeams.length);
-  const team = availableTeams[randomIndex];
+  const team = pickTeamAvoidingRecentClubs(availableTeams);
+
+  if (!team) {
+    alert("Não foi possível sortear um time válido.");
+    return null;
+  }
+
+  rememberDraftClub(team);
 
   window.gameState.currentDrawnTeam = team;
 

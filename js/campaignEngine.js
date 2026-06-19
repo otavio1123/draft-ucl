@@ -80,8 +80,7 @@ function calculateAverage(players) {
 /* ===================================================== */
 
 function getTeamCategory(team) {
-  const category = normalizeText(team.categoryType || team.type || "");
-
+const category = normalizeText(team?.categoryType || team?.type || "");
   if (
     category.includes("runner") ||
     category.includes("vice") ||
@@ -272,7 +271,28 @@ function pickTeamsFromPool(pool, amount, usedIds, usedClubs) {
    - 2 azarões
 */
 /* ===================================================== */
+/* ===================================================== */
+/* EMBARALHA LISTA DE TIMES */
+/*
+  Usado para deixar a ordem dos adversários da campanha variada.
+  Não altera a quantidade de cada categoria.
+  Apenas muda a ordem final dos jogos.
+*/
+/* ===================================================== */
 
+function shuffleCampaignTeams(teams) {
+  const shuffledTeams = [...teams];
+
+  for (let i = shuffledTeams.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+
+    const temporaryTeam = shuffledTeams[i];
+    shuffledTeams[i] = shuffledTeams[randomIndex];
+    shuffledTeams[randomIndex] = temporaryTeam;
+  }
+
+  return shuffledTeams;
+} 
 function selectLeagueOpponents() {
   const database = getCampaignDatabase();
 
@@ -288,9 +308,9 @@ function selectLeagueOpponents() {
 
   const selectionRules = [
     { category: "champion", amount: 2 },
-    { category: "runnerUp", amount: 3 },
+    { category: "runnerUp", amount: 2 },
     { category: "historic", amount: 2 },
-    { category: "underdog", amount: 1 }
+    { category: "underdog", amount: 2 }
   ];
 
   selectionRules.forEach((rule) => {
@@ -326,7 +346,9 @@ function selectLeagueOpponents() {
     opponents.push(...fallbackTeams);
   }
 
-  return opponents.slice(0, LEAGUE_MATCHES_TOTAL);
+  const shuffledOpponents = shuffleCampaignTeams(opponents);
+
+  return shuffledOpponents.slice(0, LEAGUE_MATCHES_TOTAL);
 }
 
 /* ===================================================== */
@@ -442,9 +464,9 @@ function buildLeagueTeamsForCampaign(draftTeam, opponents) {
     - 6 azarões
   */
   const extraSelectionRules = [
-    { category: "champion", amount: 7 },
+    { category: "champion", amount: 5 },
     { category: "runnerUp", amount: 7 },
-    { category: "historic", amount: 7 },
+    { category: "historic", amount: 9 },
     { category: "underdog", amount: 6 }
   ];
 

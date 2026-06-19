@@ -982,7 +982,7 @@ if (playersList) {
     updateRerollText();
 
     if (rerollButton) {
-      rerollButton.innerHTML = "↻ OUTRA SELEÇÃO";
+      rerollButton.innerHTML = "↻ OUTRO TIME";
       rerollButton.disabled = state.rerollsRemaining <= 0;
     }
 

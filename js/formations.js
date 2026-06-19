@@ -76,19 +76,19 @@ const formationTemplates = {
   ],
 
 "4-2-3-1": [
-  { code: "PE", label: "PE", x: 13, y: 27 },
-  { code: "CA", label: "CA", x: 50, y: 16 },
-  { code: "PD", label: "PD", x: 87, y: 27 },
+  { code: "CA", label: "CA", x: 50, y: 20 },
 
-  { code: "MEI", label: "MEI", x: 50, y: 37 },
+  { code: "PE", label: "PE", x: 18, y: 36 },
+  { code: "MEI", label: "MEI", x: 50, y: 36 },
+  { code: "PD", label: "PD", x: 82, y: 36 },
 
-  { code: "MC", label: "MC", x: 35, y: 52 },
-  { code: "VOL", label: "VOL", x: 65, y: 52 },
+  { code: "VOL", label: "VOL", x: 37, y: 52 },
+  { code: "VOL", label: "VOL", x: 63, y: 52 },
 
-  { code: "LE", label: "LE", x: 14, y: 71 },
-  { code: "ZAG", label: "ZAG", x: 38, y: 77 },
-  { code: "ZAG", label: "ZAG", x: 62, y: 77 },
-  { code: "LD", label: "LD", x: 86, y: 71 },
+  { code: "LE", label: "LE", x: 14, y: 72 },
+  { code: "ZAG", label: "ZAG", x: 38, y: 78 },
+  { code: "ZAG", label: "ZAG", x: 62, y: 78 },
+  { code: "LD", label: "LD", x: 86, y: 72 },
 
   { code: "GOL", label: "GOL", x: 50, y: 90 }
 ],
@@ -324,21 +324,30 @@ if (style === "Ofensivo") {
 }
 
 function apply4231Style(layout, style) {
-  const mids = getIndexesByCodes(layout, ["MEI", "MC", "VOL"]);
+  const mids = getIndexesByCodes(layout, ["MEI", "VOL", "VOL"]);
 
-if (style === "Defensivo") {
-  /* MEI mantém central, dois volantes mais abertos */
-  setSlot(layout[mids[0]], "MEI", "MEI", 50, 37);
-  setSlot(layout[mids[1]], "VOL", "VOL", 40, 50);
-  setSlot(layout[mids[2]], "VOL", "VOL", 60, 50);
-}
+  if (style === "Defensivo") {
+    /*
+      4-2-3-1 Defensivo:
+      - 2 VOL
+      - 1 MC central no lugar do MEI
+    */
+    setSlot(layout[mids[0]], "MC", "MC", 50, 40);
+    setSlot(layout[mids[1]], "VOL", "VOL", 37, 53);
+    setSlot(layout[mids[2]], "VOL", "VOL", 63, 53);
+  }
 
-if (style === "Ofensivo") {
-  /* MEI central mais perto do ataque, apoio um pouco mais aberto */
-  setSlot(layout[mids[0]], "MEI", "MEI", 50, 34);
-  setSlot(layout[mids[1]], "MEI", "MEI", 40, 47);
-  setSlot(layout[mids[2]], "MC", "MC", 60, 49);
-}
+  if (style === "Ofensivo") {
+    /*
+      4-2-3-1 Ofensivo:
+      - 1 MEI
+      - 1 MC
+      - 1 VOL
+    */
+    setSlot(layout[mids[0]], "MEI", "MEI", 50, 36);
+    setSlot(layout[mids[1]], "MC", "MC", 37, 53);
+    setSlot(layout[mids[2]], "VOL", "VOL", 63, 53);
+  }
 }
 /* ===================================================== */
 /* 3-5-2 */

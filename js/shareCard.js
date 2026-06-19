@@ -6,12 +6,11 @@ const SHARE_SITE_URL = "https://meudraft.com";
 
 function getShareMessage(type = "card") {
   const baseMessage = type === "campaign"
-    ? "Veja minha campanha no DRAFT Champions!"
-    : "Montei meu time dos sonhos no Meu Draft!";
+    ? "Veja minha campanha no MeuDraft"
+    : "Montei meu time dos sonhos no MeuDraft!";
 
   if (SHARE_SITE_URL) {
-    return `${baseMessage} Jogue também: ${SHARE_SITE_URL}`;
-  }
+return `${baseMessage} ${SHARE_SITE_URL}`;  }
 
   return baseMessage;
 }
