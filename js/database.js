@@ -1201,7 +1201,7 @@ const historicTeams = [
     { position: "PD", positions: ["PD", "MD"], name: "Ludovic Giuly", rating: 83 },
 
     { position: "MEI", positions: ["MEI", "MC"], name: "Deco", rating: 88 },
-    { position: "MC", positions: ["MC", "MEI"], name: "Xavi Hernández", rating: 86 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Xavi", rating: 86 },
     { position: "VOL", positions: ["VOL", "ZAG"], name: "Rafael Márquez", rating: 84 },
 
     { position: "LE", positions: ["LE"], name: "Van Bronckhorst", rating: 82 },
@@ -1354,10 +1354,10 @@ const historicTeams = [
     // Ajustado: posições reduzidas e ratings balanceados para escala do jogo
     { position: "MEI", positions: ["MEI", "MC"], name: "Andrés Iniesta", rating: 92 },
     { position: "CA", positions: ["CA", "PD"], name: "Lionel Messi", rating: 99 },
-    { position: "PD", positions: ["PD", "ATA"], name: "Alexis Sánchez", rating: 85 },
+    { position: "PD", positions: ["PD", "ATA", "MEI"], name: "Alexis Sánchez", rating: 85 },
 
     { position: "MEI", positions: ["MEI", "MC"], name: "Cesc Fàbregas", rating: 87 },
-    { position: "MC", positions: ["MC", "MEI"], name: "Xavi Hernández", rating: 93 },
+    { position: "MC", positions: ["MC", "MEI"], name: " Xavi", rating: 93 },
     { position: "VOL", positions: ["VOL", "MC"], name: "Sergio Busquets", rating: 90 },
 
     { position: "LE", positions: ["LE", "ZAG"], name: "Éric Abidal", rating: 84 },
@@ -3625,7 +3625,7 @@ const championTeams = [
     { position: "PD", positions: ["PD", "MD"], name: "Ludovic Giuly", rating: 83 },
 
     { position: "MEI", positions: ["MEI", "MC"], name: "Deco", rating: 89 },
-    { position: "MC", positions: ["MC", "MEI"], name: "Xavi Hernández", rating: 87 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Xavi", rating: 87 },
     { position: "VOL", positions: ["VOL", "MC"], name: "Edmílson", rating: 82 },
 
     { position: "LE", positions: ["LE"], name: "Van Bronckhorst", rating: 82 },
@@ -3743,7 +3743,7 @@ const championTeams = [
     { position: "PD", positions: ["PD", "MEI"], name: "Lionel Messi", rating: 97 },
 
     { position: "MEI", positions: ["MEI", "MC"], name: "Andrés Iniesta", rating: 91 },
-    { position: "MC", positions: ["MC", "MEI"], name: "Xavi Hernández", rating: 92 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Xavi", rating: 92 },
     { position: "VOL", positions: ["VOL", "MC"], name: "Sergio Busquets", rating: 86 },
 
     { position: "LE", positions: ["LE"], name: "Éric Abidal", rating: 84 },
@@ -3817,11 +3817,11 @@ const championTeams = [
   players: [
     // Ajustado: posições reduzidas e ratings balanceados para escala do jogo
     { position: "PE", positions: ["PE", "ATA"], name: "David Villa", rating: 89 },
-    { position: "CA", positions: ["CA", "MEI"], name: "Lionel Messi", rating: 99 },
+    { position: "CA", positions: ["CA", "MEI", "PD"], name: "Lionel Messi", rating: 99 },
     { position: "PD", positions: ["PD", "MD"], name: "Pedro Rodríguez", rating: 85 },
 
     { position: "MEI", positions: ["MEI", "MC"], name: "Andrés Iniesta", rating: 92 },
-    { position: "MC", positions: ["MC", "MEI"], name: "Xavi Hernández", rating: 93 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Xavi", rating: 93 },
     { position: "VOL", positions: ["VOL", "MC"], name: "Sergio Busquets", rating: 89 },
 
     { position: "LE", positions: ["LE", "ZAG"], name: "Éric Abidal", rating: 85 },
@@ -4132,7 +4132,7 @@ const championTeams = [
     { position: "CA", positions: ["CA", "MEI"], name: "Kai Havertz", rating: 84 },
     { position: "ATA", positions: ["ATA", "PE"], name: "Timo Werner", rating: 83 },
 
-    { position: "MEI", positions: ["MEI", "MC"], name: "N'Golo Kanté", rating: 89 },
+    { position: "MEI", positions: ["VOL", "MC"], name: "N'Golo Kanté", rating: 89 },
     { position: "MC", positions: ["MC", "VOL"], name: "Jorginho", rating: 85 },
     { position: "VOL", positions: ["VOL", "MC"], name: "Mateo Kovačić", rating: 84 },
 

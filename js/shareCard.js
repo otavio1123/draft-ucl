@@ -2,12 +2,12 @@
 /* SHARECARD.JS - COMPARTILHAR / BAIXAR IMAGENS */
 /* ===================================================== */
 
-const SHARE_SITE_URL = "";
+const SHARE_SITE_URL = "https://meudraft.com";
 
 function getShareMessage(type = "card") {
   const baseMessage = type === "campaign"
     ? "Veja minha campanha no DRAFT Champions!"
-    : "Montei meu time dos sonhos no DRAFT Champions!";
+    : "Montei meu time dos sonhos no Meu Draft!";
 
   if (SHARE_SITE_URL) {
     return `${baseMessage} Jogue também: ${SHARE_SITE_URL}`;

@@ -24,7 +24,7 @@ let activeMatchTimer = null;
 const USER_DRAFT_TEAM_ID = "draft_user_team";
 
 const DRAFT_ATTACK_XG_BONUS = 0.16;
-const DRAFT_DEFENSE_XG_REDUCTION = 0.12;
+const DRAFT_DEFENSE_XG_REDUCTION = 0.13;
 
 
 /* ===================================================== */
@@ -196,41 +196,40 @@ function getStyleDefenseExposureModifier(team) {
   positivo = se expõe mais
 */
 /* ===================================================== */
-
 const formationXgProfiles = {
   "4-3-3": {
-    attack: 0.08,
-    defenseExposure: 0.04
+    attack: 0.10,
+    defenseExposure: 0.05
   },
 
   "4-4-2": {
-    attack: 0.01,
-    defenseExposure: -0.01
+    attack: 0.03,
+    defenseExposure: -0.02
   },
 
   "4-2-3-1": {
-    attack: 0.05,
-    defenseExposure: -0.05
+    attack: 0.07,
+    defenseExposure: -0.06
   },
 
   "3-5-2": {
-    attack: 0.06,
-    defenseExposure: 0.02
+    attack: 0.08,
+    defenseExposure: 0.03
   },
 
   "3-4-3": {
-    attack: 0.14,
+    attack: 0.15,
     defenseExposure: 0.12
   },
 
   "5-3-2": {
-    attack: -0.05,
-    defenseExposure: -0.10
+    attack: -0.04,
+    defenseExposure: -0.11
   },
 
   "5-4-1": {
-    attack: -0.12,
-    defenseExposure: -0.15
+    attack: -0.10,
+    defenseExposure: -0.16
   }
 };
 

@@ -11,9 +11,7 @@
   - prepara funções de acréscimos e cronômetro.
 */
 
-/* ===================================================== */
-/* CONFIGURAÇÕES DA FASE DE LIGA */
-/* ===================================================== */
+
 
 /* ===================================================== */
 /* CONFIGURAÇÕES DA FASE DE LIGA */
@@ -24,12 +22,12 @@ const LEAGUE_MATCHES_TOTAL = 8;
 const CAMPAIGN_SPEEDS = {
   normal: {
     label: "NORMAL",
-    duration: 24000 // 24 segundos
+    duration: 15000 // 15 segundos
   },
 
   fast: {
     label: "RÁPIDO",
-    duration: 15000 // 15 segundos
+    duration: 7000 // 9 segundos
   }
 };
 /* ===================================================== */
@@ -290,9 +288,9 @@ function selectLeagueOpponents() {
 
   const selectionRules = [
     { category: "champion", amount: 2 },
-    { category: "runnerUp", amount: 2 },
+    { category: "runnerUp", amount: 3 },
     { category: "historic", amount: 2 },
-    { category: "underdog", amount: 2 }
+    { category: "underdog", amount: 1 }
   ];
 
   selectionRules.forEach((rule) => {
@@ -409,7 +407,7 @@ function createInitialStandings(teams) {
 /* Inclui:
    - DRAFT
    - 8 adversários dos jogos do DRAFT
-   - mais times da database até fechar 36
+   - 27 times extras divididos por categoria
 */
 /* ===================================================== */
 
@@ -436,36 +434,61 @@ function buildLeagueTeamsForCampaign(draftTeam, opponents) {
   });
 
   /*
-    Completa até 36 times.
-    Primeiro tenta evitar repetir clube.
+    Completa os 27 times extras da classificação
+    dividindo entre as 4 categorias:
+    - 7 campeões
+    - 7 vices/finalistas
+    - 7 históricos
+    - 6 azarões
   */
-  const shuffledDatabase = shuffleArray(database);
+  const extraSelectionRules = [
+    { category: "champion", amount: 7 },
+    { category: "runnerUp", amount: 7 },
+    { category: "historic", amount: 7 },
+    { category: "underdog", amount: 6 }
+  ];
 
-  shuffledDatabase.forEach((team) => {
+  extraSelectionRules.forEach((rule) => {
     if (leagueTeams.length >= 36) return;
 
-    const clubKey = normalizeText(team.club);
+    const remainingSlots = 36 - leagueTeams.length;
+    const amountToPick = Math.min(rule.amount, remainingSlots);
 
-    if (usedIds.has(team.id)) return;
-    if (usedClubs.has(clubKey)) return;
+    const categoryPool = database.filter((team) => {
+      return getTeamCategory(team) === rule.category;
+    });
 
-    leagueTeams.push(team);
-    usedIds.add(team.id);
-    usedClubs.add(clubKey);
+    const selected = pickTeamsFromPool(
+      categoryPool,
+      amountToPick,
+      usedIds,
+      usedClubs
+    );
+
+    leagueTeams.push(...selected);
   });
 
   /*
-    Se ainda faltar, permite repetir clube,
-    mas nunca repete o mesmo ID.
+    Fallback de segurança:
+    se alguma categoria não tiver times suficientes,
+    completa com qualquer time disponível da database.
   */
-  shuffledDatabase.forEach((team) => {
-    if (leagueTeams.length >= 36) return;
+  if (leagueTeams.length < 36) {
+    const remainingAmount = 36 - leagueTeams.length;
 
-    if (usedIds.has(team.id)) return;
+    const fallbackPool = database.filter((team) => {
+      return !usedIds.has(team.id);
+    });
 
-    leagueTeams.push(team);
-    usedIds.add(team.id);
-  });
+    const fallbackTeams = pickTeamsFromPool(
+      fallbackPool,
+      remainingAmount,
+      usedIds,
+      usedClubs
+    );
+
+    leagueTeams.push(...fallbackTeams);
+  }
 
   return leagueTeams.slice(0, 36);
 }
