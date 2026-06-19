@@ -22,8 +22,8 @@ let activeMatchTimer = null;
 /* ===================================================== */
 
 const USER_DRAFT_TEAM_ID = "draft_user_team";
-const DRAFT_ATTACK_XG_BONUS = 0.16;
-const DRAFT_DEFENSE_XG_REDUCTION = 0.12;
+const DRAFT_ATTACK_XG_BONUS = 0.14;
+const DRAFT_DEFENSE_XG_REDUCTION = 0.10;
 
 
 /* ===================================================== */
