@@ -935,6 +935,44 @@ const underdogTeams = [
 
 const historicTeams = [
   {
+  id: "napoli_1988_1989",
+  club: "Napoli",
+  season: "1988/1989",
+  type: "Histórico europeu",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 87,
+  finalPower: 88,
+  attack: 89,
+  midfield: 89,
+  defense: 85,
+  mentality: 90,
+  chemistry: 88,
+  championsExperience: 83,
+  historicalWeight: 91,
+  clutch: 90,
+  consistency: 87,
+  style: "Ofensivo",
+
+  players: [
+    { position: "CA", positions: ["CA"], name: "Careca", rating: 89 },
+    { position: "CA", positions: ["CA"], name: "Andrea Carnevale", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Diego Maradona", rating: 99 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Alemão", rating: 86 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Fernando De Napoli", rating: 85 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Luca Fusi", rating: 83 },
+
+    { position: "LE", positions: ["LE", "ZAG"], name: "Giovanni Francini", rating: 82 },
+    { position: "ZAG", positions: ["ZAG"], name: "Alessandro Renica", rating: 84 },
+    { position: "ZAG", positions: ["ZAG", "VOL"], name: "Massimo Corradini", rating: 82 },
+    { position: "LD", positions: ["LD", "ZAG"], name: "Ciro Ferrara", rating: 86 },
+
+    { position: "GOL", positions: ["GOL"], name: "Giuliano Giuliani", rating: 83 }
+  ]
+},
+  {
   id: "arsenal_2014_2015",
   club: "Arsenal",
   season: "2014/2015",
