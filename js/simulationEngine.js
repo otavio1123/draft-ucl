@@ -1,31 +1,134 @@
 /* ===================================================== */
 /* TIMER ATIVO DA PARTIDA */
-/* Garante que só exista 1 jogo rodando por vez */
+/*
+  Garante que só exista 1 jogo rodando por vez.
+  Usado na fase de liga.
+*/
 /* ===================================================== */
+
 let activeMatchTimer = null;
 
 
 /* ===================================================== */
 /* AJUSTE DE DIFICULDADE DO DRAFT */
 /*
-  Objetivo:
-  - O campeonato estava difícil demais para vencer.
-  - Este bônus ajuda o time montado pelo usuário a competir melhor.
-  - Não garante vitória.
-  - Não altera sorteio, mata-mata, pênaltis ou banco de times.
-  - Só afeta jogos em que o DRAFT participa.
+  Este bloco controla os bônus do time montado pelo usuário.
 
-  Ajuste fino:
-  - Se continuar muito difícil: aumente pouco, exemplo 0.18 / 0.14.
-  - Se ficar fácil demais: reduza para 0.10 / 0.08.
+  Objetivo:
+  - deixar o DRAFT competitivo;
+  - evitar que o campeonato fique impossível;
+  - não garantir vitória automática;
+  - manter adversários fortes perigosos;
+  - permitir ajuste diferente entre fase de liga, mata-mata e final.
+
+  Importante:
+  - só afeta jogos em que o DRAFT participa;
+  - não altera database;
+  - não altera sorteio;
+  - não altera pênaltis;
+  - não muda placares diretamente;
+  - apenas ajusta o xG usado na simulação dos gols.
 */
 /* ===================================================== */
 
 const USER_DRAFT_TEAM_ID = "draft_user_team";
+
+
+/* ===================================================== */
+/* BÔNUS BASE DO DRAFT */
+/*
+  Usado como bônus principal do time do usuário.
+
+  Ataque:
+  - aumenta um pouco o xG quando o DRAFT está atacando.
+
+  Defesa:
+  - reduz um pouco o xG do adversário quando ele ataca contra o DRAFT.
+
+  Esses valores são usados completos na fase de liga.
+  No mata-mata serão reduzidos por multiplicador.
+*/
+/* ===================================================== */
+
 const DRAFT_ATTACK_XG_BONUS = 0.14;
 const DRAFT_DEFENSE_XG_REDUCTION = 0.10;
 
 
+/* ===================================================== */
+/* BÔNUS DE MANDO DO DRAFT NA FASE DE LIGA */
+/*
+  Usado principalmente na fase de liga.
+
+  Ataque:
+  - em casa o DRAFT recebe ajuda maior;
+  - fora de casa recebe ajuda menor.
+
+  Defesa:
+  - em casa o DRAFT protege melhor;
+  - fora de casa protege um pouco menos.
+
+  No mata-mata esses bônus também existem,
+  mas serão reduzidos para deixar a fase eliminatória mais difícil.
+*/
+/* ===================================================== */
+
+const DRAFT_HOME_ATTACK_BONUS = 0.08;
+const DRAFT_AWAY_ATTACK_BONUS = 0.03;
+
+const DRAFT_HOME_DEFENSE_BONUS = 0.06;
+const DRAFT_AWAY_DEFENSE_BONUS = 0.02;
+
+
+/* ===================================================== */
+/* REDUÇÃO DO BÔNUS NO MATA-MATA */
+/*
+  A fase de liga usa 100% dos bônus acima.
+
+  O mata-mata usa só parte desse bônus.
+  Isso deixa playoffs, oitavas, quartas e semifinal mais difíceis.
+
+  Exemplo:
+  0.45 = usa 45% do bônus normal.
+*/
+/* ===================================================== */
+
+const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.45;
+
+
+/* ===================================================== */
+/* BÔNUS ESPECIAL DA FINAL */
+/*
+  A final é jogo único e deve ser tratada como campo neutro.
+
+  Por isso:
+  - não usa bônus de casa;
+  - não usa bônus de fora;
+  - não usa o bônus cheio da liga;
+  - recebe apenas uma ajuda mínima.
+
+  Ataque:
+  - DRAFT ganha +0.045 xG na final.
+
+  Defesa:
+  - adversário perde 0.045 xG quando ataca contra o DRAFT.
+
+  Isso mantém a final pesada, mas sem zerar totalmente a ajuda do usuário.
+*/
+/* ===================================================== */
+
+const DRAFT_FINAL_ATTACK_BONUS = 0.045;
+const DRAFT_FINAL_DEFENSE_REDUCTION = 0.045;
+
+
+/* ===================================================== */
+/* DELAY DO FIM DA PARTIDA */
+/*
+  Pequena pausa visual no último minuto/acréscimo
+  antes de finalizar a partida.
+*/
+/* ===================================================== */
+
+const MATCH_END_DELAY = 1200;
 /* ===================================================== */
 /* PESOS POR POSIÇÃO PARA GOL */
 /* Quanto maior o peso, maior a chance de marcar */
@@ -155,16 +258,31 @@ function calculateDefensePower(team) {
 }
 
 /* ===================================================== */
-/* MODIFICADOR DE ESTILO */
-/* Ofensivo cria mais, mas pode se expor */
-/* Defensivo cria menos, mas segura melhor */
+/* MODIFICADOR OFENSIVO DO ESTILO */
+/*
+  Controla o quanto o estilo aumenta ou reduz
+  o xG do próprio time quando ele ataca.
+
+  Ofensivo:
+  - cria mais chances;
+  - recebe bônus maior de ataque.
+
+  Equilibrado:
+  - recebe um bônus pequeno;
+  - representa controle sem exagero.
+
+  Defensivo:
+  - cria menos chances;
+  - troca ataque por segurança.
+*/
 /* ===================================================== */
 
 function getStyleAttackModifier(team) {
   if (!team || !team.style) return 0;
 
-  if (team.style === "Ofensivo") return 0.22;
-  if (team.style === "Defensivo") return -0.14;
+  if (team.style === "Ofensivo") return 0.18;
+  if (team.style === "Equilibrado") return 0.03;
+  if (team.style === "Defensivo") return -0.10;
 
   return 0;
 }
@@ -174,11 +292,34 @@ function getStyleAttackModifier(team) {
 /* Defensivo fecha mais os espaços */
 /* ===================================================== */
 
+/* ===================================================== */
+/* MODIFICADOR DEFENSIVO DO ESTILO */
+/*
+  Controla o quanto o estilo afeta o xG do adversário.
+
+  Importante:
+  - valor positivo = o time se expõe mais;
+  - valor negativo = o time protege melhor.
+
+  Ofensivo:
+  - ataca mais;
+  - deixa mais espaço para o adversário.
+
+  Equilibrado:
+  - protege um pouco melhor sem travar o ataque.
+
+  Defensivo:
+  - fecha mais os espaços;
+  - reduz mais o xG do adversário.
+*/
+/* ===================================================== */
+
 function getStyleDefenseExposureModifier(team) {
   if (!team || !team.style) return 0;
 
-  if (team.style === "Ofensivo") return 0.10;
-  if (team.style === "Defensivo") return -0.10;
+  if (team.style === "Ofensivo") return 0.13;
+  if (team.style === "Equilibrado") return -0.02;
+  if (team.style === "Defensivo") return -0.15;
 
   return 0;
 }
@@ -263,13 +404,56 @@ function getFormationDefenseExposureModifier(team) {
   return formationXgProfiles[formation].defenseExposure;
 }
 /* ===================================================== */
-/* GOLS ESPERADOS */
-/* Usa ataque do time contra defesa do adversário */
+/* IDENTIFICA O TIPO DE PARTIDA */
+/*
+  Define se o jogo atual é:
+  - fase de liga;
+  - mata-mata ida/volta;
+  - final em jogo único.
+
+  A fase de liga normalmente não possui propriedade "leg".
+
+  No mata-mata:
+  - "first"  = jogo de ida;
+  - "second" = jogo de volta.
+
+  Na final:
+  - "final" = jogo único.
+*/
 /* ===================================================== */
 
-function calculateExpectedGoals(attackingTeam, defendingTeam, isHome) {
+function getMatchStageType(match) {
+  if (!match) {
+    return "league";
+  }
+
+  if (match.leg === "final") {
+    return "final";
+  }
+
+  if (match.leg === "first" || match.leg === "second") {
+    return "knockout";
+  }
+
+  return "league";
+}
+/* ===================================================== */
+/* GOLS ESPERADOS */
+/*
+  Usa ataque do time contra defesa do adversário.
+
+  Regras de bônus do DRAFT:
+  - fase de liga: bônus completo;
+  - mata-mata: bônus reduzido;
+  - final: campo neutro, sem casa/fora e com bônus fixo menor.
+*/
+/* ===================================================== */
+
+function calculateExpectedGoals(attackingTeam, defendingTeam, isHome, match = null) {
   const attackPower = calculateAttackPower(attackingTeam);
   const defensePower = calculateDefensePower(defendingTeam);
+
+  const matchStageType = getMatchStageType(match);
 
   const powerDifference = attackPower - defensePower;
 
@@ -277,10 +461,23 @@ function calculateExpectedGoals(attackingTeam, defendingTeam, isHome) {
 
   expectedGoals += powerDifference / 18;
 
-  if (isHome) {
-    expectedGoals += 0.15;
-  } else {
-    expectedGoals -= 0.05;
+  /*
+    Mando geral da partida.
+
+    Fase de liga e mata-mata:
+    - time da casa recebe vantagem;
+    - time visitante recebe pequena redução.
+
+    Final:
+    - jogo único em campo neutro;
+    - não aplica vantagem de casa nem redução de visitante.
+  */
+  if (matchStageType !== "final") {
+    if (isHome) {
+      expectedGoals += 0.15;
+    } else {
+      expectedGoals -= 0.05;
+    }
   }
 
   /* Estilo do time que ataca */
@@ -292,29 +489,82 @@ function calculateExpectedGoals(attackingTeam, defendingTeam, isHome) {
   /* Formação do time que ataca */
   expectedGoals += getFormationAttackModifier(attackingTeam);
 
-    /* Formação do time que defende */
+  /* Formação do time que defende */
   expectedGoals += getFormationDefenseExposureModifier(defendingTeam);
 
   /*
-    BÔNUS LEVE DO DRAFT
+    Multiplicador do bônus do DRAFT.
 
-    Quando o DRAFT ataca:
-    - aumenta um pouco o xG do DRAFT.
+    Liga:
+    - usa 100% do bônus.
 
-    Quando o DRAFT defende:
-    - reduz um pouco o xG do adversário.
+    Mata-mata:
+    - usa bônus reduzido.
 
-    Isso deixa o campeonato mais vencível, mas ainda mantém risco:
-    - o Poisson continua podendo gerar derrota;
-    - adversários fortes continuam perigosos;
-    - mata-mata ainda tem variância.
+    Final:
+    - não usa esse multiplicador,
+      porque a final tem bônus fixo próprio.
+  */
+  const draftBonusMultiplier = matchStageType === "knockout"
+    ? DRAFT_KNOCKOUT_BONUS_MULTIPLIER
+    : 1;
+
+  /*
+    BÔNUS OFENSIVO DO DRAFT
+
+    Final:
+    - aplica apenas o bônus fixo da final;
+    - não usa casa/fora.
+
+    Liga e mata-mata:
+    - aplica bônus base;
+    - aplica bônus de casa ou fora;
+    - no mata-mata esses bônus são reduzidos.
   */
   if (attackingTeam?.id === USER_DRAFT_TEAM_ID) {
-    expectedGoals += DRAFT_ATTACK_XG_BONUS;
+    if (matchStageType === "final") {
+      expectedGoals += DRAFT_FINAL_ATTACK_BONUS;
+    } else {
+      expectedGoals += DRAFT_ATTACK_XG_BONUS * draftBonusMultiplier;
+
+      if (isHome) {
+        expectedGoals += DRAFT_HOME_ATTACK_BONUS * draftBonusMultiplier;
+      } else {
+        expectedGoals += DRAFT_AWAY_ATTACK_BONUS * draftBonusMultiplier;
+      }
+    }
   }
 
+  /*
+    BÔNUS DEFENSIVO DO DRAFT
+
+    Final:
+    - reduz apenas o valor fixo da final no xG do adversário;
+    - não usa casa/fora.
+
+    Liga e mata-mata:
+    - reduz o xG do adversário com bônus base;
+    - aplica redução defensiva de casa ou fora;
+    - no mata-mata esses bônus são reduzidos.
+
+    Importante:
+    isHome pertence ao time que está atacando.
+    Então:
+    - se o adversário ataca em casa, o DRAFT está fora;
+    - se o adversário ataca fora, o DRAFT está em casa.
+  */
   if (defendingTeam?.id === USER_DRAFT_TEAM_ID) {
-    expectedGoals -= DRAFT_DEFENSE_XG_REDUCTION;
+    if (matchStageType === "final") {
+      expectedGoals -= DRAFT_FINAL_DEFENSE_REDUCTION;
+    } else {
+      expectedGoals -= DRAFT_DEFENSE_XG_REDUCTION * draftBonusMultiplier;
+
+      if (isHome) {
+        expectedGoals -= DRAFT_AWAY_DEFENSE_BONUS * draftBonusMultiplier;
+      } else {
+        expectedGoals -= DRAFT_HOME_DEFENSE_BONUS * draftBonusMultiplier;
+      }
+    }
   }
 
   return clampNumber(expectedGoals, 0.25, 3.4);
@@ -341,13 +591,25 @@ function poissonRandom(lambda) {
 
 /* ===================================================== */
 /* GERA QUANTIDADE DE GOLS DE UM TIME */
+/*
+  Converte o xG calculado em quantidade real de gols.
+
+  Agora também recebe o objeto da partida.
+  Isso permite que calculateExpectedGoals saiba se o jogo é:
+  - fase de liga;
+  - mata-mata;
+  - final.
+
+  Assim o bônus do DRAFT muda conforme a fase.
+*/
 /* ===================================================== */
 
-function generateTeamGoals(attackingTeam, defendingTeam, isHome) {
+function generateTeamGoals(attackingTeam, defendingTeam, isHome, match = null) {
   const expectedGoals = calculateExpectedGoals(
     attackingTeam,
     defendingTeam,
-    isHome
+    isHome,
+    match
   );
 
   const goals = poissonRandom(expectedGoals);
@@ -514,9 +776,9 @@ function generateMatchEvents(match) {
 
   const homeTeam = match.homeTeam;
   const awayTeam = match.awayTeam;
-
-  const homeExpectedGoals = generateTeamGoals(homeTeam, awayTeam, true);
-  const awayExpectedGoals = generateTeamGoals(awayTeam, homeTeam, false);
+  
+const homeExpectedGoals = generateTeamGoals(homeTeam, awayTeam, true, match);
+const awayExpectedGoals = generateTeamGoals(awayTeam, homeTeam, false, match);
 
   const totalGoals = homeExpectedGoals + awayExpectedGoals;
 
@@ -702,14 +964,29 @@ function runCampaignMatchClock(matchIndex) {
       currentTick,
       currentMatch.addedTime
     );
+revealEventsForTick(currentMatch, currentTick);
 
-    revealEventsForTick(currentMatch, currentTick);
+renderCampaignPage();
 
-    renderCampaignPage();
+if (currentTick >= totalTicks) {
+  if (activeMatchTimer) {
+    clearInterval(activeMatchTimer);
+    activeMatchTimer = null;
+  }
 
-    if (currentTick >= totalTicks) {
-      finishCampaignMatch(matchIndex);
-    }
+  if (currentMatch.isWaitingFinalDelay) {
+    return;
+  }
+
+  currentMatch.isWaitingFinalDelay = true;
+
+  setTimeout(() => {
+    currentMatch.isWaitingFinalDelay = false;
+    finishCampaignMatch(matchIndex);
+  }, MATCH_END_DELAY);
+
+  return;
+}
   }, tickInterval);
 }
 

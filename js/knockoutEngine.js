@@ -18,7 +18,8 @@
   - cronômetro da fase de liga;
   - classificação geral.
 */
-
+const PENALTY_END_DELAY = 1200;
+const KNOCKOUT_END_DELAY = 1200;
 /* ===================================================== */
 /* ORDEM DAS FASES DO MATA-MATA */
 /* ===================================================== */
@@ -482,6 +483,20 @@ if (typeof applyKnockoutMatchBoost === "function") {
 
 /* ===================================================== */
 /* RODA O CRONÔMETRO DO JOGO DO MATA-MATA */
+/*
+  Delay curto no último minuto/acréscimo.
+
+  Serve para:
+  - ida;
+  - volta;
+  - final em jogo único.
+
+  A ideia é:
+  - revelar gols do último tick;
+  - renderizar a tela;
+  - esperar 1,5 segundo;
+  - finalizar o jogo normalmente.
+*/
 /* ===================================================== */
 
 function runKnockoutLegClock(legIndex) {
@@ -510,15 +525,36 @@ function runKnockoutLegClock(legIndex) {
 
     revealKnockoutEventsForTick(currentLeg, currentLeg.currentTick);
 
+    /*
+      Renderiza antes de finalizar.
+      Assim o último minuto/acréscimo aparece na tela.
+    */
+    renderKnockoutPage();
+
     if (currentLeg.currentTick >= currentLeg.totalTicks) {
-      finishKnockoutLeg(legIndex);
+      if (activeKnockoutTimer) {
+        clearInterval(activeKnockoutTimer);
+        activeKnockoutTimer = null;
+      }
+
+      /*
+        Evita chamar o fim do jogo duas vezes durante o delay.
+      */
+      if (currentLeg.isWaitingFinalDelay) {
+        return;
+      }
+
+      currentLeg.isWaitingFinalDelay = true;
+
+      setTimeout(() => {
+        currentLeg.isWaitingFinalDelay = false;
+        finishKnockoutLeg(legIndex);
+      }, KNOCKOUT_END_DELAY);
+
       return;
     }
-
-    renderKnockoutPage();
   }, tickInterval);
 }
-
 /* ===================================================== */
 /* MOSTRA GOLS DO MATA-MATA NO MOMENTO CERTO */
 /* ===================================================== */
@@ -933,9 +969,18 @@ function startPenaltyShootout() {
   renderKnockoutPage();
   runPenaltyShootout();
 }
-
 /* ===================================================== */
 /* RODA PÊNALTIS AO VIVO */
+/*
+  Executa uma cobrança por vez.
+
+  Ajuste importante:
+  - Quando sair o pênalti decisivo, primeiro renderiza a tela;
+  - espera um pequeno delay;
+  - só depois finaliza o confronto.
+
+  Isso permite o jogador ver o último pênalti da vitória/eliminação.
+*/
 /* ===================================================== */
 
 function runPenaltyShootout() {
@@ -945,14 +990,14 @@ function runPenaltyShootout() {
     return;
   }
 
-const speedMode = state.campaign.speedMode || "normal";
+  const speedMode = state.campaign.speedMode || "normal";
 
-/*
-  Tempo dos pênaltis:
-  - normal: mais cadenciado
-  - rápido: ainda acelera, mas sem ficar instantâneo
-*/
-const interval = speedMode === "fast" ? 1500 : 2300;
+  /*
+    Tempo dos pênaltis:
+    - normal: mais cadenciado
+    - rápido: ainda acelera, mas sem ficar instantâneo
+  */
+  const interval = speedMode === "fast" ? 1500 : 2300;
 
   activePenaltyTimer = setInterval(() => {
     const tie = getCurrentKnockoutTie();
@@ -965,18 +1010,34 @@ const interval = speedMode === "fast" ? 1500 : 2300;
 
     executeNextPenaltyKick(tie);
 
-    if (tie.penalties.status === "finished") {
-      finishPenaltyShootout(tie);
+    /*
+      Renderiza sempre depois da cobrança.
+      Isso garante que o último pênalti apareça na tela antes de fechar.
+    */
+    renderKnockoutPage();
 
+    if (tie.penalties.status === "finished") {
       clearInterval(activePenaltyTimer);
       activePenaltyTimer = null;
+
+      /*
+        Evita finalizar duas vezes caso algum clique/timer tente rodar de novo.
+      */
+      if (tie.penalties.isWaitingFinalDelay) {
+        return;
+      }
+
+      tie.penalties.isWaitingFinalDelay = true;
+
+      setTimeout(() => {
+        tie.penalties.isWaitingFinalDelay = false;
+        finishPenaltyShootout(tie);
+      }, PENALTY_END_DELAY);
+
       return;
     }
-
-    renderKnockoutPage();
   }, interval);
 }
-
 /* ===================================================== */
 /* EXECUTA A PRÓXIMA COBRANÇA */
 /* Ordem fixa:

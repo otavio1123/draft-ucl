@@ -700,7 +700,17 @@ function renderDrawnTeam(team) {
 
 /* ===================================================== */
 /* MOSTRA OS JOGADORES DO TIME SORTEADO */
-/* Aceita lista normal ou lista ordenada */
+/*
+  Aceita lista normal ou lista ordenada.
+
+  Regras:
+  - Se receber customPlayers, mostra essa lista direto.
+  - Se NÃO receber customPlayers, busca os jogadores disponíveis.
+  - Mantém a ordenação escolhida pelo usuário.
+  - Só volta ao padrão quando:
+    1. clicar no botão PADRÃO;
+    2. rolar o dado novamente.
+*/
 /* ===================================================== */
 
 function renderPlayersList(team, customPlayers = null) {
@@ -711,15 +721,23 @@ function renderPlayersList(team, customPlayers = null) {
 
   state.currentRoundTeam = team;
 
-  const players = customPlayers || getAvailablePlayersFromTeam(team);
+  const basePlayers = customPlayers || getAvailablePlayersFromTeam(team);
 
   /*
     Guarda a ordem original da rodada.
-    Só atualiza quando NÃO for lista ordenada.
+    Só atualiza quando NÃO for lista ordenada manualmente.
   */
   if (!customPlayers) {
-    state.currentRoundPlayers = [...players];
+    state.currentRoundPlayers = [...basePlayers];
   }
+
+  /*
+    Se veio uma lista customizada, usa ela.
+    Se não veio, aplica a ordenação atual salva no gameState.
+  */
+  const players = customPlayers
+    ? customPlayers
+    : applyCurrentPlayerSort(basePlayers);
 
   if (players.length === 0) {
     playersList.innerHTML = `
@@ -765,9 +783,70 @@ function renderPlayersList(team, customPlayers = null) {
     playersList.appendChild(playerButton);
   });
 }
+/* ===================================================== */
+/* ORDENA JOGADORES DO DRAFT */
+/*
+  Mantém a ordenação escolhida pelo usuário.
 
+  Regras:
+  - "default": ordem original do time sorteado;
+  - "rating-desc": maior overall primeiro;
+  - "rating-asc": menor overall primeiro;
+  - "name-asc": ordem alfabética.
+
+  Importante:
+  Não altera o array original.
+  Sempre cria uma cópia com [...players].
+*/
+/* ===================================================== */
+
+function sortDraftPlayers(players, sortType) {
+  const sortedPlayers = [...players];
+
+  if (sortType === "rating-desc") {
+    sortedPlayers.sort((a, b) => b.rating - a.rating);
+  }
+
+  if (sortType === "rating-asc") {
+    sortedPlayers.sort((a, b) => a.rating - b.rating);
+  }
+
+  if (sortType === "name-asc") {
+    sortedPlayers.sort((a, b) => {
+      return a.name.localeCompare(b.name, "pt-BR");
+    });
+  }
+
+  return sortedPlayers;
+}
+
+function getCurrentPlayerSortType() {
+  const state = window.gameState;
+
+  return state?.currentPlayerSortType || "default";
+}
+
+function applyCurrentPlayerSort(players) {
+  const sortType = getCurrentPlayerSortType();
+
+  if (sortType === "default") {
+    return [...players];
+  }
+
+  return sortDraftPlayers(players, sortType);
+}
 /* ===================================================== */
 /* BOTÕES DE ORDENAR JOGADORES */
+/*
+  Salva a ordenação escolhida no gameState.
+
+  Assim, se o jogador clicar em um atleta e a lista renderizar de novo,
+  a ordenação continua a mesma.
+
+  Só volta para "default" quando:
+  - clicar no botão PADRÃO;
+  - rolar o dado novamente.
+*/
 /* ===================================================== */
 
 function setupSortButtons() {
@@ -778,30 +857,20 @@ function setupSortButtons() {
       const sortType = button.dataset.sort;
       const state = window.gameState;
 
+      if (!state) return;
+
       const team = state.currentRoundTeam;
 
       if (!team) return;
 
+      /*
+        Guarda a ordenação escolhida.
+        Isso impede voltar ao padrão depois de selecionar jogador.
+      */
+      state.currentPlayerSortType = sortType;
+
       const originalPlayers = state.currentRoundPlayers || [];
-      let sortedPlayers = [...originalPlayers];
-
-      if (sortType === "rating-desc") {
-        sortedPlayers.sort((a, b) => b.rating - a.rating);
-      }
-
-      if (sortType === "rating-asc") {
-        sortedPlayers.sort((a, b) => a.rating - b.rating);
-      }
-
-      if (sortType === "name-asc") {
-        sortedPlayers.sort((a, b) => {
-          return a.name.localeCompare(b.name, "pt-BR");
-        });
-      }
-
-      if (sortType === "default") {
-        sortedPlayers = [...originalPlayers];
-      }
+      const sortedPlayers = applyCurrentPlayerSort(originalPlayers);
 
       renderPlayersList(team, sortedPlayers);
     });

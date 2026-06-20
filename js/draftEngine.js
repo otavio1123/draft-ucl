@@ -73,7 +73,106 @@ function rememberDraftClub(team) {
     recentClubs.shift();
   }
 }
+/* ===================================================== */
+/* PESO DE SORTEIO POR FORÇA DO TIME */
+/*
+  Deixa o Draft mais difícil.
 
+  A lógica olha o maior rating disponível do time.
+  Isso é melhor do que olhar apenas o elenco completo, porque:
+  - se o jogador 99 já foi usado;
+  - ou não encaixa em nenhuma vaga livre;
+  o time não precisa continuar sendo tão penalizado.
+
+  A partir de jogador 95 disponível, o time já fica mais raro.
+  Times com jogador 99 ainda podem sair, mas ficam bem mais raros.
+*/
+/* ===================================================== */
+
+function getTeamHighestAvailablePlayerRating(team) {
+  const availablePlayers = getAvailablePlayersFromTeam(team);
+
+  if (!Array.isArray(availablePlayers) || availablePlayers.length === 0) {
+    return 0;
+  }
+
+  return availablePlayers.reduce((highestRating, player) => {
+    return Math.max(highestRating, player.rating || 0);
+  }, 0);
+}
+
+function getDraftTeamDrawWeight(team) {
+  const highestRating = getTeamHighestAvailablePlayerRating(team);
+  const teamPower = team?.finalPower || team?.teamOverall || 85;
+
+  let weight = 1;
+
+  /*
+    Peso pelo melhor jogador disponível.
+    A partir de 95 já fica raro.
+
+    Quanto menor o peso, menor a chance do time sair.
+  */
+  if (highestRating >= 99) {
+    weight *= 0.25;
+  } else if (highestRating >= 98) {
+    weight *= 0.35;
+  } else if (highestRating >= 97) {
+    weight *= 0.45;
+  } else if (highestRating >= 96) {
+    weight *= 0.55;
+  } else if (highestRating >= 95) {
+    weight *= 0.65;
+  }
+
+  /*
+    Peso pela força geral do time.
+    Times muito fortes também ficam um pouco mais raros.
+  */
+  if (teamPower >= 92) {
+    weight *= 0.80;
+  } else if (teamPower >= 89) {
+    weight *= 0.92;
+  } else if (teamPower <= 84) {
+    weight *= 1.12;
+  }
+
+  /*
+    Segurança:
+    nunca deixa o peso zerar.
+    O time raro ainda pode aparecer, só fica mais difícil.
+  */
+  return Math.max(0.10, Math.min(weight, 1.25));
+}
+
+function pickWeightedDraftTeam(teams) {
+  if (!Array.isArray(teams) || teams.length === 0) {
+    return null;
+  }
+
+  const weightedTeams = teams.map((team) => {
+    return {
+      team: team,
+      weight: getDraftTeamDrawWeight(team)
+    };
+  });
+
+  const totalWeight = weightedTeams.reduce((total, item) => {
+    return total + item.weight;
+  }, 0);
+
+  let randomWeight = Math.random() * totalWeight;
+
+  for (const item of weightedTeams) {
+    randomWeight -= item.weight;
+
+    if (randomWeight <= 0) {
+      return item.team;
+    }
+  }
+
+  return weightedTeams[weightedTeams.length - 1].team;
+}
 function pickTeamAvoidingRecentClubs(teams) {
   if (!Array.isArray(teams) || teams.length === 0) {
     return null;
@@ -97,18 +196,41 @@ function pickTeamAvoidingRecentClubs(teams) {
   */
   const finalPool = filteredTeams.length > 0 ? filteredTeams : teams;
 
-  const randomIndex = Math.floor(Math.random() * finalPool.length);
-
-  return finalPool[randomIndex];
+  /*
+    Sorteio com peso:
+    - mantém o anti-repetição de clube;
+    - reduz a chance de times com jogadores 95+;
+    - deixa o Draft mais difícil sem remover nenhum time.
+  */
+  return pickWeightedDraftTeam(finalPool);
 }
+/* ===================================================== */
+/* RETORNA TIMES QUE AINDA TÊM JOGADORES ÚTEIS */
+/*
+  Usa a database completa e remove times que não possuem
+  nenhum jogador disponível para entrar no campo.
+*/
+/* ===================================================== */
 
+function getAvailableTeamsForDraft() {
+  const database = window.teamsDatabase || [];
+
+  return database.filter((team) => {
+    const availablePlayers = getAvailablePlayersFromTeam(team);
+
+    return availablePlayers.length > 0;
+  });
+}
 /* ===================================================== */
 /* SORTEIA UM TIME VÁLIDO */
 /* Só sorteia times que ainda tenham pelo menos */
 /* 1 jogador disponível para entrar no campo */
 /*
-  Agora também evita repetir o mesmo clube em sequência,
+  Também evita repetir o mesmo clube em sequência,
   mesmo que seja de outra temporada.
+
+  Quando rolar o dado novamente, a lista de jogadores
+  volta para a ordenação padrão.
 */
 /* ===================================================== */
 
@@ -130,21 +252,9 @@ function drawRandomTeam() {
   rememberDraftClub(team);
 
   window.gameState.currentDrawnTeam = team;
+  window.gameState.currentPlayerSortType = "default";
 
   return team;
-}
-/* ===================================================== */
-/* RETORNA TIMES QUE AINDA TÊM JOGADORES ÚTEIS */
-/* ===================================================== */
-
-function getAvailableTeamsForDraft() {
-  const database = window.teamsDatabase || [];
-
-  return database.filter((team) => {
-    const availablePlayers = getAvailablePlayersFromTeam(team);
-
-    return availablePlayers.length > 0;
-  });
 }
 
 /* ===================================================== */
