@@ -322,31 +322,37 @@ if (style === "Ofensivo") {
   setSlot(layout[mids[3]], "MD", "MD", 82, 40);
 }
 }
-
 function apply4231Style(layout, style) {
   const mids = getIndexesByCodes(layout, ["MEI", "VOL", "VOL"]);
 
   if (style === "Defensivo") {
     /*
       4-2-3-1 Defensivo:
-      - 2 VOL
+      - 2 VOL lado a lado
       - 1 MC central no lugar do MEI
+
+      Importante:
+      A formação base tem MEI + VOL + VOL.
+      Por isso buscamos ["MEI", "VOL", "VOL"].
     */
     setSlot(layout[mids[0]], "MC", "MC", 50, 40);
-    setSlot(layout[mids[1]], "VOL", "VOL", 37, 53);
-    setSlot(layout[mids[2]], "VOL", "VOL", 63, 53);
+    setSlot(layout[mids[1]], "VOL", "VOL", 36, 54);
+    setSlot(layout[mids[2]], "VOL", "VOL", 64, 54);
   }
 
   if (style === "Ofensivo") {
     /*
       4-2-3-1 Ofensivo:
-      - 1 MEI
-      - 1 MC
-      - 1 VOL
+      - 1 MEI mais avançado
+      - 1 MC pela esquerda
+      - 1 VOL pela direita
+
+      Ajuste:
+      MC e VOL ficam lado a lado na mesma linha.
     */
     setSlot(layout[mids[0]], "MEI", "MEI", 50, 36);
-    setSlot(layout[mids[1]], "MC", "MC", 37, 53);
-    setSlot(layout[mids[2]], "VOL", "VOL", 63, 53);
+    setSlot(layout[mids[1]], "MC", "MC", 36, 54);
+    setSlot(layout[mids[2]], "VOL", "VOL", 64, 54);
   }
 }
 /* ===================================================== */
@@ -873,25 +879,26 @@ if (key === "4-2-3-1|defensivo") {
   4-2-3-1 Ofensivo
   Ajuste mobile:
   - mantém o MEI central mais avançado;
-  - abre melhor o MEI de apoio e o MC;
-  - evita sobreposição quando os jogadores forem escalados.
+  - coloca MC e VOL lado a lado;
+  - evita sobreposição em telas menores.
 */
 if (key === "4-2-3-1|ofensivo") {
-  const meis = getSlotsByCode("MEI");
+  const mei = getSlotsByCode("MEI")[0];
   const mc = getSlotsByCode("MC")[0];
+  const vol = getSlotsByCode("VOL")[0];
 
   /*
     MEI central:
     fica no centro e mais avançado.
   */
-  setMobileSlot(meis[0], 50, 38);
+  setMobileSlot(mei, 50, 38);
 
   /*
     Segunda linha do meio:
-    abre mais o MEI e o MC.
+    MC e VOL ficam lado a lado.
   */
-  setMobileSlot(meis[1], 34, 52);
-  setMobileSlot(mc, 66, 52);
+  setMobileSlot(mc, 35, 54);
+  setMobileSlot(vol, 65, 54);
 }
 /*
   3-5-2 Defensivo
