@@ -190,7 +190,24 @@ const acceptedMap = {
 
   ALA: ["ALA", "LD", "LE", "MD", "ME", "PD", "PE"]
 };
+/* ===================================================== */
+/* DETECTA TELA MOBILE PARA AJUSTE DE FORMAÇÃO */
+/*
+  Segurança:
+  - se o render usar buildMobileLayout(), tudo continua funcionando;
+  - se o render usar buildLayout() direto no celular, o ajuste mobile também aplica.
 
+  Isso evita diferença entre DevTools e celular real.
+*/
+/* ===================================================== */
+
+function isMobileFormationViewport() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return window.matchMedia("(max-width: 768px)").matches;
+}
 /* ===================================================== */
 /* CRIA O LAYOUT DA FORMAÇÃO */
 /* Recebe formação + estilo e devolve os 11 slots prontos */
@@ -210,12 +227,23 @@ function buildLayout(formation = "4-3-3", style = "Equilibrado") {
 
   applyStyleToLayout(layout, formation, style);
 
-  // Ajusta espaçamento das formações que não são 4-3-3.
-  // Isso vale também para Defensivo, Equilibrado e Ofensivo.
+  /*
+    Ajusta espaçamento das formações que não são 4-3-3.
+    Isso vale também para Defensivo, Equilibrado e Ofensivo.
+  */
   adjustNon433LayoutSpacing(layout, formation);
 
-  return layout;}
+  /*
+    Correção importante:
+    se o campo estiver sendo montado em celular, aplica os ajustes mobile
+    mesmo que alguma parte do render tenha chamado buildLayout() direto.
+  */
+  if (isMobileFormationViewport()) {
+    applyMobileLayoutFineTuning(layout, formation, style);
+  }
 
+  return layout;
+}
 /* ===================================================== */
 /* APLICA VARIAÇÕES DE ESTILO */
 /*
