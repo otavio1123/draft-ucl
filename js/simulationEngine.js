@@ -45,8 +45,10 @@ const USER_DRAFT_TEAM_ID = "draft_user_team";
   Defesa:
   - reduz um pouco o xG do adversário quando ele ataca contra o DRAFT.
 
-  Esses valores são usados completos na fase de liga.
-  No mata-mata serão reduzidos por multiplicador.
+  Ajuste atual:
+  - mantém o bônus base controlado;
+  - evita deixar o DRAFT forte demais em todos os jogos;
+  - a dificuldade fina fica concentrada em liga, mata-mata e final.
 */
 /* ===================================================== */
 
@@ -57,26 +59,28 @@ const DRAFT_DEFENSE_XG_REDUCTION = 0.10;
 /* ===================================================== */
 /* BÔNUS DE MANDO DO DRAFT NA FASE DE LIGA */
 /*
-  Usado principalmente na fase de liga.
+  Controla a ajuda extra do DRAFT em jogos com mando.
 
   Ataque:
-  - em casa o DRAFT recebe ajuda maior;
-  - fora de casa recebe ajuda menor.
+  - em casa o DRAFT recebe uma ajuda maior;
+  - fora de casa recebe uma ajuda menor.
 
   Defesa:
   - em casa o DRAFT protege melhor;
-  - fora de casa protege um pouco menos.
+  - fora de casa protege menos.
 
-  No mata-mata esses bônus também existem,
-  mas serão reduzidos para deixar a fase eliminatória mais difícil.
+  Ajuste atual:
+  - reduz um pouco a vantagem da fase de liga;
+  - deixa a liga mais disputada;
+  - evita que o DRAFT faça campanha fácil demais antes do mata-mata.
 */
 /* ===================================================== */
 
-const DRAFT_HOME_ATTACK_BONUS = 0.10;
-const DRAFT_AWAY_ATTACK_BONUS = 0.05;
+const DRAFT_HOME_ATTACK_BONUS = 0.075;
+const DRAFT_AWAY_ATTACK_BONUS = 0.030;
 
-const DRAFT_HOME_DEFENSE_BONUS = 0.07;
-const DRAFT_AWAY_DEFENSE_BONUS = 0.05;
+const DRAFT_HOME_DEFENSE_BONUS = 0.050;
+const DRAFT_AWAY_DEFENSE_BONUS = 0.025;
 
 
 /* ===================================================== */
@@ -84,15 +88,20 @@ const DRAFT_AWAY_DEFENSE_BONUS = 0.05;
 /*
   A fase de liga usa 100% dos bônus acima.
 
-  O mata-mata usa só parte desse bônus.
-  Isso deixa playoffs, oitavas, quartas e semifinal mais difíceis.
+  O mata-mata usa apenas uma parte desses bônus.
+  Isso mantém playoffs, oitavas, quartas e semifinal mais difíceis.
 
   Exemplo:
-  0.45 = usa 45% do bônus normal.
+  0.64 = usa 64% do bônus normal.
+
+  Ajuste atual:
+  - 0.58 ficou melhor, mas ainda um pouco pesado;
+  - 0.64 deixa o mata-mata um pouco mais jogável;
+  - como os bônus da liga foram reduzidos, 0.64 não fica apelão.
 */
 /* ===================================================== */
 
-const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.75;
+const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.64;
 
 
 /* ===================================================== */
@@ -104,22 +113,23 @@ const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.75;
   - não usa bônus de casa;
   - não usa bônus de fora;
   - não usa o bônus cheio da liga;
-  - recebe apenas uma ajuda mínima.
+  - recebe apenas uma ajuda fixa menor.
 
   Ataque:
-  - DRAFT ganha +0.045 xG na final.
+  - DRAFT ganha +0.065 xG na final.
 
   Defesa:
-  - adversário perde 0.045 xG quando ataca contra o DRAFT.
+  - adversário perde 0.060 xG quando ataca contra o DRAFT.
 
-  Isso mantém a final pesada, mas sem zerar totalmente a ajuda do usuário.
+  Ajuste atual:
+  - mantém a final difícil;
+  - evita final impossível;
+  - não deixa a decisão fácil demais.
 */
 /* ===================================================== */
 
-const DRAFT_FINAL_ATTACK_BONUS = 0.085;
-const DRAFT_FINAL_DEFENSE_REDUCTION = 0.085;
-
-
+const DRAFT_FINAL_ATTACK_BONUS = 0.065;
+const DRAFT_FINAL_DEFENSE_REDUCTION = 0.060;
 /* ===================================================== */
 /* DELAY DO FIM DA PARTIDA */
 /*
