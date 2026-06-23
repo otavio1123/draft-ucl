@@ -72,11 +72,11 @@ const DRAFT_DEFENSE_XG_REDUCTION = 0.10;
 */
 /* ===================================================== */
 
-const DRAFT_HOME_ATTACK_BONUS = 0.08;
-const DRAFT_AWAY_ATTACK_BONUS = 0.03;
+const DRAFT_HOME_ATTACK_BONUS = 0.10;
+const DRAFT_AWAY_ATTACK_BONUS = 0.05;
 
-const DRAFT_HOME_DEFENSE_BONUS = 0.06;
-const DRAFT_AWAY_DEFENSE_BONUS = 0.02;
+const DRAFT_HOME_DEFENSE_BONUS = 0.07;
+const DRAFT_AWAY_DEFENSE_BONUS = 0.05;
 
 
 /* ===================================================== */
@@ -92,7 +92,7 @@ const DRAFT_AWAY_DEFENSE_BONUS = 0.02;
 */
 /* ===================================================== */
 
-const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.65;
+const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.75;
 
 
 /* ===================================================== */
@@ -116,8 +116,8 @@ const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.65;
 */
 /* ===================================================== */
 
-const DRAFT_FINAL_ATTACK_BONUS = 0.075;
-const DRAFT_FINAL_DEFENSE_REDUCTION = 0.065;
+const DRAFT_FINAL_ATTACK_BONUS = 0.085;
+const DRAFT_FINAL_DEFENSE_REDUCTION = 0.085;
 
 
 /* ===================================================== */
