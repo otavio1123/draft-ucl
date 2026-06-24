@@ -4085,8 +4085,8 @@ const championTeams = [
 },
 
 {
-  id: "psv_1987_1988",
-  club: "PSV",
+  id: "psv_eindhoven_1987_1988",
+  club: "PSV Eindhoven",
   season: "1987/1988",
   type: "Campeão histórico",
   categoryType: "champion",
