@@ -1161,9 +1161,17 @@ function renderKnockoutResultCard(tie) {
 
         ${penaltyInfo}
 
-        <button class="${buttonClass}" ${buttonData} type="button">
-          ${buttonText}
-        </button>
+<div class="knockout-result-actions">
+  ${tie.stage === "final" ? `
+    <button class="knockout-repeat-team-btn" type="button">
+      REPETIR TIME
+    </button>
+  ` : ""}
+
+  <button class="${buttonClass}" ${buttonData} type="button">
+    ${buttonText}
+  </button>
+</div>
       </section>
     `;
   }
@@ -1202,15 +1210,19 @@ if (tie.stage === "final") {
 
       ${penaltyInfo}
 
-      <div class="knockout-result-actions">
-        <button class="knockout-replay-btn" type="button" onclick="location.reload()">
-          JOGAR NOVAMENTE
-        </button>
+<div class="knockout-result-actions">
+  <button class="knockout-replay-btn" type="button" onclick="location.reload()">
+    JOGAR NOVAMENTE
+  </button>
 
-        <button class="knockout-card-btn" type="button">
-          VER MEU CARD
-        </button>
-      </div>
+  <button class="knockout-repeat-team-btn" type="button">
+    REPETIR TIME
+  </button>
+
+  <button class="knockout-card-btn" type="button">
+    VER MEU CARD
+  </button>
+</div>
     </section>
   `;
 }
@@ -1388,6 +1400,7 @@ function setupKnockoutButtons() {
   setupKnockoutCardButton();
   setupStartPenaltiesButton();
 setupAdvanceKnockoutButton();
+setupRepeatTeamButton();
 
   const buttons = document.querySelectorAll(".knockout-reveal-btn");
 
@@ -1402,6 +1415,107 @@ setupAdvanceKnockoutButton();
 
       window.startKnockoutLeg(legIndex);
     });
+  });
+}
+
+/* ===================================================== */
+/* REPETIR TIME NA CAMPANHA */
+/*
+  Reinicia a Champions usando o mesmo elenco montado no Draft.
+
+  Regras:
+  - mantém o time atual do usuário;
+  - mantém formação e estilo;
+  - mantém jogadores escolhidos;
+  - reinicia a velocidade da nova campanha em NORMAL;
+  - apaga a campanha antiga;
+  - sorteia uma nova fase de liga;
+  - volta para a campanha do zero.
+
+  Importante:
+  - não recarrega a página;
+  - não apaga o Draft;
+  - não altera database;
+  - não altera jogadores;
+  - não altera formação;
+  - não altera estilo.
+*/
+/* ===================================================== */
+function restartCampaignWithCurrentTeam() {
+  const state = window.gameState;
+
+  if (!state || !state.userTeam) {
+    alert("Não foi possível repetir o time. O elenco do Draft não foi encontrado.");
+    return;
+  }
+
+  /*
+    Segurança:
+    apaga somente a competição atual.
+    O time montado fica preservado em state.userTeam.
+  */
+  state.campaign = null;
+
+  if (typeof startLeagueCampaign !== "function") {
+    alert("Motor da campanha não carregado.");
+    return;
+  }
+
+  const newCampaign = startLeagueCampaign();
+
+  if (!newCampaign) {
+    alert("Não foi possível criar uma nova campanha com este time.");
+    return;
+  }
+
+  /*
+    Segurança:
+    ao repetir o time, a nova campanha sempre começa em modo normal.
+
+    Isso evita bug visual onde a tela mostra "RÁPIDO",
+    mas o motor da partida roda em velocidade normal.
+  */
+  if (typeof setCampaignSpeedMode === "function") {
+    setCampaignSpeedMode("normal");
+  } else {
+    state.campaign.speedMode = "normal";
+  }
+
+  const draftPage = document.getElementById("draftPage");
+  const campaignPage = getCampaignPageElement();
+
+  if (draftPage) {
+    draftPage.classList.add("hidden");
+  }
+
+  if (campaignPage) {
+    campaignPage.classList.remove("hidden");
+  }
+
+  renderCampaignPage();
+}
+
+/* ===================================================== */
+/* BOTÃO REPETIR TIME */
+/*
+  Aparece na tela de eliminado do mata-mata.
+
+  Ao clicar:
+  - reaproveita o elenco atual;
+  - reinicia a fase de liga;
+  - sorteia nova campanha.
+*/
+/* ===================================================== */
+
+function setupRepeatTeamButton() {
+  const button = document.querySelector(".knockout-repeat-team-btn");
+
+  if (!button) {
+    return;
+  }
+
+  button.addEventListener("click", () => {
+    restartCampaignWithCurrentTeam();
   });
 }
 /* ===================================================== */
@@ -1831,23 +1945,27 @@ function renderCampaignCardPage() {
           </div>
         </section>
       </div>
+<div class="campaign-card-actions">
+  <button class="campaign-card-games-btn" type="button">
+    VER JOGOS DA CAMPANHA
+  </button>
 
-      <div class="campaign-card-actions">
-        <button class="campaign-card-games-btn" type="button">
-          VER JOGOS DA CAMPANHA
-        </button>
+  <button
+    class="campaign-card-share-btn ${isChampion ? "champion" : ""}"
+    id="shareImageButton"
+    type="button"
+  >
+    COMPARTILHAR CARD
+  </button>
 
-<button
-  class="campaign-card-share-btn ${isChampion ? "champion" : ""}"
-  id="shareImageButton"
-  type="button"
->
-  COMPARTILHAR CARD
-</button>
-        <button class="campaign-card-replay-btn" type="button" onclick="location.reload()">
-          JOGAR NOVAMENTE
-        </button>
-      </div>
+  <button class="campaign-card-repeat-team-btn" type="button">
+    REPETIR TIME
+  </button>
+
+  <button class="campaign-card-replay-btn" type="button" onclick="location.reload()">
+    JOGAR NOVAMENTE
+  </button>
+</div>
     </section>
   `;
 
@@ -1891,6 +2009,14 @@ function setupCampaignCardPageButtons() {
   if (gamesButton) {
     gamesButton.addEventListener("click", () => {
       renderCampaignGamesPage();
+    });
+  }
+
+  const repeatTeamButton = document.querySelector(".campaign-card-repeat-team-btn");
+
+  if (repeatTeamButton) {
+    repeatTeamButton.addEventListener("click", () => {
+      restartCampaignWithCurrentTeam();
     });
   }
 }
@@ -2076,9 +2202,13 @@ function renderCampaignGamesPage() {
           COMPARTILHAR CAMPANHA
         </button>
 
-        <button class="campaign-games-replay-btn" type="button" onclick="location.reload()">
-          JOGAR NOVAMENTE
-        </button>
+ <button class="campaign-games-repeat-team-btn" type="button">
+  REPETIR TIME
+</button>
+
+<button class="campaign-games-replay-btn" type="button" onclick="location.reload()">
+  JOGAR NOVAMENTE
+</button>
       </div>
     </section>
   `;
@@ -2107,6 +2237,14 @@ function setupCampaignGamesPageButtons() {
   if (backButton) {
     backButton.addEventListener("click", () => {
       renderCampaignCardPage();
+    });
+  }
+
+  const repeatTeamButton = document.querySelector(".campaign-games-repeat-team-btn");
+
+  if (repeatTeamButton) {
+    repeatTeamButton.addEventListener("click", () => {
+      restartCampaignWithCurrentTeam();
     });
   }
 }

@@ -990,7 +990,6 @@
   max-width: 620px;
   margin-top: 10px;
 }
-
 /* ===================================================== */
 /* CARD FINAL DO CONFRONTO */
 /* ===================================================== */
@@ -1054,31 +1053,64 @@
   color: #f59e0b;
 }
 
+/* ===================================================== */
+/* BOTÕES DO RESULTADO DO MATA-MATA */
+/* ===================================================== */
+
 .knockout-next-btn,
-.knockout-replay-btn {
-  min-width: 300px;
-  min-height: 52px;
+.knockout-replay-btn,
+.knockout-repeat-team-btn,
+.knockout-card-btn {
+  min-width: 260px;
+  height: 52px;
   padding: 0 30px;
 
-  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border: 1px solid #a78bfa;
+  border-radius: 4px;
   color: #ffffff;
 
   font-family: var(--font-title);
   font-size: 20px;
   font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
 
   cursor: pointer;
 }
 
-.knockout-next-btn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
+.knockout-next-btn,
+.knockout-card-btn {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border-color: #a78bfa;
+}
+
+.knockout-repeat-team-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-color: rgba(147, 197, 253, 0.75);
 }
 
 .knockout-replay-btn {
   background: linear-gradient(135deg, #ef4444, #b91c1c);
   border-color: #fca5a5;
+}
+
+.knockout-next-btn:hover,
+.knockout-replay-btn:hover,
+.knockout-repeat-team-btn:hover,
+.knockout-card-btn:hover {
+  filter: brightness(1.08);
+}
+
+.knockout-next-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 /* ===================================================== */
 /* VELOCIDADE NO MATA-MATA */
@@ -1175,31 +1207,16 @@
   font-weight: 800;
 }
 
+/* ===================================================== */
+/* AÇÕES DO RESULTADO DO MATA-MATA */
+/* ===================================================== */
+
 .knockout-result-actions {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
-}
-
-.knockout-card-btn {
-  min-width: 260px;
-  min-height: 52px;
-  padding: 0 30px;
-
-  background: linear-gradient(135deg, #7c3aed, #9333ea);
-  border: 1px solid #a78bfa;
-  color: #ffffff;
-
-  font-family: var(--font-title);
-  font-size: 20px;
-  font-weight: 900;
-
-  cursor: pointer;
-}
-
-.knockout-card-btn:hover {
-  filter: brightness(1.08);
 }
 
 /* ===================================================== */
@@ -1541,20 +1558,30 @@
   gap: 12px;
   flex-wrap: wrap;
 }
-
 .campaign-card-games-btn,
 .campaign-card-share-btn,
+.campaign-card-repeat-team-btn,
 .campaign-card-replay-btn {
   min-width: 250px;
-  min-height: 52px;
+  height: 52px;
   padding: 0 24px;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border: 1px solid #a78bfa;
+  border-radius: 4px;
   color: #ffffff;
 
   font-family: var(--font-title);
   font-size: 18px;
   font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
 
   cursor: pointer;
 }
@@ -1562,6 +1589,12 @@
 .campaign-card-games-btn,
 .campaign-card-share-btn {
   background: linear-gradient(135deg, #7c3aed, #9333ea);
+  border-color: #a78bfa;
+}
+
+.campaign-card-repeat-team-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-color: rgba(147, 197, 253, 0.75);
 }
 
 .campaign-card-replay-btn {
@@ -1571,6 +1604,23 @@
 
 .campaign-card-games-btn:hover,
 .campaign-card-share-btn:hover,
+.campaign-card-repeat-team-btn:hover,
+.campaign-card-replay-btn:hover {
+  filter: brightness(1.08);
+}
+.campaign-card-repeat-team-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-color: rgba(147, 197, 253, 0.75);
+}
+
+.campaign-card-replay-btn {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  border-color: #fca5a5;
+}
+
+.campaign-card-games-btn:hover,
+.campaign-card-share-btn:hover,
+.campaign-card-repeat-team-btn:hover,
 .campaign-card-replay-btn:hover {
   filter: brightness(1.08);
 }
@@ -1779,26 +1829,39 @@
 
 .campaign-games-back-btn,
 .campaign-games-share-btn,
+.campaign-games-repeat-team-btn,
 .campaign-games-replay-btn {
   min-width: 250px;
-  min-height: 52px;
+  height: 52px;
   padding: 0 24px;
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   border: 1px solid #a78bfa;
+  border-radius: 4px;
   color: #ffffff;
 
   font-family: var(--font-title);
   font-size: 18px;
   font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
 
   cursor: pointer;
 }
-
 .campaign-games-back-btn,
 .campaign-games-share-btn {
   background: linear-gradient(135deg, #7c3aed, #9333ea);
 }
-
+.campaign-games-repeat-team-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-color: rgba(147, 197, 253, 0.75);
+}
 .campaign-games-replay-btn {
   background: linear-gradient(135deg, #ef4444, #b91c1c);
   border-color: #fca5a5;
