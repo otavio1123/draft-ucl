@@ -15,8 +15,8 @@ let activeMatchTimer = null;
   Este bloco controla os bônus do time montado pelo usuário.
 
   Objetivo:
-  - deixar o DRAFT competitivo;
-  - evitar que o campeonato fique impossível;
+  - deixar o DRAFT mais justo e competitivo;
+  - evitar dificuldade exagerada contra azarões e times fracos;
   - não garantir vitória automática;
   - manter adversários fortes perigosos;
   - permitir ajuste diferente entre fase de liga, mata-mata e final.
@@ -30,10 +30,11 @@ let activeMatchTimer = null;
   - apenas ajusta o xG usado na simulação dos gols.
 
   Ajuste atual:
-  - dificuldade média;
-  - fase de liga mais disputada;
-  - mata-mata difícil, mas vencível;
-  - final pesada, sem ser impossível.
+  - dificuldade média/favorável;
+  - DRAFT fica mais forte em casa;
+  - DRAFT fica menos vulnerável fora de casa;
+  - mata-mata fica mais jogável;
+  - final continua difícil, mas menos injusta.
 */
 /* ===================================================== */
 
@@ -46,20 +47,20 @@ const USER_DRAFT_TEAM_ID = "draft_user_team";
   Usado como bônus principal do time do usuário.
 
   Ataque:
-  - aumenta levemente o xG quando o DRAFT está atacando.
+  - aumenta o xG quando o DRAFT está atacando.
 
   Defesa:
-  - reduz levemente o xG do adversário quando ele ataca contra o DRAFT.
+  - reduz o xG do adversário quando ele ataca contra o DRAFT.
 
   Ajuste atual:
-  - menor que a versão fácil;
-  - ainda recompensa um Draft bem montado;
-  - evita que o time do usuário domine todos os jogos.
+  - melhora a chance do DRAFT contra times mais fracos;
+  - recompensa melhor um Draft bem montado;
+  - ainda mantém perigo contra adversários fortes.
 */
 /* ===================================================== */
 
-const DRAFT_ATTACK_XG_BONUS = 0.13;
-const DRAFT_DEFENSE_XG_REDUCTION = 0.09;
+const DRAFT_ATTACK_XG_BONUS = 0.18;
+const DRAFT_DEFENSE_XG_REDUCTION = 0.13;
 
 
 /* ===================================================== */
@@ -68,25 +69,25 @@ const DRAFT_DEFENSE_XG_REDUCTION = 0.09;
   Controla a ajuda extra do DRAFT em jogos com mando.
 
   Ataque:
-  - em casa o DRAFT recebe uma vantagem pequena;
-  - fora de casa recebe uma vantagem bem menor.
+  - em casa o DRAFT recebe uma vantagem mais clara;
+  - fora de casa também recebe uma pequena ajuda.
 
   Defesa:
-  - em casa o DRAFT protege um pouco melhor;
-  - fora de casa fica mais vulnerável.
+  - em casa o DRAFT protege melhor;
+  - fora de casa fica menos vulnerável do que antes.
 
   Ajuste atual:
-  - deixa a fase de liga mais difícil;
-  - jogos fora de casa ficam mais perigosos;
-  - evita campanha fácil demais antes do mata-mata.
+  - melhora a fase de liga;
+  - reduz derrotas injustas para azarões;
+  - ainda mantém jogos fora de casa perigosos.
 */
 /* ===================================================== */
 
-const DRAFT_HOME_ATTACK_BONUS = 0.065;
-const DRAFT_AWAY_ATTACK_BONUS = 0.025;
+const DRAFT_HOME_ATTACK_BONUS = 0.10;
+const DRAFT_AWAY_ATTACK_BONUS = 0.045;
 
-const DRAFT_HOME_DEFENSE_BONUS = 0.045;
-const DRAFT_AWAY_DEFENSE_BONUS = 0.020;
+const DRAFT_HOME_DEFENSE_BONUS = 0.070;
+const DRAFT_AWAY_DEFENSE_BONUS = 0.038;
 
 
 /* ===================================================== */
@@ -98,17 +99,16 @@ const DRAFT_AWAY_DEFENSE_BONUS = 0.020;
   Isso mantém playoffs, oitavas, quartas e semifinal mais difíceis.
 
   Exemplo:
-  0.56 = usa 56% do bônus normal.
+  0.62 = usa 62% do bônus normal.
 
   Ajuste atual:
-  - 0.45 era difícil demais;
-  - 0.64 ficou fácil demais;
-  - 0.56 fica no meio termo:
-    ainda pesado, mas sem deixar o Draft injusto.
+  - mata-mata fica um pouco mais jogável;
+  - reduz eliminação injusta contra times inferiores;
+  - ainda mantém pressão em jogos eliminatórios.
 */
 /* ===================================================== */
 
-const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.56;
+const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.64;
 
 
 /* ===================================================== */
@@ -123,20 +123,22 @@ const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.56;
   - recebe apenas uma ajuda fixa menor.
 
   Ataque:
-  - DRAFT ganha +0.055 xG na final.
+  - DRAFT ganha +0.075 xG na final.
 
   Defesa:
-  - adversário perde 0.050 xG quando ataca contra o DRAFT.
+  - adversário perde 0.070 xG quando ataca contra o DRAFT.
 
   Ajuste atual:
   - final continua difícil;
-  - evita título automático;
-  - ainda dá chance real para um Draft forte vencer.
+  - reduz a sensação de injustiça;
+  - ainda evita título automático.
 */
 /* ===================================================== */
 
-const DRAFT_FINAL_ATTACK_BONUS = 0.055;
-const DRAFT_FINAL_DEFENSE_REDUCTION = 0.050;
+const DRAFT_FINAL_ATTACK_BONUS = 0.075;
+const DRAFT_FINAL_DEFENSE_REDUCTION = 0.070;
+
+
 /* ===================================================== */
 /* DELAY DO FIM DA PARTIDA */
 /*
@@ -146,11 +148,12 @@ const DRAFT_FINAL_DEFENSE_REDUCTION = 0.050;
 /* ===================================================== */
 
 const MATCH_END_DELAY = 1000;
+
+
 /* ===================================================== */
 /* PESOS POR POSIÇÃO PARA GOL */
 /* Quanto maior o peso, maior a chance de marcar */
 /* ===================================================== */
-
 const GOAL_POSITION_WEIGHTS = {
   CA: 1.45,
   ATA: 1.35,
