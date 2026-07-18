@@ -163,11 +163,12 @@ grid-template-columns: 340px minmax(620px, 1fr) 310px;
 
 /* Grade de estilos */
 .style-grid {
+  margin-bottom: 18px;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
-
 /* Botões de formação e estilo */
 .formation-btn,
 .style-btn {
@@ -193,7 +194,117 @@ grid-template-columns: 340px minmax(620px, 1fr) 310px;
   border-color: #ffffff;
 }
 
+/* ===================================================== */
+/* MODO DO DRAFT */
+/* NORMAL / ELITE */
+/* ===================================================== */
 
+.draft-mode-grid {
+  margin-bottom: 12px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.draft-mode-btn {
+  min-height: 38px;
+  padding: 0 10px;
+
+  border: 1px solid var(--border);
+
+  background: #0f1b2e;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.draft-mode-btn:hover {
+  transform: translateY(-1px);
+  border-color: #8b5cf6;
+}
+
+.draft-mode-btn.active {
+  background: #ffffff;
+  color: #07111f;
+  border-color: #ffffff;
+}
+
+/* ELITE ativo com dourado mais escuro e elegante */
+.draft-mode-btn[data-draft-mode="elite"].active {
+  background: linear-gradient(135deg, #92400e, #d97706);
+  border-color: rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 18px rgba(217, 119, 6, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+/* ===================================================== */
+/* DESCRIÇÃO DO MODO */
+/* ===================================================== */
+.draft-mode-info {
+  padding: 12px 13px;
+
+  background: rgba(8, 18, 34, 0.74);
+  border: 1px solid rgba(147, 197, 253, 0.18);
+}
+
+.draft-mode-info small {
+  display: block;
+  margin-bottom: 6px;
+
+  color: #93c5fd;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.draft-mode-info p {
+  margin: 0;
+
+  color: #e2e8f0;
+
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.38;
+}
+
+/* Visual da descrição quando ELITE estiver ativo */
+.draft-mode-info.elite {
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.13), rgba(124, 58, 237, 0.07)),
+    rgba(8, 18, 34, 0.86);
+
+  border-color: rgba(251, 191, 36, 0.62);
+
+  box-shadow:
+    0 0 18px rgba(217, 119, 6, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.draft-mode-info.elite small {
+  color: #fbbf24;
+}
+
+.draft-mode-info.elite p {
+  color: #fde68a;
+}
 /* ===================================================== */
 /* PAINEL DE SORTEIO */
 /* ===================================================== */
@@ -1158,22 +1269,10 @@ opacity: 1;
 }
 
 /* Título ESCOLHA UM JOGADOR */
+/* Título ESCOLHA UM JOGADOR */
 .draft-page.draft-started .players-panel h3,
 .players-panel h3 {
-  order: 1;
-
-  min-height: 30px;
-  margin: 0 0 12px 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  font-size: 11px;
-  line-height: 1.2;
-  letter-spacing: 0.28em;
+  display: none !important;
 }
 
 /* ===================================================== */
@@ -1303,4 +1402,352 @@ opacity: 1;
 }
 .theme-toggle {
   display: none !important;
+}
+/* ===================================================== */
+/* DRAFT - VISUAL DO MODO ELITE */
+/*
+  Aplica identidade premium ao Draft quando o modo Elite
+  estiver selecionado.
+*/
+/* ===================================================== */
+
+.draft-page:has(.draft-mode-info.elite) {
+  background:
+    radial-gradient(circle at top, rgba(217, 119, 6, 0.12), transparent 34%),
+    radial-gradient(circle at top left, rgba(124, 58, 237, 0.20), transparent 36%),
+    #07111f;
+}
+
+/* Botão ROLAR dourado no Elite */
+.draft-page:has(.draft-mode-info.elite) #drawButton {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 24px rgba(217, 119, 6, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+.draft-page:has(.draft-mode-info.elite) #drawButton:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+/* Painel do campo com detalhe Elite */
+.draft-page:has(.draft-mode-info.elite) .center-panel,
+.draft-page:has(.draft-mode-info.elite) .pitch-panel {
+  border-color: rgba(251, 191, 36, 0.35);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.06), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+
+  box-shadow:
+    0 0 24px rgba(217, 119, 6, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+/* Borda do campo no Elite */
+.draft-page:has(.draft-mode-info.elite) .pitch,
+.draft-page:has(.draft-mode-info.elite) #pitch {
+  border-color: rgba(251, 191, 36, 0.42);
+
+  box-shadow:
+    0 0 22px rgba(217, 119, 6, 0.16),
+    inset 0 0 0 1px rgba(251, 191, 36, 0.08);
+}
+
+
+/* Slots vazios com detalhe Elite */
+.draft-page:has(.draft-mode-info.elite) .pitch-slot:not(.filled) {
+  border-color: rgba(251, 191, 36, 0.45);
+  box-shadow: 0 0 12px rgba(217, 119, 6, 0.10);
+}
+
+/* Slot disponível no Elite */
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.available-slot {
+  border-color: rgba(251, 191, 36, 0.85);
+
+  box-shadow:
+    0 0 16px rgba(251, 191, 36, 0.26),
+    inset 0 0 0 1px rgba(251, 191, 36, 0.12);
+}
+
+/* Slot preenchido no Elite: sem aro externo */
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+/* Jogador no campo - versão Elite limpa */
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
+  width: 68px;
+  height: 68px;
+
+  background: rgba(8, 18, 34, 0.96);
+  border: none;
+
+  color: #fbbf24;
+
+  box-shadow:
+    0 4px 9px rgba(0, 0, 0, 0.28),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+}
+
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+  top: 77px;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.72),
+    0 0 6px rgba(0, 0, 0, 0.45);
+}
+/* Box score com borda Elite */
+.draft-page:has(.draft-mode-info.elite) .box-score,
+.draft-page:has(.draft-mode-info.elite) .score-panel,
+.draft-page:has(.draft-mode-info.elite) .right-panel {
+  border-color: rgba(251, 191, 36, 0.28);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.045), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+}
+
+/* Títulos principais do box score em dourado */
+.draft-page:has(.draft-mode-info.elite) .box-score small,
+.draft-page:has(.draft-mode-info.elite) .score-panel small,
+.draft-page:has(.draft-mode-info.elite) .right-panel small {
+  color: #fbbf24;
+}
+
+/* Mantém as posições do elenco mais limpas */
+.draft-page:has(.draft-mode-info.elite) .squad-position {
+  color: #93c5fd;
+}
+
+/* Card de sorteio com borda Elite */
+.draft-page:has(.draft-mode-info.elite) .draw-panel,
+.draft-page:has(.draft-mode-info.elite) .draw-card {
+  border-color: rgba(251, 191, 36, 0.30);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.06), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+}
+
+/* Texto pequeno do card de sorteio */
+.draft-page:has(.draft-mode-info.elite) .draw-panel small,
+.draft-page:has(.draft-mode-info.elite) .draw-card small {
+  color: #fbbf24;
+}
+
+/* Card de informação do modo Elite */
+.draft-page:has(.draft-mode-info.elite) .draft-mode-info.elite {
+  border-color: rgba(251, 191, 36, 0.70);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.16), rgba(8, 18, 34, 0.92));
+
+  box-shadow:
+    0 0 18px rgba(217, 119, 6, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.draft-page:has(.draft-mode-info.elite) .draft-mode-info.elite small {
+  color: #fbbf24;
+}
+
+.draft-page:has(.draft-mode-info.elite) .draft-mode-info.elite p {
+  color: #fde68a;
+}
+
+/* Botão ELITE selecionado */
+.draft-page:has(.draft-mode-info.elite) .draft-mode-btn[data-draft-mode="elite"].active {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 18px rgba(217, 119, 6, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+/* ===================================================== */
+/* LABEL ELITE NO TOPO DO DRAFT */
+/* ===================================================== */
+
+.draft-page:has(.draft-mode-info.elite) #draftModeLabel {
+  margin-left: 4px;
+  padding: 6px 14px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(251, 191, 36, 0.62);
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.18), rgba(124, 58, 237, 0.10)),
+    rgba(8, 18, 34, 0.92);
+
+  color: #fbbf24;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+  text-transform: uppercase;
+  vertical-align: middle;
+
+  box-shadow:
+    0 0 14px rgba(217, 119, 6, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+/* ===================================================== */
+/* BOTÃO INICIAR CAMPANHA - MODO ELITE */
+/* ===================================================== */
+
+.draft-page:has(.draft-mode-info.elite) .start-ucl-btn {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border: 1px solid rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 16px 34px rgba(217, 119, 6, 0.30),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+.draft-page:has(.draft-mode-info.elite) .start-ucl-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.09);
+
+  box-shadow:
+    0 20px 40px rgba(217, 119, 6, 0.38),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* ===================================================== */
+/* DRAFT - PAINÉIS LATERAIS NO MODO ELITE */
+/*
+  Aplica a paleta Elite nos boxes de:
+  - re-sorteio
+  - ordenação
+  - lista de jogadores
+*/
+/* ===================================================== */
+
+.draft-page:has(.draft-mode-info.elite) .players-tools .reroll-box,
+.draft-page:has(.draft-mode-info.elite) .players-tools .sort-box {
+  border-color: rgba(251, 191, 36, 0.58);
+  box-shadow:
+    0 0 18px rgba(217, 119, 6, 0.08),
+    inset 0 0 0 1px rgba(251, 191, 36, 0.04);
+}
+
+.draft-page:has(.draft-mode-info.elite) .players-tools small,
+.draft-page:has(.draft-mode-info.elite) .sort-header small,
+.draft-page:has(.draft-mode-info.elite) .reroll-box small {
+  color: #fbbf24;
+}
+
+/* Botão OUTRO TIME */
+.draft-page:has(.draft-mode-info.elite) #rerollButton,
+.draft-page:has(.draft-mode-info.elite) .secondary-action-btn {
+  background: rgba(18, 27, 44, 0.94);
+  border: 1px solid rgba(251, 191, 36, 0.72);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.draft-page:has(.draft-mode-info.elite) #rerollButton:hover:not(:disabled),
+.draft-page:has(.draft-mode-info.elite) .secondary-action-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.22), rgba(217, 119, 6, 0.12));
+  border-color: #fbbf24;
+}
+
+/* Botão VOLTAR PADRÃO */
+.draft-page:has(.draft-mode-info.elite) .sort-reset-btn {
+  background: rgba(18, 27, 44, 0.94);
+  border: 1px solid rgba(251, 191, 36, 0.70);
+  color: #ffffff;
+}
+
+.draft-page:has(.draft-mode-info.elite) .sort-reset-btn:hover {
+  border-color: #fbbf24;
+  color: #fef3c7;
+}
+
+/* Botões de ordenação */
+.draft-page:has(.draft-mode-info.elite) .sort-btn {
+  background: rgba(18, 27, 44, 0.94);
+  border: 1px solid rgba(217, 119, 6, 0.68);
+  color: #ffffff;
+}
+
+.draft-page:has(.draft-mode-info.elite) .sort-btn:hover {
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.26), rgba(217, 119, 6, 0.14));
+  border-color: #f59e0b;
+  color: #ffffff;
+}
+
+/* Cards dos jogadores */
+.draft-page:has(.draft-mode-info.elite) .player-card,
+.draft-page:has(.draft-mode-info.elite) .player-option,
+.draft-page:has(.draft-mode-info.elite) .players-list > div {
+  border-color: rgba(251, 191, 36, 0.22);
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.04), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+}
+
+/* Nome dos jogadores */
+.draft-page:has(.draft-mode-info.elite) .player-card h4,
+.draft-page:has(.draft-mode-info.elite) .player-option h4,
+.draft-page:has(.draft-mode-info.elite) .player-name {
+  color: #ffffff;
+}
+
+/* Posição / infos secundárias */
+.draft-page:has(.draft-mode-info.elite) .player-card small,
+.draft-page:has(.draft-mode-info.elite) .player-option small,
+.draft-page:has(.draft-mode-info.elite) .player-meta,
+.draft-page:has(.draft-mode-info.elite) .player-position {
+  color: #60a5fa;
+}
+
+/* Overall do jogador */
+.draft-page:has(.draft-mode-info.elite) .player-rating,
+.draft-page:has(.draft-mode-info.elite) .player-overall {
+  color: #fbbf24;
+}
+
+/* Botão + */
+.draft-page:has(.draft-mode-info.elite) .player-action em,
+.draft-page:has(.draft-mode-info.elite) .player-action button,
+.draft-page:has(.draft-mode-info.elite) .add-player-btn,
+.draft-page:has(.draft-mode-info.elite) .player-add-btn {
+  background: rgba(18, 27, 44, 0.94);
+  border: 1px solid rgba(251, 191, 36, 0.72);
+  color: #ffffff;
+}
+
+.draft-page:has(.draft-mode-info.elite) .player-action em:hover,
+.draft-page:has(.draft-mode-info.elite) .player-action button:hover,
+.draft-page:has(.draft-mode-info.elite) .add-player-btn:hover,
+.draft-page:has(.draft-mode-info.elite) .player-add-btn:hover {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: #fbbf24;
+  color: #ffffff;
+}
+/* Hover do card do jogador no Elite */
+.draft-page:has(.draft-mode-info.elite) .player-option:hover {
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.10), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+
+  border-color: rgba(251, 191, 36, 0.58);
+
+  box-shadow:
+    0 0 14px rgba(217, 119, 6, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }

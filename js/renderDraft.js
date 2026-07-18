@@ -31,6 +31,7 @@ function initDraftPage() {
 setupDraftInitialState();
 setupFormationButtons();
 setupStyleButtons();
+setupDraftModeButtons();
 setupDrawButtonPlaceholder();
 setupSortButtons();
 setupRerollButton();
@@ -77,6 +78,8 @@ function setupDraftInitialState() {
 
   state.selectedFormation = state.selectedFormation || "4-3-3";
   state.selectedStyle = state.selectedStyle || "Equilibrado";
+  state.selectedDraftMode = state.selectedDraftMode || "normal";
+state.draftModeLocked = state.draftModeLocked || false;
 
   state.selectedPlayers = state.selectedPlayers || [];
   state.usedPlayers = state.usedPlayers || [];
@@ -208,7 +211,149 @@ function setupStyleButtons() {
     });
   });
 }
+/* ===================================================== */
+/* MODO DO DRAFT - NORMAL / ELITE */
+/*
+  Controla apenas a escolha visual e o estado do modo.
 
+  Regras:
+  - normal = modo atual;
+  - elite = modo especial;
+  - o modo só pode ser alterado antes do primeiro ROLAR;
+  - depois do primeiro sorteio, o modo trava para evitar bugs.
+*/
+/* ===================================================== */
+function getDraftModeLabel(mode) {
+  if (mode === "elite") {
+    return "CAMPANHA ELITE";
+  }
+
+  return "Normal";
+}
+function getDraftModeTitle(mode) {
+  if (mode === "elite") {
+    return "MODO ELITE";
+  }
+
+  return "MODO NORMAL";
+}
+
+function getDraftModeDescription(mode) {
+  if (mode === "elite") {
+    return "Modo especial com sorteio mais forte.";
+  }
+
+  return "Modo clássico com sorteio variado.";
+}
+function updateDraftModeControls() {
+  const state = window.gameState;
+
+  if (!state) {
+    return;
+  }
+
+  const buttons = document.querySelectorAll(".draft-mode-btn");
+  const modeInfo = document.getElementById("draftModeInfo");
+  const descriptionTitle = document.getElementById("draftModeDescriptionTitle");
+  const description = document.getElementById("draftModeDescription");
+
+  buttons.forEach((button) => {
+    const mode = button.dataset.draftMode;
+
+    button.classList.toggle("active", mode === state.selectedDraftMode);
+    button.disabled = state.draftModeLocked;
+  });
+
+  if (modeInfo) {
+    modeInfo.classList.toggle("elite", state.selectedDraftMode === "elite");
+  }
+
+  if (descriptionTitle) {
+    descriptionTitle.textContent = getDraftModeTitle(state.selectedDraftMode);
+  }
+
+  if (description) {
+    description.textContent = getDraftModeDescription(state.selectedDraftMode);
+  }
+}
+
+function setupDraftModeButtons() {
+  const buttons = document.querySelectorAll(".draft-mode-btn");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const state = window.gameState;
+      const mode = button.dataset.draftMode;
+
+      if (!state || !mode) {
+        return;
+      }
+
+      if (state.draftModeLocked) {
+        alert("O modo não pode ser alterado depois do primeiro sorteio.");
+        return;
+      }
+
+      state.selectedDraftMode = mode;
+
+      setActiveButton(buttons, button);
+      updateDraftModeControls();
+      updateHeaderLabels();
+    });
+  });
+
+  updateDraftModeControls();
+}
+/* ===================================================== */
+/* LIMITE DE RE-SORTEIO POR MODO */
+/*
+  Normal:
+  - 2 re-sorteios por rodada.
+
+  Elite:
+  - 3 re-sorteios por rodada.
+*/
+/* ===================================================== */
+
+function getDraftRerollLimit() {
+  return window.gameState?.selectedDraftMode === "elite" ? 3 : 2;
+}
+
+/* ===================================================== */
+/* SELO VISUAL DO MODO ELITE */
+/*
+  Mostra um selo "CAMPANHA ELITE" no topo do Draft
+  quando o modo Elite estiver selecionado.
+*/
+/* ===================================================== */
+
+function updateDraftEliteBadge() {
+  const state = window.gameState;
+  const draftModeLabel = document.getElementById("draftModeLabel");
+
+  if (!state || !draftModeLabel) {
+    return;
+  }
+
+  const headerLine = draftModeLabel.parentElement;
+
+  if (!headerLine) {
+    return;
+  }
+
+  let eliteBadge = document.getElementById("draftEliteBadge");
+
+  if (!eliteBadge) {
+    eliteBadge = document.createElement("span");
+    eliteBadge.id = "draftEliteBadge";
+    eliteBadge.className = "draft-elite-badge";
+    eliteBadge.textContent = "CAMPANHA ELITE";
+
+    headerLine.appendChild(eliteBadge);
+  }
+
+  eliteBadge.classList.toggle("active", state.selectedDraftMode === "elite");
+}
 /* ===================================================== */
 /* BOTÃO DE SORTEIO COM ANIMAÇÃO */
 /* ===================================================== */
@@ -256,11 +401,23 @@ if (database.length === 0) {
 
 isDrawingTeam = true;
 
+state.draftModeLocked = true;
+
 state.roundOpen = true;
 state.pendingPlayer = null;
 state.pendingTeam = null;
 
-  updateRerollText();
+/*
+  Define os re-sorteios apenas uma vez por Draft.
+  Não reseta a cada jogador escolhido.
+*/
+if (!state.draftRerollsInitialized) {
+  state.rerollsRemaining = getDraftRerollLimit();
+  state.draftRerollsInitialized = true;
+}
+updateDraftModeControls();
+
+updateRerollText();
 
   if (draftPage) {
     draftPage.classList.add("draft-started");
@@ -339,6 +496,7 @@ if (playersList) {
 function updateHeaderLabels() {
   const formationLabel = document.getElementById("formationLabel");
   const styleLabel = document.getElementById("styleLabel");
+  const draftModeLabel = document.getElementById("draftModeLabel");
 
   if (formationLabel) {
     formationLabel.textContent = gameState.selectedFormation;
@@ -347,6 +505,12 @@ function updateHeaderLabels() {
   if (styleLabel) {
     styleLabel.textContent = gameState.selectedStyle;
   }
+
+  if (draftModeLabel) {
+    draftModeLabel.textContent = getDraftModeLabel(gameState.selectedDraftMode);
+  }
+
+  
 }
 
 /* ===================================================== */
@@ -1039,14 +1203,24 @@ if (playersList) {
   setTimeout(() => {
     clearInterval(animationInterval);
 
-    const randomIndex = Math.floor(Math.random() * rerollPool.length);
-    const newTeam = rerollPool[randomIndex];
+const newTeam = pickDraftTeamByMode(rerollPool);
 
-    state.currentDrawnTeam = newTeam;
-    state.currentRoundTeam = newTeam;
+if (!newTeam) {
+  alert("Não foi possível re-sortear um time válido.");
+  isDrawingTeam = false;
+  updateRerollText();
+  return;
+}
 
-    renderDrawnTeam(newTeam);
-    renderPlayersList(newTeam);
+if (typeof window.rememberDraftClub === "function") {
+  window.rememberDraftClub(newTeam);
+}
+
+state.currentDrawnTeam = newTeam;
+state.currentRoundTeam = newTeam;
+
+renderDrawnTeam(newTeam);
+renderPlayersList(newTeam);
     renderPitch();
     updateRerollText();
 
@@ -1059,7 +1233,7 @@ if (drawButton) {
   drawButton.disabled = true;
 
   drawButton.innerHTML = `
-    <span class="roll-text">ROLANDO</span>
+    <span class="roll-text">ROLAR</span>
     <span class="roll-dice">🎲</span>
   `;
 }
@@ -1200,7 +1374,7 @@ function checkDraftCompletion() {
   if (finishDraftButton) {
     finishDraftButton.classList.remove("hidden");
     finishDraftButton.classList.add("start-ucl-btn");
-    finishDraftButton.innerHTML = `<span>SIMULAR A UCL</span><b>→</b>`;
+    finishDraftButton.innerHTML = `<span>INICIAR CAMPANHA</span><b>→</b>`;
   }
 
   return true;

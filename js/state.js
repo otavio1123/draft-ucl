@@ -6,6 +6,7 @@
   Este objeto guarda tudo que muda durante o jogo:
   - formação escolhida;
   - estilo escolhido;
+  - modo escolhido;
   - jogadores escolhidos;
   - layout atual do campo;
   - rodada atual do draft;
@@ -20,6 +21,17 @@ const gameState = {
 
   selectedFormation: "4-3-3",
   selectedStyle: "Equilibrado",
+
+  /*
+    Modo do Draft:
+    - normal = modo atual, com todos os tipos de times;
+    - elite  = modo especial, com pool mais forte.
+
+    O modo começa destravado.
+    Depois do primeiro ROLAR, ele será travado para evitar bugs.
+  */
+  selectedDraftMode: "normal",
+  draftModeLocked: false,
 
   /* ===================================================== */
   /* JOGADORES DO DRAFT */

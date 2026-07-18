@@ -172,7 +172,6 @@
 
 /* Fecha o @media (max-width: 1024px) da HOME */
 }
-
 /* ===================================================== */
 /* DRAFT - TABLET DEITADO / 1024 × 768 */
 /*
@@ -191,7 +190,7 @@
     max-width: 100%;
     min-height: 100vh;
 
-    padding: 16px 18px 28px;
+    padding: 12px 14px 22px;
 
     overflow-x: hidden;
     box-sizing: border-box;
@@ -201,20 +200,25 @@
     width: 100%;
     max-width: 100%;
 
-    margin: 0 auto 14px;
-    padding: 14px 18px;
+    margin: 0 auto 12px;
+    padding: 12px 16px;
 
     box-sizing: border-box;
   }
 
   .draft-brand h1 {
-    font-size: 42px;
+    font-size: 40px;
     line-height: 0.85;
   }
 
+  .draft-brand span {
+    font-size: 8px;
+    letter-spacing: 0.28em;
+  }
+
   .draft-summary {
-    font-size: 11px;
-    letter-spacing: 0.22em;
+    font-size: 10px;
+    letter-spacing: 0.20em;
     white-space: nowrap;
   }
 
@@ -227,8 +231,8 @@
     max-width: 100%;
 
     display: grid;
-    grid-template-columns: 210px minmax(0, 1fr) 180px;
-    gap: 14px;
+    grid-template-columns: 205px minmax(0, 1fr) 175px;
+    gap: 12px;
 
     align-items: start;
 
@@ -263,149 +267,145 @@
   */
   .formation-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: 7px;
   }
 
   .style-grid {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 7px;
   }
 
   .formation-btn,
   .style-btn {
-    min-height: 34px;
-    padding: 8px 6px;
+    min-height: 32px;
+    padding: 7px 6px;
 
-    font-size: 10.5px;
+    font-size: 10px;
     line-height: 1.1;
   }
 
   .panel-label {
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 
-    font-size: 9px;
-    letter-spacing: 0.28em;
+    font-size: 8.5px;
+    letter-spacing: 0.26em;
   }
 
   .draw-card {
-    min-height: 94px;
-    padding: 12px 10px;
+    min-height: 86px;
+    padding: 10px 9px;
   }
 
   .draw-card h2 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .draw-card p {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   .roll-btn {
-    min-height: 44px;
-    font-size: 16px;
+    min-height: 42px;
+    font-size: 15px;
   }
 
   /* Campo - tablet deitado 1024 × 768 */
-.pitch-frame {
-  width: 100%;
-  max-width: 100%;
+  .pitch-frame {
+    width: 100%;
+    max-width: 100%;
 
-  padding: 8px;
-  box-sizing: border-box;
-}
+    padding: 8px;
+    box-sizing: border-box;
+  }
 
-.pitch {
-  width: 100%;
-  height: 590px;
-}
+  .pitch {
+    width: 100%;
+    height: 540px;
+  }
 
-/* Slots maiores no tablet deitado */
-.pitch-slot {
-  width: 68px;
-  height: 68px;
+  /* Slots no tablet deitado */
+  .pitch-slot {
+    width: 62px;
+    height: 62px;
 
-  font-size: 16px;
-}
+    font-size: 15px;
+  }
 
-.slot-empty {
-  font-size: 15px;
-}
+  .slot-empty {
+    font-size: 14px;
+  }
 
-/*
-  Jogador preenchido:
-  aumenta card, rating e nome no tablet deitado.
-*/
-.pitch-slot.filled {
-  width: 84px;
-  height: 84px;
-}
+  /*
+    Jogador preenchido:
+    mantém legível, mas mais compacto.
+  */
+  .pitch-slot.filled {
+    width: 76px;
+    height: 76px;
+  }
 
-.pitch-player-card {
-  width: 80px;
-  height: 80px;
-}
+  .pitch-player-card {
+    width: 74px;
+    height: 74px;
+  }
 
-.pitch-rating-ball {
-  width: 64px;
-  height: 64px;
+  .pitch-rating-ball {
+    width: 58px;
+    height: 58px;
 
-  font-size: 25px;
-}
+    font-size: 23px;
+  }
 
-/*
-  Nome do jogador:
-  maior e mais legível.
-*/
-.pitch-player-name {
-  top: 74px;
+  /*
+    Nome do jogador:
+    mais compacto para caber melhor em 768px de altura.
+  */
+  .pitch-player-name {
+    top: 68px;
 
-  max-width: 125px;
+    max-width: 118px;
 
-  font-size: 13.5px;
-  font-weight: 900;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
+    font-size: 12.5px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
 
-  text-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.78),
-    0 0 6px rgba(0, 0, 0, 0.55);
-}
-
+    text-shadow:
+      0 2px 0 rgba(0, 0, 0, 0.78),
+      0 0 6px rgba(0, 0, 0, 0.55);
+  }
 
   /*
     Painel direito:
     deixa o box score caber na largura.
   */
   .score-panel {
-    padding: 14px 12px;
+    padding: 12px 10px;
   }
 
   .score-header {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
   #overallScore {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .squad-row {
-    grid-template-columns: 34px minmax(0, 1fr) 34px;
-    min-height: 32px;
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    min-height: 30px;
     gap: 6px;
   }
 
   .score-panel .squad-row .squad-player-name {
-    font-size: 13px !important;
+    font-size: 12.5px !important;
   }
 
   .score-panel .squad-row .squad-player-rating {
-    font-size: 15px !important;
+    font-size: 14.5px !important;
   }
 }
-
-
-
 /* ===================================================== */
 /* ATÉ 768px */
 /*
@@ -2348,7 +2348,12 @@
 .campaign-card-summary div:nth-child(2) {
   grid-column: 1 / -1;
 }
-
+/* Saldo centralizado quando sobra sozinho */
+.campaign-card-summary div:nth-child(5) {
+  grid-column: 1 / -1;
+  width: calc(50% - 5px);
+  justify-self: center;
+}
 /* ===================================================== */
 /* RANKINGS */
 /* ===================================================== */
@@ -2451,3 +2456,399 @@
   line-height: 1.2;
   text-align: center;
 } }
+@media (max-width: 640px) {
+  .knockout-repeat-team-btn,
+  .campaign-card-repeat-team-btn,
+  .campaign-games-repeat-team-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .knockout-result-actions {
+    width: 100%;
+    gap: 10px;
+  }
+}
+
+/* ===================================================== */
+/* HOME NOVA - MODOS E ARQUIVO DO DRAFT MOBILE */
+/* ===================================================== */
+
+@media (max-width: 768px) {
+  /* MODOS DE JOGO */
+  .modes-section {
+    width: 100%;
+    padding: 38px 0 24px;
+  }
+
+  .modes-grid {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .mode-card {
+    min-height: auto;
+    padding: 22px 20px;
+  }
+
+  .mode-card-header {
+    align-items: flex-start;
+  }
+
+  .mode-card h4 {
+    margin: 28px 0 10px;
+
+    font-size: 38px;
+    line-height: 0.92;
+  }
+
+  .mode-card p {
+    max-width: 100%;
+
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  /* ARQUIVO DO DRAFT */
+  .home-archive-section {
+    width: 100%;
+    margin-top: 26px;
+    padding: 24px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+
+    box-sizing: border-box;
+  }
+
+  .archive-header {
+    width: 100%;
+    text-align: left;
+  }
+
+  .archive-header small {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+  }
+
+  .archive-header h3 {
+    max-width: 100%;
+
+    margin: 10px 0 10px;
+
+    font-size: 42px;
+    line-height: 0.9;
+  }
+
+  .archive-header p {
+    max-width: 100%;
+
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .archive-stats {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .archive-stat {
+    min-height: 106px;
+    padding: 14px 10px;
+  }
+
+  .archive-stat span {
+    margin-bottom: 8px;
+
+    font-size: 9px;
+    letter-spacing: 0.16em;
+  }
+
+  .archive-stat strong {
+    font-size: 34px;
+    line-height: 0.9;
+  }
+
+  .archive-stat small {
+    margin-top: 8px;
+
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .archive-stat-period {
+    grid-column: 1 / -1;
+  }
+/* Centraliza o card MODOS no mobile */
+.archive-stats .archive-stat:nth-child(4) {
+  grid-column: 1 / -1;
+  width: 132px;
+  justify-self: center;
+}
+  .archive-period-range {
+    gap: 8px;
+  }
+
+  .archive-period-range strong {
+    font-size: 26px;
+  }
+
+  .archive-period-range i {
+    font-size: 22px;
+  }
+}
+
+/* ===================================================== */
+/* HOME NOVA - CELULAR PEQUENO */
+/* ===================================================== */
+
+@media (max-width: 480px) {
+  .modes-section {
+    padding: 34px 0 22px;
+  }
+
+  .modes-grid {
+    gap: 12px;
+  }
+
+  .mode-card {
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+
+  .mode-card-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .mode-card-header small {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+  }
+
+  .mode-card-header span {
+    min-height: 26px;
+    padding: 0 10px;
+
+    font-size: 9px;
+  }
+
+  .mode-card h4 {
+    margin: 24px 0 10px;
+
+    font-size: 34px;
+    line-height: 0.92;
+  }
+
+  .mode-card p {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .home-archive-section {
+    margin-top: 24px;
+    padding: 22px 18px;
+    border-radius: 22px;
+  }
+
+  .archive-header h3 {
+    font-size: 38px;
+    line-height: 0.9;
+  }
+
+  .archive-header p {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .archive-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .archive-stat {
+    min-height: 100px;
+    padding: 13px 8px;
+    border-radius: 15px;
+  }
+
+  .archive-stat strong {
+    font-size: 32px;
+  }
+
+  .archive-stat small {
+    font-size: 9.5px;
+  }
+
+  .archive-period-range strong {
+    font-size: 24px;
+  }
+
+  .archive-period-range i {
+    font-size: 20px;
+  }
+}
+
+/* ===================================================== */
+/* HOME NOVA - CELULAR MUITO ESTREITO */
+/* ===================================================== */
+
+@media (max-width: 380px) {
+  .archive-header h3 {
+    font-size: 34px;
+  }
+
+  .archive-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-stat-period {
+    grid-column: auto;
+  }
+
+  .archive-period-range {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .archive-period-range strong {
+    font-size: 23px;
+  }
+
+  .archive-period-range i {
+    font-size: 19px;
+  }
+}
+
+/* ===================================================== */
+/* DRAFT MOBILE - HEADER NO MODO ELITE */
+/*
+  No mobile, o selo CAMPANHA ELITE ocupa muito espaço.
+  Por isso escondemos a logo DRAFT apenas no modo Elite.
+*/
+/* ===================================================== */
+
+@media (max-width: 480px) {
+  .draft-page:has(.draft-mode-info.elite) .draft-header {
+    padding: 14px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .draft-page:has(.draft-mode-info.elite) .draft-brand {
+    display: none;
+  }
+
+  .draft-page:has(.draft-mode-info.elite) .draft-summary {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .draft-page:has(.draft-mode-info.elite) #draftModeLabel {
+    padding: 5px 10px;
+
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+}
+/* ===================================================== */
+/* DRAFT MOBILE - JOGADOR NO CAMPO APENAS NO ELITE */
+/*
+  Ajusta somente o jogador preenchido no campo quando
+  o modo Elite estiver ativo no mobile.
+  Não altera o modo Normal.
+*/
+/* ===================================================== */
+
+@media (max-width: 480px) {
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled {
+    width: 64px;
+    height: 64px;
+  }
+
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-card {
+    width: 62px;
+    height: 62px;
+  }
+
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
+    width: 52px;
+    height: 52px;
+
+    background: rgba(8, 18, 34, 0.96);
+    border: none;
+
+    color: #fbbf24;
+
+    font-size: 20px;
+
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.26),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.16);
+  }
+
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+  top: 63px;
+
+  max-width: 104px;
+
+  color: #ffffff;
+
+  font-size: 12.2px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.72),
+    0 0 6px rgba(0, 0, 0, 0.45);
+}
+}
+
+/* Celular muito estreito */
+@media (max-width: 380px) {
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled {
+    width: 58px;
+    height: 58px;
+  }
+
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-card {
+    width: 56px;
+    height: 56px;
+  }
+
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
+    width: 48px;
+    height: 48px;
+
+    font-size: 18.5px;
+  }
+
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+  top: 59px;
+
+  max-width: 92px;
+
+  font-size: 11px;
+}
+}

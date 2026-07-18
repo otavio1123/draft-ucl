@@ -52,7 +52,73 @@
 }
 
 /* ===================================================== */
-/* SELETOR NORMAL / RÁPIDO */
+/* MODO DA CAMPANHA - NORMAL / ELITE */
+/* ===================================================== */
+
+.campaign-mode-badge {
+  margin-top: 16px;
+  padding: 12px 16px;
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+
+  min-width: 360px;
+  max-width: 430px;
+
+  background: rgba(8, 18, 34, 0.88);
+  border: 1px solid rgba(147, 197, 253, 0.28);
+}
+
+.campaign-mode-badge strong {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.campaign-mode-badge span {
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.campaign-mode-normal {
+  border-color: rgba(147, 197, 253, 0.35);
+}
+
+.campaign-mode-normal strong {
+  color: #93c5fd;
+}
+
+.campaign-mode-normal span {
+  color: #bfdbfe;
+}
+
+.campaign-mode-elite {
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.13), rgba(124, 58, 237, 0.08)),
+    rgba(8, 18, 34, 0.92);
+
+  border-color: rgba(251, 191, 36, 0.62);
+  border-left: 4px solid #d97706;
+
+  box-shadow:
+    0 0 20px rgba(217, 119, 6, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.campaign-mode-elite strong {
+  color: #fbbf24;
+}
+
+.campaign-mode-elite span {
+  color: #fde68a;
+}
+
+/* ===================================================== */
+/* VELOCIDADE DA SIMULAÇÃO */
+/* NORMAL / RÁPIDO */
 /* ===================================================== */
 
 .campaign-speed-box {
@@ -724,6 +790,65 @@
 .standing-action-btn.replay {
   background: linear-gradient(135deg, #ef4444, #b91c1c);
   border-color: #fca5a5;
+}
+/* ===================================================== */
+/* MATA-MATA - MODO ELITE */
+/* ===================================================== */
+
+.knockout-page.elite .knockout-header small {
+  color: #fbbf24;
+}
+
+.knockout-page.elite .knockout-header h1 {
+  text-shadow:
+    0 0 14px rgba(217, 119, 6, 0.24),
+    0 3px 0 rgba(0, 0, 0, 0.42);
+}
+
+.knockout-mode-badge {
+  margin: 12px auto 0;
+  padding: 7px 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(251, 191, 36, 0.58);
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.18), rgba(124, 58, 237, 0.10)),
+    rgba(8, 18, 34, 0.92);
+
+  color: #fbbf24;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  box-shadow:
+    0 0 16px rgba(217, 119, 6, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.knockout-page.elite .knockout-main-card {
+  border-color: rgba(251, 191, 36, 0.34);
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+}
+
+.knockout-page.elite .knockout-main-card small,
+.knockout-page.elite .knockout-stage-label small,
+.knockout-page.elite .knockout-aggregate-box small {
+  color: #fbbf24;
+}
+
+.knockout-page.elite .knockout-leg-card {
+  border-color: rgba(251, 191, 36, 0.18);
+}
+
+.knockout-page.elite .knockout-leg-card.live {
+  border-left: 4px solid #d97706;
 }
 /* ===================================================== */
 /* TELA DO MATA-MATA */
@@ -1658,6 +1783,176 @@
   border-color: #86efac;
   color: #ffffff;
 }
+
+/* ===================================================== */
+/* MEU CARD - MODO ELITE */
+/*
+  Visual premium para campanhas jogadas no Modo Elite.
+
+  Regras:
+  - não altera o card normal;
+  - só aplica quando o card tiver classe .elite;
+  - campeão Elite ganha destaque maior;
+  - eliminado/vice Elite ainda fica premium, mas sem parecer campeão.
+*/
+/* ===================================================== */
+
+.campaign-card-capture.elite {
+  position: relative;
+
+  background:
+    radial-gradient(circle at top, rgba(217, 119, 6, 0.12), transparent 34%),
+    linear-gradient(135deg, rgba(15, 29, 50, 0.98), rgba(8, 18, 34, 0.98));
+
+  border-color: rgba(251, 191, 36, 0.46);
+
+  box-shadow:
+    0 0 26px rgba(217, 119, 6, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.campaign-card-capture.elite::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  border-top: 3px solid rgba(217, 119, 6, 0.85);
+}
+
+.campaign-card-page.elite .campaign-card-header small {
+  color: #fbbf24;
+}
+
+.campaign-card-page.elite .campaign-card-title {
+  color: #ffffff;
+
+  text-shadow:
+    0 0 12px rgba(217, 119, 6, 0.24),
+    0 3px 0 rgba(0, 0, 0, 0.42);
+}
+
+.campaign-card-page.elite .campaign-card-header strong {
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.20), rgba(124, 58, 237, 0.16));
+
+  border-color: rgba(251, 191, 36, 0.52);
+  color: #fde68a;
+
+  box-shadow: 0 0 18px rgba(217, 119, 6, 0.12);
+}
+
+.campaign-card-page.elite .campaign-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.campaign-card-page.elite .campaign-card-header strong {
+  margin-top: 10px;
+}
+.campaign-card-mode-badge {
+  margin: 10px auto 0;
+  padding: 8px 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  border: 1px solid rgba(251, 191, 36, 0.60);
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.20), rgba(8, 18, 34, 0.92));
+
+  color: #fbbf24;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+  text-transform: uppercase;
+
+  box-shadow:
+    0 0 14px rgba(217, 119, 6, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.campaign-card-page.elite.champion .campaign-card-share-btn,
+.campaign-card-capture.elite.champion .campaign-card-share-btn {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 22px rgba(217, 119, 6, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+.campaign-card-page.elite .campaign-card-squad > small,
+.campaign-card-page.elite .campaign-card-ranking-box > small {
+  color: #fbbf24;
+}
+
+.campaign-card-page.elite .campaign-card-squad-grid div,
+.campaign-card-page.elite .campaign-card-summary div,
+.campaign-card-page.elite .campaign-card-results div,
+.campaign-card-page.elite .campaign-card-ranking-box {
+  border-color: rgba(251, 191, 36, 0.20);
+  background: rgba(8, 18, 34, 0.88);
+}
+
+.campaign-card-page.elite .campaign-card-squad-grid span,
+.campaign-card-page.elite .campaign-card-summary span,
+.campaign-card-page.elite .campaign-card-results span {
+  color: #fbbf24;
+}
+
+.campaign-card-page.elite .campaign-card-ranking-box li strong {
+  color: #fde68a;
+}
+/* ===================================================== */
+/* MEU CARD - CAMPEÃO ELITE */
+/*
+  Quando vencer a Champions no Modo Elite,
+  o card ganha destaque mais forte que um Elite eliminado.
+*/
+/* ===================================================== */
+
+.campaign-card-capture.elite.champion {
+  background:
+    radial-gradient(circle at top, rgba(250, 204, 21, 0.16), transparent 34%),
+    linear-gradient(135deg, rgba(20, 18, 10, 0.98), rgba(8, 18, 34, 0.98));
+
+  border-color: rgba(250, 204, 21, 0.52);
+
+  box-shadow:
+    0 0 30px rgba(250, 204, 21, 0.13),
+    inset 0 0 0 1px rgba(250, 204, 21, 0.06);
+}
+
+.campaign-card-capture.elite.champion::before {
+  border-top: 1px solid rgba(250, 204, 21, 0.85);
+}
+
+.campaign-card-page.elite.champion .campaign-card-title,
+.campaign-card-capture.elite.champion .campaign-card-title {
+  color: #facc15;
+
+  text-shadow:
+    0 0 10px rgba(250, 204, 21, 0.38),
+    0 3px 0 rgba(0, 0, 0, 0.45);
+}
+
+.campaign-card-page.elite.champion .campaign-card-header strong,
+.campaign-card-capture.elite.champion .campaign-card-header strong {
+  color: #facc15;
+  border-color: rgba(250, 204, 21, 0.72);
+  background: rgba(250, 204, 21, 0.12);
+
+  box-shadow: 0 0 22px rgba(250, 204, 21, 0.20);
+}
 /* ===================================================== */
 /* JOGOS DA CAMPANHA */
 /* ===================================================== */
@@ -1880,4 +2175,307 @@
 
 .draft-brand-link:hover {
   opacity: 0.9;
+}
+/* ===================================================== */
+/* FASE DE LIGA - VISUAL ELITE */
+/*
+  Deixa a fase de liga Elite mais próxima do visual
+  do mata-mata Elite.
+*/
+/* ===================================================== */
+
+.campaign-page:has(.campaign-mode-elite) {
+  background:
+    radial-gradient(circle at top, rgba(217, 119, 6, 0.16), transparent 34%),
+    radial-gradient(circle at top left, rgba(124, 58, 237, 0.22), transparent 36%),
+    #07111f;
+}
+
+/* Cabeçalho centralizado igual ao mata-mata */
+.campaign-page:has(.campaign-mode-elite) .campaign-header {
+  max-width: 1050px;
+  margin: 0 auto 36px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  text-align: center;
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-title-block small {
+  margin-bottom: 10px;
+
+  color: #fbbf24;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 5px;
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-title-block h1 {
+  margin-bottom: 10px;
+
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1;
+
+  text-shadow:
+    0 0 14px rgba(217, 119, 6, 0.24),
+    0 3px 0 rgba(0, 0, 0, 0.42);
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-title-block p {
+  color: #bfdbfe;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Selo Elite mais parecido com o mata-mata */
+.campaign-page:has(.campaign-mode-elite) .campaign-mode-badge {
+  margin: 14px auto 0;
+  padding: 8px 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: auto;
+  max-width: max-content;
+
+  border: 1px solid rgba(251, 191, 36, 0.58);
+  border-left: 1px solid rgba(251, 191, 36, 0.58);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.18), rgba(124, 58, 237, 0.10)),
+    rgba(8, 18, 34, 0.92);
+
+  box-shadow:
+    0 0 16px rgba(217, 119, 6, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-mode-badge strong {
+  color: #fbbf24;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-mode-badge span {
+  display: none;
+}
+
+/* Velocidade centralizada no Elite */
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-selector,
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-box,
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-control {
+  align-self: center;
+  text-align: center;
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-selector span,
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-box span,
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-control span {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+/* Cards principais com detalhe dourado */
+.campaign-page:has(.campaign-mode-elite) .campaign-info-card,
+.campaign-page:has(.campaign-mode-elite) .campaign-summary-card,
+.campaign-page:has(.campaign-mode-elite) .campaign-status-card {
+  border-color: rgba(251, 191, 36, 0.24);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.06), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-info-card small,
+.campaign-page:has(.campaign-mode-elite) .campaign-summary-card small,
+.campaign-page:has(.campaign-mode-elite) .campaign-status-card small {
+  color: #fbbf24;
+}
+
+/* Lista dos jogos com cara mais premium */
+.campaign-page:has(.campaign-mode-elite) .league-match-card,
+.campaign-page:has(.campaign-mode-elite) .campaign-match-card,
+.campaign-page:has(.campaign-mode-elite) .match-card {
+  border-color: rgba(251, 191, 36, 0.18);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.045), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+}
+
+.campaign-page:has(.campaign-mode-elite) .league-match-card.unlocked,
+.campaign-page:has(.campaign-mode-elite) .campaign-match-card.unlocked,
+.campaign-page:has(.campaign-mode-elite) .match-card.unlocked {
+  border-left: 4px solid #d97706;
+}
+
+.campaign-page:has(.campaign-mode-elite) .match-teams-line small,
+.campaign-page:has(.campaign-mode-elite) .match-season,
+.campaign-page:has(.campaign-mode-elite) .team-season {
+  color: #fbbf24;
+}
+
+/* Botão revelar mais próximo do mata-mata */
+.campaign-page:has(.campaign-mode-elite) .reveal-match-btn,
+.campaign-page:has(.campaign-mode-elite) .campaign-reveal-btn,
+.campaign-page:has(.campaign-mode-elite) .match-reveal-btn {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: rgba(251, 191, 36, 0.90);
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 22px rgba(217, 119, 6, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+/* Título da seção de jogos no Elite */
+.campaign-page:has(.campaign-mode-elite) .section-title small {
+  color: #fbbf24;
+}
+
+.campaign-page:has(.campaign-mode-elite) .section-title h2 {
+  text-shadow:
+    0 0 10px rgba(217, 119, 6, 0.18),
+    0 2px 0 rgba(0, 0, 0, 0.35);
+}
+/* ===================================================== */
+/* VELOCIDADE - VISUAL ELITE */
+/* ===================================================== */
+
+/* Fase de liga Elite */
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-btn.active {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 0 18px rgba(217, 119, 6, 0.32),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-btn:not(.active) {
+  background: rgba(8, 18, 34, 0.92);
+  border-color: rgba(147, 197, 253, 0.38);
+  color: #93c5fd;
+}
+
+.campaign-page:has(.campaign-mode-elite) .campaign-speed-btn:hover:not(:disabled) {
+  border-color: rgba(251, 191, 36, 0.72);
+  color: #ffffff;
+}
+
+/* Mata-mata Elite */
+.knockout-page.elite .knockout-speed-btn.active {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 0 18px rgba(217, 119, 6, 0.32),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+.knockout-page.elite .knockout-speed-btn:not(.active) {
+  background: rgba(8, 18, 34, 0.92);
+  border-color: rgba(147, 197, 253, 0.38);
+  color: #93c5fd;
+}
+
+.knockout-page.elite .knockout-speed-btn:hover:not(:disabled) {
+  border-color: rgba(251, 191, 36, 0.72);
+  color: #ffffff;
+}
+
+/* ===================================================== */
+/* MATA-MATA ELITE - CARDS DAS ELIMINATÓRIAS */
+/*
+  Deixa os jogos e resultado do mata-mata Elite
+  com a mesma identidade visual da fase de liga Elite.
+*/
+/* ===================================================== */
+
+/* Cards dos jogos de ida/volta */
+.knockout-page.elite .knockout-leg-card {
+  border-color: rgba(251, 191, 36, 0.24);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.055), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+}
+
+/* Jogo vencido ou perdido mantém a lateral de resultado */
+.knockout-page.elite .knockout-leg-card.won {
+  border-left-color: #22c55e;
+}
+
+.knockout-page.elite .knockout-leg-card.lost {
+  border-left-color: #ef4444;
+}
+
+/* Labels dos cards */
+.knockout-page.elite .knockout-leg-info small,
+.knockout-page.elite .knockout-leg-info strong {
+  color: #93c5fd;
+}
+
+/* Nome dos times e temporada */
+.knockout-page.elite .knockout-leg-teams small,
+.knockout-page.elite .knockout-stage-label small,
+.knockout-page.elite .knockout-aggregate-box small {
+  color: #fbbf24;
+}
+
+/* Card final: classificado/eliminado */
+.knockout-page.elite .knockout-result-card {
+  border-color: rgba(251, 191, 36, 0.28);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.07), rgba(15, 29, 50, 0.96)),
+    rgba(15, 29, 50, 0.96);
+
+  box-shadow:
+    0 0 22px rgba(217, 119, 6, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+/* Mantém o resultado visual claro */
+.knockout-page.elite .knockout-result-card small {
+  letter-spacing: 4px;
+}
+
+/* Botão avançar no Elite */
+.knockout-page.elite .knockout-next-btn,
+.knockout-page.elite .knockout-card-btn {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  border-color: rgba(251, 191, 36, 0.95);
+  color: #ffffff;
+
+  box-shadow:
+    0 12px 26px rgba(217, 119, 6, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+.knockout-page.elite .knockout-next-btn:hover,
+.knockout-page.elite .knockout-card-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 16px 32px rgba(217, 119, 6, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }

@@ -440,23 +440,7 @@
   border-radius: 20px;
 }
 
-.home-stats-bar strong {
-  min-height: 34px;
-  padding: 0 18px;
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text);
-
-  font-size: 13px;
-  font-weight: 900;
-}
 /* ===================================================== */
 /* COMO JOGAR */
 /* Mantido no modelo atual, só pequenos ajustes */
@@ -553,4 +537,324 @@
 
   font-size: 12px;
   font-weight: 700;
+}
+
+/* ===================================================== */
+/* MODOS DE JOGO */
+/* ===================================================== */
+
+.modes-section {
+  padding: 42px 0 28px;
+}
+
+.modes-grid {
+  margin-top: 30px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.mode-card {
+  min-height: 220px;
+  padding: 26px;
+
+  position: relative;
+  overflow: hidden;
+
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+.mode-card::before {
+  content: "";
+
+  position: absolute;
+  right: -80px;
+  bottom: -90px;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+  filter: blur(44px);
+  opacity: 0.55;
+}
+
+.mode-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.mode-card-header small {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+}
+
+.mode-card-header span {
+  min-height: 28px;
+  padding: 0 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mode-card h4 {
+  margin: 34px 0 10px;
+
+  position: relative;
+  z-index: 2;
+
+  font-family: var(--font-title);
+  font-size: 42px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+.mode-card p {
+  max-width: 440px;
+  margin: 0;
+
+  position: relative;
+  z-index: 2;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Normal */
+.mode-normal {
+  border-color: rgba(139, 92, 246, 0.34);
+}
+
+.mode-normal::before {
+  background: rgba(124, 58, 237, 0.34);
+}
+
+.mode-normal .mode-card-header small {
+  color: var(--primary-2);
+}
+
+.mode-normal .mode-card-header span {
+  background: rgba(124, 58, 237, 0.16);
+  border: 1px solid rgba(167, 139, 250, 0.36);
+  color: #c4b5fd;
+}
+
+/* Elite */
+.mode-elite {
+  border-color: rgba(251, 191, 36, 0.42);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(15, 29, 50, 0.96)),
+    var(--panel);
+}
+
+.mode-elite::before {
+  background: rgba(217, 119, 6, 0.32);
+}
+
+.mode-elite .mode-card-header small {
+  color: #fbbf24;
+}
+
+.mode-elite .mode-card-header span {
+  background: rgba(217, 119, 6, 0.16);
+  border: 1px solid rgba(251, 191, 36, 0.48);
+  color: #fbbf24;
+}
+/* ===================================================== */
+/* ARQUIVO DO DRAFT */
+/* ===================================================== */
+
+.home-archive-section {
+  margin-top: 34px;
+  padding: 30px;
+
+  display: grid;
+  grid-template-columns: 0.9fr 1.45fr;
+  gap: 28px;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top right, rgba(217, 119, 6, 0.10), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.18), transparent 38%),
+    rgba(15, 29, 50, 0.96);
+
+  border: 1px solid rgba(147, 197, 253, 0.18);
+  border-radius: 24px;
+}
+
+.archive-header {
+  position: relative;
+  z-index: 2;
+}
+
+.archive-header small {
+  display: block;
+
+  color: #fbbf24;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.30em;
+}
+
+.archive-header h3 {
+  max-width: 340px;
+
+  margin: 10px 0 10px;
+
+  font-family: var(--font-title);
+  font-size: 48px;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+}
+
+.archive-header p {
+  max-width: 380px;
+  margin: 0;
+
+  color: #bfdbfe;
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Grid dos números */
+.archive-stats {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.55fr 0.85fr;
+  gap: 12px;
+}
+
+.archive-stat {
+  min-height: 116px;
+  padding: 16px 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    rgba(8, 18, 34, 0.72);
+
+  border: 1px solid rgba(147, 197, 253, 0.18);
+  border-radius: 16px;
+
+  text-align: center;
+
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.archive-stat span {
+  margin-bottom: 9px;
+
+  color: #93c5fd;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.archive-stat strong {
+  color: #ffffff;
+
+  font-family: var(--font-title);
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.55),
+    0 0 8px rgba(255, 255, 255, 0.06);
+}
+
+.archive-stat small {
+  margin-top: 10px;
+
+  color: #bfdbfe;
+
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* Período */
+.archive-stat-period {
+  border-color: rgba(251, 191, 36, 0.24);
+
+  background:
+    linear-gradient(135deg, rgba(217, 119, 6, 0.06), rgba(8, 18, 34, 0.76)),
+    rgba(8, 18, 34, 0.72);
+}
+
+.archive-period-range {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  white-space: nowrap;
+}
+
+.archive-period-range strong {
+  font-size: 26px;
+  line-height: 0.9;
+}
+
+.archive-period-range strong:last-child {
+  color: #fbbf24;
+}
+
+.archive-period-range i {
+  color: #fbbf24;
+
+  font-style: normal;
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.55);
+}
+
+.archive-stat:hover {
+  transform: translateY(-2px);
+  border-color: rgba(251, 191, 36, 0.34);
+
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.16),
+    0 0 14px rgba(217, 119, 6, 0.06);
 }

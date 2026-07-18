@@ -935,6 +935,649 @@ const underdogTeams = [
 
 const historicTeams = [
   {
+  id: "parma_1997_1998",
+  club: "Parma",
+  season: "1997/1998",
+  type: "Histórico da Champions",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 85,
+  finalPower: 85,
+  attack: 86,
+  midfield: 84,
+  defense: 86,
+  mentality: 86,
+  chemistry: 85,
+  championsExperience: 83,
+  historicalWeight: 87,
+  clutch: 84,
+  consistency: 85,
+  style: "Equilibrado",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Enrico Chiesa", rating: 86 },
+    { position: "CA", positions: ["CA"], name: "Hernán Crespo", rating: 88 },
+    { position: "PD", positions: ["PD", "MD"], name: "Tomas Brolin", rating: 82 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Alain Boghossian", rating: 83 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Dino Baggio", rating: 84 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Néstor Sensini", rating: 85 },
+
+    { position: "LE", positions: ["LE"], name: "Antonio Benarrivo", rating: 83 },
+    { position: "ZAG", positions: ["ZAG"], name: "Fabio Cannavaro", rating: 87 },
+    { position: "ZAG", positions: ["ZAG"], name: "Lilian Thuram", rating: 88 },
+    { position: "LD", positions: ["LD", "ZAG"], name: "Luigi Apolloni", rating: 81 },
+    { position: "GOL", positions: ["GOL"], name: "Gianluigi Buffon", rating: 87 }
+  ]
+},
+
+{
+  id: "sevilla_2007_2008",
+  club: "Sevilla",
+  season: "2007/2008",
+  type: "Histórico da Champions",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 84,
+  finalPower: 85,
+  attack: 86,
+  midfield: 85,
+  defense: 83,
+  mentality: 86,
+  chemistry: 86,
+  championsExperience: 82,
+  historicalWeight: 85,
+  clutch: 85,
+  consistency: 84,
+  style: "Ofensivo",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Luís Fabiano", rating: 85 },
+    { position: "CA", positions: ["CA"], name: "Frédéric Kanouté", rating: 84 },
+    { position: "PD", positions: ["PD", "MD"], name: "Jesús Navas", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Renato", rating: 84 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Seydou Keita", rating: 85 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Christian Poulsen", rating: 84 },
+
+    { position: "LE", positions: ["LE", "ME"], name: "Adriano", rating: 82 },
+    { position: "ZAG", positions: ["ZAG"], name: "Javi Navarro", rating: 82 },
+    { position: "ZAG", positions: ["ZAG"], name: "Julien Escudé", rating: 82 },
+    { position: "LD", positions: ["LD", "MD"], name: "Dani Alves", rating: 88 },
+    { position: "GOL", positions: ["GOL"], name: "Andrés Palop", rating: 84 }
+  ]
+},
+
+{
+  id: "sporting_cp_2008_2009",
+  club: "Sporting CP",
+  season: "2008/2009",
+  type: "Histórico da Champions",
+  categoryType: "historic",
+  tier: "medium",
+
+  teamOverall: 82,
+  finalPower: 83,
+  attack: 83,
+  midfield: 83,
+  defense: 82,
+  mentality: 84,
+  chemistry: 84,
+  championsExperience: 80,
+  historicalWeight: 83,
+  clutch: 82,
+  consistency: 81,
+  style: "Equilibrado",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Derlei", rating: 81 },
+    { position: "CA", positions: ["CA"], name: "Liedson", rating: 85 },
+    { position: "PD", positions: ["PD", "MEI"], name: "Marat Izmailov", rating: 83 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "João Moutinho", rating: 85 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Rochemback", rating: 82 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Miguel Veloso", rating: 84 },
+
+    { position: "LE", positions: ["LE"], name: "Leandro Grimi", rating: 79 },
+    { position: "ZAG", positions: ["ZAG"], name: "Anderson Polga", rating: 83 },
+    { position: "ZAG", positions: ["ZAG"], name: "Daniel Carriço", rating: 81 },
+    { position: "LD", positions: ["LD"], name: "Abel", rating: 80 },
+    { position: "GOL", positions: ["GOL"], name: "Rui Patrício", rating: 82 }
+  ]
+},
+  {
+  id: "fenerbahce_2007_2008",
+  club: "Fenerbahçe",
+  season: "2007/2008",
+  type: "Histórico da Champions",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 84,
+  finalPower: 85,
+  attack: 85,
+  midfield: 85,
+  defense: 83,
+  mentality: 87,
+  chemistry: 87,
+  championsExperience: 83,
+  historicalWeight: 86,
+  clutch: 86,
+  consistency: 84,
+  style: "Ofensivo",
+
+  players: [
+    { position: "PE", positions: ["PE", "ME"], name: "Uğur Boral", rating: 81 },
+    { position: "CA", positions: ["CA"], name: "Mateja Kežman", rating: 83 },
+    { position: "PD", positions: ["PD", "CA"], name: "Deivid", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Alex", rating: 88 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Mehmet Aurélio", rating: 84 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Selçuk Şahin", rating: 80 },
+
+    { position: "LE", positions: ["LE", "ME"], name: "Roberto Carlos", rating: 85 },
+    { position: "ZAG", positions: ["ZAG"], name: "Edu Dracena", rating: 82 },
+    { position: "ZAG", positions: ["ZAG"], name: "Diego Lugano", rating: 85 },
+    { position: "LD", positions: ["LD", "MD"], name: "Gökhan Gönül", rating: 82 },
+    { position: "GOL", positions: ["GOL"], name: "Volkan Demirel", rating: 83 }
+  ]
+},
+
+{
+  id: "besiktas_2017_2018",
+  club: "Beşiktaş",
+  season: "2017/2018",
+  type: "Histórico da Champions",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 84,
+  finalPower: 85,
+  attack: 85,
+  midfield: 84,
+  defense: 82,
+  mentality: 87,
+  chemistry: 87,
+  championsExperience: 82,
+  historicalWeight: 85,
+  clutch: 86,
+  consistency: 84,
+  style: "Ofensivo",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Ryan Babel", rating: 84 },
+    { position: "CA", positions: ["CA"], name: "Cenk Tosun", rating: 84 },
+    { position: "PD", positions: ["PD", "MD"], name: "Ricardo Quaresma", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Anderson Talisca", rating: 86 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Atiba Hutchinson", rating: 83 },
+    { position: "VOL", positions: ["VOL", "MC", "ZAG"], name: "Gary Medel", rating: 83 },
+
+    { position: "LE", positions: ["LE", "ME"], name: "Adriano", rating: 82 },
+    { position: "ZAG", positions: ["ZAG", "LE"], name: "Duško Tošić", rating: 80 },
+    { position: "ZAG", positions: ["ZAG"], name: "Pepe", rating: 86 },
+    { position: "LD", positions: ["LD"], name: "Gökhan Gönül", rating: 81 },
+    { position: "GOL", positions: ["GOL"], name: "Fabri", rating: 82 }
+  ]
+},
+
+{
+  id: "zenit_2012_2013",
+  club: "Zenit",
+  season: "2012/2013",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 84,
+  finalPower: 84,
+  attack: 86,
+  midfield: 85,
+  defense: 83,
+  mentality: 84,
+  chemistry: 82,
+  championsExperience: 83,
+  historicalWeight: 84,
+  clutch: 83,
+  consistency: 83,
+  style: "Transição rápida",
+
+  players: [
+    { position: "PE", positions: ["PE", "MEI"], name: "Danny", rating: 84 },
+    { position: "CA", positions: ["CA"], name: "Aleksandr Kerzhakov", rating: 83 },
+    { position: "PD", positions: ["PD", "CA"], name: "Hulk", rating: 85 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Roman Shirokov", rating: 83 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Axel Witsel", rating: 85 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Igor Denisov", rating: 84 },
+
+    { position: "LE", positions: ["LE", "ZAG"], name: "Domenico Criscito", rating: 83 },
+    { position: "ZAG", positions: ["ZAG"], name: "Nicolas Lombaerts", rating: 82 },
+    { position: "ZAG", positions: ["ZAG"], name: "Bruno Alves", rating: 84 },
+    { position: "LD", positions: ["LD"], name: "Aleksandr Anyukov", rating: 83 },
+    { position: "GOL", positions: ["GOL"], name: "Vyacheslav Malafeev", rating: 83 }
+  ]
+},
+
+{
+  id: "newcastle_united_2002_2003",
+  club: "Newcastle United",
+  season: "2002/2003",
+  type: "Histórico da Champions",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 84,
+  finalPower: 85,
+  attack: 86,
+  midfield: 84,
+  defense: 82,
+  mentality: 87,
+  chemistry: 86,
+  championsExperience: 82,
+  historicalWeight: 86,
+  clutch: 86,
+  consistency: 83,
+  style: "Intenso e vertical",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Craig Bellamy", rating: 83 },
+    { position: "CA", positions: ["CA"], name: "Alan Shearer", rating: 89 },
+    { position: "PD", positions: ["PD", "MD"], name: "Nolberto Solano", rating: 83 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Kieron Dyer", rating: 84 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Jermaine Jenas", rating: 82 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Gary Speed", rating: 84 },
+
+    { position: "LE", positions: ["LE"], name: "Olivier Bernard", rating: 80 },
+    { position: "ZAG", positions: ["ZAG"], name: "Jonathan Woodgate", rating: 83 },
+    { position: "ZAG", positions: ["ZAG"], name: "Andy O'Brien", rating: 81 },
+    { position: "LD", positions: ["LD", "ZAG"], name: "Aaron Hughes", rating: 81 },
+    { position: "GOL", positions: ["GOL"], name: "Shay Given", rating: 85 }
+  ]
+},
+
+{
+  id: "real_betis_2005_2006",
+  club: "Real Betis",
+  season: "2005/2006",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "medium",
+
+  teamOverall: 82,
+  finalPower: 83,
+  attack: 84,
+  midfield: 83,
+  defense: 80,
+  mentality: 84,
+  chemistry: 83,
+  championsExperience: 79,
+  historicalWeight: 82,
+  clutch: 83,
+  consistency: 80,
+  style: "Ofensivo",
+
+  players: [
+    { position: "PE", positions: ["PE", "MEI"], name: "Denílson", rating: 83 },
+    { position: "CA", positions: ["CA"], name: "Ricardo Oliveira", rating: 83 },
+    { position: "PD", positions: ["PD", "MD"], name: "Joaquín", rating: 85 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Edu", rating: 82 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Fernando", rating: 81 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Marcos Assunção", rating: 84 },
+
+    { position: "LE", positions: ["LE"], name: "Luis Fernández", rating: 79 },
+    { position: "ZAG", positions: ["ZAG"], name: "Juanito", rating: 83 },
+    { position: "ZAG", positions: ["ZAG"], name: "Melli", rating: 80 },
+    { position: "LD", positions: ["LD", "MD"], name: "Varela", rating: 81 },
+    { position: "GOL", positions: ["GOL"], name: "Pedro Contreras", rating: 81 }
+  ]
+},
+
+{
+  id: "olympiacos_2004_2005",
+  club: "Olympiacos",
+  season: "2004/2005",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "medium",
+
+  teamOverall: 82,
+  finalPower: 83,
+  attack: 84,
+  midfield: 83,
+  defense: 80,
+  mentality: 84,
+  chemistry: 84,
+  championsExperience: 81,
+  historicalWeight: 83,
+  clutch: 83,
+  consistency: 81,
+  style: "Ofensivo",
+
+  players: [
+    { position: "PE", positions: ["PE", "ME"], name: "Predrag Djordjević", rating: 84 },
+    { position: "CA", positions: ["CA", "MEI"], name: "Giovanni", rating: 84 },
+    { position: "PD", positions: ["PD", "CA"], name: "Nery Castillo", rating: 81 },
+
+    { position: "MEI", positions: ["MEI", "PE"], name: "Rivaldo", rating: 86 },
+    { position: "MC", positions: ["MC", "MD"], name: "Georgios Georgiadis", rating: 80 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Ieroklis Stoltidis", rating: 82 },
+
+    { position: "LE", positions: ["LE"], name: "Stelios Venetidis", rating: 79 },
+    { position: "ZAG", positions: ["ZAG"], name: "Gabriel Schürrer", rating: 81 },
+    { position: "ZAG", positions: ["ZAG"], name: "Georgios Anatolakis", rating: 80 },
+    { position: "LD", positions: ["LD", "LE"], name: "Anastasios Pantos", rating: 79 },
+    { position: "GOL", positions: ["GOL"], name: "Antonios Nikopolidis", rating: 83 }
+  ]
+},
+  {
+  id: "juventus_2018_2019",
+  club: "Juventus",
+  season: "2018/2019",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "elite",
+
+  teamOverall: 86,
+  finalPower: 88,
+  attack: 89,
+  midfield: 86,
+  defense: 88,
+  mentality: 89,
+  chemistry: 87,
+  championsExperience: 91,
+  historicalWeight: 90,
+  clutch: 88,
+  consistency: 87,
+  style: "Equilibrado",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Cristiano Ronaldo", rating: 93 },
+    { position: "CA", positions: ["CA"], name: "Mario Mandžukić", rating: 85 },
+    { position: "PD", positions: ["PD", "MEI", "CA"], name: "Paulo Dybala", rating: 86 },
+
+    { position: "MEI", positions: ["MEI", "PD", "MD"], name: "Federico Bernardeschi", rating: 82 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Miralem Pjanić", rating: 85 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Blaise Matuidi", rating: 84 },
+
+    { position: "LE", positions: ["LE"], name: "Alex Sandro", rating: 84 },
+    { position: "ZAG", positions: ["ZAG"], name: "Giorgio Chiellini", rating: 88 },
+    { position: "ZAG", positions: ["ZAG"], name: "Leonardo Bonucci", rating: 86 },
+    { position: "LD", positions: ["LD", "MD"], name: "João Cancelo", rating: 84 },
+    { position: "GOL", positions: ["GOL"], name: "Wojciech Szczęsny", rating: 85 }
+  ]
+},
+
+{
+  id: "manchester_united_2021_2022",
+  club: "Manchester United",
+  season: "2021/2022",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 84,
+  finalPower: 85,
+  attack: 87,
+  midfield: 85,
+  defense: 82,
+  mentality: 84,
+  chemistry: 77,
+  championsExperience: 89,
+  historicalWeight: 87,
+  clutch: 84,
+  consistency: 76,
+  style: "Ofensivo",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Marcus Rashford", rating: 83 },
+    { position: "CA", positions: ["CA", "PE"], name: "Cristiano Ronaldo", rating: 91 },
+    { position: "PD", positions: ["PD", "PE"], name: "Jadon Sancho", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Bruno Fernandes", rating: 87 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Paul Pogba", rating: 85 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Scott McTominay", rating: 81 },
+
+    { position: "LE", positions: ["LE"], name: "Luke Shaw", rating: 82 },
+    { position: "ZAG", positions: ["ZAG"], name: "Raphaël Varane", rating: 85 },
+    { position: "ZAG", positions: ["ZAG"], name: "Harry Maguire", rating: 80 },
+    { position: "LD", positions: ["LD"], name: "Aaron Wan-Bissaka", rating: 80 },
+    { position: "GOL", positions: ["GOL"], name: "David de Gea", rating: 86 }
+  ]
+},
+
+{
+  id: "barcelona_2018_2019",
+  club: "Barcelona",
+  season: "2018/2019",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "elite",
+
+  teamOverall: 87,
+  finalPower: 89,
+  attack: 91,
+  midfield: 88,
+  defense: 85,
+  mentality: 89,
+  chemistry: 89,
+  championsExperience: 93,
+  historicalWeight: 93,
+  clutch: 89,
+  consistency: 89,
+  style: "Posse de bola",
+
+  players: [
+    { position: "PE", positions: ["PE", "MEI"], name: "Philippe Coutinho", rating: 86 },
+    { position: "CA", positions: ["CA"], name: "Luis Suárez", rating: 89 },
+    { position: "PD", positions: ["PD", "MEI", "CA"], name: "Lionel Messi", rating: 97 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Ivan Rakitić", rating: 86 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Arthur", rating: 83 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Sergio Busquets", rating: 88 },
+
+    { position: "LE", positions: ["LE"], name: "Jordi Alba", rating: 87 },
+    { position: "ZAG", positions: ["ZAG"], name: "Clément Lenglet", rating: 83 },
+    { position: "ZAG", positions: ["ZAG"], name: "Gerard Piqué", rating: 86 },
+    { position: "LD", positions: ["LD", "MC"], name: "Sergi Roberto", rating: 83 },
+    { position: "GOL", positions: ["GOL"], name: "Marc-André ter Stegen", rating: 88 }
+  ]
+},
+
+{
+  id: "milan_2011_2012",
+  club: "Milan",
+  season: "2011/2012",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "elite",
+
+  teamOverall: 86,
+  finalPower: 88,
+  attack: 89,
+  midfield: 87,
+  defense: 87,
+  mentality: 89,
+  chemistry: 87,
+  championsExperience: 93,
+  historicalWeight: 93,
+  clutch: 88,
+  consistency: 87,
+  style: "Equilibrado",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Robinho", rating: 85 },
+    { position: "CA", positions: ["CA"], name: "Zlatan Ibrahimović", rating: 91 },
+    { position: "PD", positions: ["PD", "CA"], name: "Alexandre Pato", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Kevin-Prince Boateng", rating: 85 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Clarence Seedorf", rating: 87 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Mark van Bommel", rating: 84 },
+
+    { position: "LE", positions: ["LE"], name: "Luca Antonini", rating: 80 },
+    { position: "ZAG", positions: ["ZAG"], name: "Thiago Silva", rating: 87 },
+    { position: "ZAG", positions: ["ZAG"], name: "Alessandro Nesta", rating: 87 },
+    { position: "LD", positions: ["LD"], name: "Ignazio Abate", rating: 82 },
+    { position: "GOL", positions: ["GOL"], name: "Christian Abbiati", rating: 84 }
+  ]
+},
+
+{
+  id: "inter_2018_2019",
+  club: "Inter de Milão",
+  season: "2018/2019",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 85,
+  finalPower: 85,
+  attack: 86,
+  midfield: 84,
+  defense: 86,
+  mentality: 85,
+  chemistry: 83,
+  championsExperience: 86,
+  historicalWeight: 86,
+  clutch: 84,
+  consistency: 83,
+  style: "Equilibrado",
+
+  players: [
+    { position: "PE", positions: ["PE", "ME"], name: "Ivan Perišić", rating: 85 },
+    { position: "CA", positions: ["CA"], name: "Mauro Icardi", rating: 88 },
+    { position: "PD", positions: ["PD", "MEI"], name: "Matteo Politano", rating: 82 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Radja Nainggolan", rating: 84 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Marcelo Brozović", rating: 84 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Matías Vecino", rating: 81 },
+
+    { position: "LE", positions: ["LE", "ME"], name: "Kwadwo Asamoah", rating: 81 },
+    { position: "ZAG", positions: ["ZAG"], name: "Milan Škriniar", rating: 86 },
+    { position: "ZAG", positions: ["ZAG"], name: "Stefan de Vrij", rating: 85 },
+    { position: "LD", positions: ["LD", "ZAG"], name: "Danilo D'Ambrosio", rating: 80 },
+    { position: "GOL", positions: ["GOL"], name: "Samir Handanović", rating: 87 }
+  ]
+},
+
+{
+  id: "valencia_2006_2007",
+  club: "Valencia",
+  season: "2006/2007",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 86,
+  finalPower: 86,
+  attack: 87,
+  midfield: 86,
+  defense: 85,
+  mentality: 87,
+  chemistry: 86,
+  championsExperience: 85,
+  historicalWeight: 87,
+  clutch: 86,
+  consistency: 85,
+  style: "Transição rápida",
+
+  players: [
+    { position: "PE", positions: ["PE", "ME"], name: "Vicente", rating: 85 },
+    { position: "CA", positions: ["CA"], name: "David Villa", rating: 89 },
+    { position: "PD", positions: ["PD", "MD"], name: "Joaquín", rating: 85 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "David Silva", rating: 84 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Rubén Baraja", rating: 85 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "David Albelda", rating: 85 },
+
+    { position: "LE", positions: ["LE", "ZAG"], name: "Emiliano Moretti", rating: 81 },
+    { position: "ZAG", positions: ["ZAG"], name: "Roberto Ayala", rating: 87 },
+    { position: "ZAG", positions: ["ZAG", "VOL"], name: "Carlos Marchena", rating: 83 },
+    { position: "LD", positions: ["LD"], name: "Miguel", rating: 83 },
+    { position: "GOL", positions: ["GOL"], name: "Santiago Cañizares", rating: 86 }
+  ]
+},
+
+{
+  id: "napoli_2016_2017",
+  club: "Napoli",
+  season: "2016/2017",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "strong",
+
+  teamOverall: 85,
+  finalPower: 85,
+  attack: 85,
+  midfield: 86,
+  defense: 83,
+  mentality: 86,
+  chemistry: 89,
+  championsExperience: 83,
+  historicalWeight: 86,
+  clutch: 85,
+  consistency: 87,
+  style: "Ofensivo",
+
+  players: [
+    { position: "PE", positions: ["PE", "MEI"], name: "Lorenzo Insigne", rating: 86 },
+    { position: "CA", positions: ["CA", "PE"], name: "Dries Mertens", rating: 85 },
+    { position: "PD", positions: ["PD", "MD"], name: "José Callejón", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Marek Hamšík", rating: 87 },
+    { position: "MC", positions: ["MC", "VOL"], name: "Jorginho", rating: 85 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Allan", rating: 84 },
+
+    { position: "LE", positions: ["LE"], name: "Faouzi Ghoulam", rating: 83 },
+    { position: "ZAG", positions: ["ZAG"], name: "Kalidou Koulibaly", rating: 86 },
+    { position: "ZAG", positions: ["ZAG"], name: "Raúl Albiol", rating: 83 },
+    { position: "LD", positions: ["LD"], name: "Elseid Hysaj", rating: 81 },
+    { position: "GOL", positions: ["GOL"], name: "Pepe Reina", rating: 83 }
+  ]
+},
+
+{
+  id: "real_madrid_2006_2007",
+  club: "Real Madrid",
+  season: "2006/2007",
+  type: "Histórico sem título",
+  categoryType: "historic",
+  tier: "elite",
+
+  teamOverall: 87,
+  finalPower: 88,
+  attack: 89,
+  midfield: 86,
+  defense: 87,
+  mentality: 91,
+  chemistry: 85,
+  championsExperience: 91,
+  historicalWeight: 93,
+  clutch: 90,
+  consistency: 85,
+  style: "Contra-ataque",
+
+  players: [
+    { position: "PE", positions: ["PE", "CA"], name: "Raúl González", rating: 88 },
+    { position: "CA", positions: ["CA"], name: "Ruud van Nistelrooy", rating: 90 },
+    { position: "PD", positions: ["PD", "PE"], name: "Robinho", rating: 85 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Guti", rating: 85 },
+    { position: "MC", positions: ["MC", "MD"], name: "David Beckham", rating: 87 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Mahamadou Diarra", rating: 84 },
+
+    { position: "LE", positions: ["LE"], name: "Roberto Carlos", rating: 87 },
+    { position: "ZAG", positions: ["ZAG"], name: "Fabio Cannavaro", rating: 89 },
+    { position: "ZAG", positions: ["ZAG", "LD"], name: "Sergio Ramos", rating: 85 },
+    { position: "LD", positions: ["LD"], name: "Míchel Salgado", rating: 82 },
+    { position: "GOL", positions: ["GOL"], name: "Iker Casillas", rating: 89 }
+  ]
+},
+  {
   id: "napoli_1988_1989",
   club: "Napoli",
   season: "1988/1989",
@@ -2379,6 +3022,159 @@ style: "Ofensivo",
 
 const runnerUpTeams = [
   {
+  id: "saint_etienne_1975_1976",
+  club: "Saint-Étienne",
+  season: "1975/1976",
+  type: "Vice-campeão histórico",
+  categoryType: "runner_up",
+  tier: "strong",
+
+  teamOverall: 86,
+  finalPower: 86,
+  attack: 86,
+  midfield: 87,
+  defense: 86,
+  mentality: 90,
+  chemistry: 89,
+  championsExperience: 84,
+  historicalWeight: 89,
+  clutch: 84,
+  consistency: 88,
+  style: "Equilibrado",
+
+  players: [
+    // Escalação baseada na final da Copa dos Campeões 1975/76, com posições adaptadas ao jogo
+    { position: "PE", positions: ["PE", "ME"], name: "Christian Sarramagna", rating: 83 },
+    { position: "CA", positions: ["CA"], name: "Hervé Revelli", rating: 85 },
+    { position: "PD", positions: ["PD", "MD"], name: "Patrick Revelli", rating: 82 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Jean-Michel Larqué", rating: 87 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Jacques Santini", rating: 82 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Dominique Bathenay", rating: 84 },
+
+    { position: "LE", positions: ["LE", "ZAG"], name: "Pierre Repellini", rating: 80 },
+    { position: "ZAG", positions: ["ZAG"], name: "Osvaldo Piazza", rating: 86 },
+    { position: "ZAG", positions: ["ZAG"], name: "Christian Lopez", rating: 84 },
+    { position: "LD", positions: ["LD"], name: "Gérard Janvion", rating: 83 },
+    { position: "GOL", positions: ["GOL"], name: "Ivan Ćurković", rating: 84 }
+  ]
+},
+  {
+  id: "panathinaikos_1970_1971",
+  club: "Panathinaikos",
+  season: "1970/1971",
+  type: "Vice-campeão histórico",
+  categoryType: "runner_up",
+  tier: "medium",
+
+  teamOverall: 83,
+  finalPower: 84,
+  attack: 84,
+  midfield: 85,
+  defense: 82,
+  mentality: 87,
+  chemistry: 86,
+  championsExperience: 81,
+  historicalWeight: 86,
+  clutch: 85,
+  consistency: 83,
+  style: "Organizado",
+
+  players: [
+    // Escalação baseada na final da Copa dos Campeões 1970/71, com posições adaptadas ao jogo
+    { position: "PE", positions: ["PE", "ME"], name: "Totis Filakouris", rating: 81 },
+    { position: "CA", positions: ["CA"], name: "Antonis Antoniadis", rating: 86 },
+    { position: "PD", positions: ["PD", "MD"], name: "Charis Grammos", rating: 80 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Mimis Domazos", rating: 87 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Kostas Eleftherakis", rating: 82 },
+    { position: "VOL", positions: ["VOL", "MC", "ZAG"], name: "Aristidis Kamaras", rating: 82 },
+
+    { position: "LE", positions: ["LE", "ZAG"], name: "Giorgos Vlahos", rating: 80 },
+    { position: "ZAG", positions: ["ZAG"], name: "Frangiskos Sourpis", rating: 80 },
+    { position: "ZAG", positions: ["ZAG", "LE"], name: "Anthimos Kapsis", rating: 82 },
+    { position: "LD", positions: ["LD"], name: "Giannis Tomaras", rating: 79 },
+    { position: "GOL", positions: ["GOL"], name: "Takis Ikonomopoulos", rating: 82 }
+  ]
+},
+  {
+  id: "eintracht_frankfurt_1959_1960",
+  club: "Eintracht Frankfurt",
+  season: "1959/1960",
+  type: "Vice-campeão histórico",
+  categoryType: "runner_up",
+  tier: "strong",
+
+  teamOverall: 85,
+  finalPower: 86,
+  attack: 87,
+  midfield: 85,
+  defense: 82,
+  mentality: 87,
+  chemistry: 88,
+  championsExperience: 84,
+  historicalWeight: 88,
+  clutch: 84,
+  consistency: 86,
+  style: "Ofensivo",
+
+  players: [
+    // Escalação baseada na final da Copa dos Campeões 1959/60, com posições adaptadas ao jogo
+    { position: "PE", positions: ["PE", "CA"], name: "Erich Meier", rating: 84 },
+    { position: "CA", positions: ["CA"], name: "Erwin Stein", rating: 85 },
+    { position: "PD", positions: ["PD", "MD"], name: "Richard Kreß", rating: 84 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "Alfred Pfaff", rating: 87 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Dieter Lindner", rating: 83 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Hans Weilbächer", rating: 84 },
+
+    { position: "LE", positions: ["LE", "ZAG"], name: "Hermann Höfer", rating: 81 },
+    { position: "ZAG", positions: ["ZAG"], name: "Hans-Walter Eigenbrodt", rating: 83 },
+    { position: "ZAG", positions: ["ZAG", "VOL"], name: "Dieter Stinka", rating: 82 },
+    { position: "LD", positions: ["LD"], name: "Friedel Lutz", rating: 82 },
+    { position: "GOL", positions: ["GOL"], name: "Egon Loy", rating: 82 }
+  ]
+},
+  
+  {
+  id: "stade_reims_1958_1959",
+  club: "Stade de Reims",
+  season: "1958/1959",
+  type: "Vice-campeão histórico",
+  categoryType: "runner_up",
+  tier: "strong",
+
+  teamOverall: 86,
+  finalPower: 87,
+  attack: 88,
+  midfield: 86,
+  defense: 84,
+  mentality: 88,
+  chemistry: 89,
+  championsExperience: 86,
+  historicalWeight: 90,
+  clutch: 85,
+  consistency: 86,
+  style: "Ofensivo",
+
+  players: [
+    // Escalação baseada na final da Copa dos Campeões 1958/59, com posições adaptadas ao jogo
+    { position: "PE", positions: ["PE", "ME"], name: "Jean Vincent", rating: 86 },
+    { position: "CA", positions: ["CA"], name: "Just Fontaine", rating: 91 },
+    { position: "PD", positions: ["PD", "PE", "CA"], name: "Roger Piantoni", rating: 88 },
+
+    { position: "MEI", positions: ["MEI", "MC"], name: "René Bliard", rating: 84 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Robert Lamartine", rating: 82 },
+    { position: "VOL", positions: ["VOL", "MC"], name: "Armand Penverne", rating: 85 },
+
+    { position: "LE", positions: ["LE", "ZAG"], name: "Bruno Rodzik", rating: 81 },
+    { position: "ZAG", positions: ["ZAG"], name: "Robert Jonquet", rating: 86 },
+    { position: "ZAG", positions: ["ZAG"], name: "Raoul Giraudo", rating: 81 },
+    { position: "LD", positions: ["LD", "MC"], name: "Michel Leblond", rating: 82 },
+    { position: "GOL", positions: ["GOL"], name: "Dominique Colonna", rating: 84 }
+  ]
+},
+  {
   id: "roma_1983_1984",
   club: "Roma",
   season: "1983/1984",
@@ -3703,6 +4499,44 @@ const runnerUpTeams = [
 
 
 const championTeams = [
+  {
+  id: "benfica_1961_1962",
+  club: "Benfica",
+  season: "1961/1962",
+  type: "Campeão histórico",
+  categoryType: "champion",
+  tier: "elite",
+
+  teamOverall: 89,
+  finalPower: 91,
+  attack: 92,
+  midfield: 90,
+  defense: 86,
+  mentality: 94,
+  chemistry: 93,
+  championsExperience: 91,
+  historicalWeight: 95,
+  clutch: 95,
+  consistency: 88,
+  style: "Ofensivo",
+
+  players: [
+    // Escalação baseada na final da Copa dos Campeões 1961/62, com posições adaptadas ao jogo
+    { position: "PE", positions: ["PE", "ME"], name: "António Simões", rating: 86 },
+    { position: "CA", positions: ["CA"], name: "José Águas", rating: 90 },
+    { position: "PD", positions: ["PD", "MD"], name: "José Augusto", rating: 88 },
+
+    { position: "MEI", positions: ["MEI", "CA"], name: "Eusébio", rating: 96 },
+    { position: "MC", positions: ["MC", "MEI"], name: "Mário Coluna", rating: 91 },
+    { position: "VOL", positions: ["VOL", "MC", "LD"], name: "Domiciano Cavém", rating: 87 },
+
+    { position: "LE", positions: ["LE"], name: "Fernando Cruz", rating: 84 },
+    { position: "ZAG", positions: ["ZAG"], name: "Ângelo Martins", rating: 84 },
+    { position: "ZAG", positions: ["ZAG"], name: "Germano", rating: 87 },
+    { position: "LD", positions: ["LD"], name: "Mário João", rating: 84 },
+    { position: "GOL", positions: ["GOL"], name: "Costa Pereira", rating: 87 }
+  ]
+},
   
 {
   id: "psg_2025_2026",

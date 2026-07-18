@@ -138,7 +138,32 @@ const DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.64;
 const DRAFT_FINAL_ATTACK_BONUS = 0.075;
 const DRAFT_FINAL_DEFENSE_REDUCTION = 0.070;
 
+/* ===================================================== */
+/* BÔNUS DO DRAFT NO MODO ELITE */
+/*
+  O Modo Elite usa adversários mais fortes.
 
+  Por isso:
+  - mantém uma ajuda para o DRAFT;
+  - reduz o bônus em relação ao Normal;
+  - deixa a campanha Elite mais difícil;
+  - evita que Normal e Elite tenham a mesma dificuldade.
+*/
+/* ===================================================== */
+
+const ELITE_DRAFT_ATTACK_XG_BONUS = 0.14;
+const ELITE_DRAFT_DEFENSE_XG_REDUCTION = 0.10;
+
+const ELITE_DRAFT_HOME_ATTACK_BONUS = 0.070;
+const ELITE_DRAFT_AWAY_ATTACK_BONUS = 0.030;
+
+const ELITE_DRAFT_HOME_DEFENSE_BONUS = 0.050;
+const ELITE_DRAFT_AWAY_DEFENSE_BONUS = 0.025;
+
+const ELITE_DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.56;
+
+const ELITE_DRAFT_FINAL_ATTACK_BONUS = 0.055;
+const ELITE_DRAFT_FINAL_DEFENSE_REDUCTION = 0.050;
 /* ===================================================== */
 /* DELAY DO FIM DA PARTIDA */
 /*
@@ -210,7 +235,60 @@ function getSafeNumber(value, fallback = 80) {
 
   return number;
 }
+/* ===================================================== */
+/* PERFIL DE BÔNUS DO DRAFT */
+/*
+  Normal:
+  - usa os bônus atuais.
 
+  Elite:
+  - usa bônus reduzido.
+*/
+/* ===================================================== */
+
+function isEliteDraftBonusMode() {
+  return window.gameState?.selectedDraftMode === "elite";
+}
+
+function getDraftBonusProfile() {
+  if (isEliteDraftBonusMode()) {
+    return {
+      mode: "elite",
+
+      attack: ELITE_DRAFT_ATTACK_XG_BONUS,
+      defense: ELITE_DRAFT_DEFENSE_XG_REDUCTION,
+
+      homeAttack: ELITE_DRAFT_HOME_ATTACK_BONUS,
+      awayAttack: ELITE_DRAFT_AWAY_ATTACK_BONUS,
+
+      homeDefense: ELITE_DRAFT_HOME_DEFENSE_BONUS,
+      awayDefense: ELITE_DRAFT_AWAY_DEFENSE_BONUS,
+
+      knockoutMultiplier: ELITE_DRAFT_KNOCKOUT_BONUS_MULTIPLIER,
+
+      finalAttack: ELITE_DRAFT_FINAL_ATTACK_BONUS,
+      finalDefense: ELITE_DRAFT_FINAL_DEFENSE_REDUCTION
+    };
+  }
+
+  return {
+    mode: "normal",
+
+    attack: DRAFT_ATTACK_XG_BONUS,
+    defense: DRAFT_DEFENSE_XG_REDUCTION,
+
+    homeAttack: DRAFT_HOME_ATTACK_BONUS,
+    awayAttack: DRAFT_AWAY_ATTACK_BONUS,
+
+    homeDefense: DRAFT_HOME_DEFENSE_BONUS,
+    awayDefense: DRAFT_AWAY_DEFENSE_BONUS,
+
+    knockoutMultiplier: DRAFT_KNOCKOUT_BONUS_MULTIPLIER,
+
+    finalAttack: DRAFT_FINAL_ATTACK_BONUS,
+    finalDefense: DRAFT_FINAL_DEFENSE_REDUCTION
+  };
+}
 function getPrimaryPlayerPosition(player) {
   if (!player) return "MC";
 
@@ -473,9 +551,10 @@ function calculateExpectedGoals(attackingTeam, defendingTeam, isHome, match = nu
   const attackPower = calculateAttackPower(attackingTeam);
   const defensePower = calculateDefensePower(defendingTeam);
 
-  const matchStageType = getMatchStageType(match);
+const matchStageType = getMatchStageType(match);
+const draftBonusProfile = getDraftBonusProfile();
 
-  const powerDifference = attackPower - defensePower;
+const powerDifference = attackPower - defensePower;
 
   let expectedGoals = 1.15;
 
@@ -525,9 +604,9 @@ function calculateExpectedGoals(attackingTeam, defendingTeam, isHome, match = nu
     - não usa esse multiplicador,
       porque a final tem bônus fixo próprio.
   */
-  const draftBonusMultiplier = matchStageType === "knockout"
-    ? DRAFT_KNOCKOUT_BONUS_MULTIPLIER
-    : 1;
+const draftBonusMultiplier = matchStageType === "knockout"
+  ? draftBonusProfile.knockoutMultiplier
+  : 1;
 
   /*
     BÔNUS OFENSIVO DO DRAFT
@@ -541,19 +620,19 @@ function calculateExpectedGoals(attackingTeam, defendingTeam, isHome, match = nu
     - aplica bônus de casa ou fora;
     - no mata-mata esses bônus são reduzidos.
   */
-  if (attackingTeam?.id === USER_DRAFT_TEAM_ID) {
-    if (matchStageType === "final") {
-      expectedGoals += DRAFT_FINAL_ATTACK_BONUS;
-    } else {
-      expectedGoals += DRAFT_ATTACK_XG_BONUS * draftBonusMultiplier;
+if (attackingTeam?.id === USER_DRAFT_TEAM_ID) {
+  if (matchStageType === "final") {
+    expectedGoals += draftBonusProfile.finalAttack;
+  } else {
+    expectedGoals += draftBonusProfile.attack * draftBonusMultiplier;
 
-      if (isHome) {
-        expectedGoals += DRAFT_HOME_ATTACK_BONUS * draftBonusMultiplier;
-      } else {
-        expectedGoals += DRAFT_AWAY_ATTACK_BONUS * draftBonusMultiplier;
-      }
+    if (isHome) {
+      expectedGoals += draftBonusProfile.homeAttack * draftBonusMultiplier;
+    } else {
+      expectedGoals += draftBonusProfile.awayAttack * draftBonusMultiplier;
     }
   }
+}
 
   /*
     BÔNUS DEFENSIVO DO DRAFT
@@ -573,19 +652,19 @@ function calculateExpectedGoals(attackingTeam, defendingTeam, isHome, match = nu
     - se o adversário ataca em casa, o DRAFT está fora;
     - se o adversário ataca fora, o DRAFT está em casa.
   */
-  if (defendingTeam?.id === USER_DRAFT_TEAM_ID) {
-    if (matchStageType === "final") {
-      expectedGoals -= DRAFT_FINAL_DEFENSE_REDUCTION;
-    } else {
-      expectedGoals -= DRAFT_DEFENSE_XG_REDUCTION * draftBonusMultiplier;
+if (defendingTeam?.id === USER_DRAFT_TEAM_ID) {
+  if (matchStageType === "final") {
+    expectedGoals -= draftBonusProfile.finalDefense;
+  } else {
+    expectedGoals -= draftBonusProfile.defense * draftBonusMultiplier;
 
-      if (isHome) {
-        expectedGoals -= DRAFT_AWAY_DEFENSE_BONUS * draftBonusMultiplier;
-      } else {
-        expectedGoals -= DRAFT_HOME_DEFENSE_BONUS * draftBonusMultiplier;
-      }
+    if (isHome) {
+      expectedGoals -= draftBonusProfile.awayDefense * draftBonusMultiplier;
+    } else {
+      expectedGoals -= draftBonusProfile.homeDefense * draftBonusMultiplier;
     }
   }
+}
 
   return clampNumber(expectedGoals, 0.25, 3.4);
 }
@@ -1062,3 +1141,4 @@ window.finishCampaignMatch = finishCampaignMatch;
 window.generateMatchEvents = generateMatchEvents;
 window.calculateAttackPower = calculateAttackPower;
 window.calculateDefensePower = calculateDefensePower;
+window.getDraftBonusProfile = getDraftBonusProfile;

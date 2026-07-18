@@ -124,7 +124,88 @@ function getCampaignDatabase() {
     return team && team.id && team.club && team.season;
   });
 }
+/* ===================================================== */
+/* MODO DA CAMPANHA - NORMAL / ELITE */
+/*
+  Define qual regra de seleção de adversários será usada.
 
+  Normal:
+  - mantém a distribuição atual.
+
+  Elite:
+  - 4 campeões;
+  - 3 vices;
+  - 1 histórico elite;
+  - sem repetir clube nos 8 jogos do DRAFT.
+*/
+/* ===================================================== */
+
+function getCampaignDraftMode() {
+  return window.gameState?.selectedDraftMode === "elite"
+    ? "elite"
+    : "normal";
+}
+
+function isEliteCampaignMode() {
+  return getCampaignDraftMode() === "elite";
+}
+
+const ELITE_HISTORIC_MAIN_OVERALL = 86;
+const ELITE_HISTORIC_FALLBACK_OVERALL = 85;
+
+function getTeamTier(team) {
+  return normalizeText(team?.tier || "");
+}
+
+function getTeamOverallValue(team) {
+  const overall = Number(team?.teamOverall || team?.finalPower || 0);
+
+  if (!Number.isFinite(overall)) {
+    return 0;
+  }
+
+  return overall;
+}
+
+function isHistoricTeam(team) {
+  return getTeamCategory(team) === "historic";
+}
+
+function isHistoricEliteTeam(team) {
+  return isHistoricTeam(team) && getTeamOverallValue(team) >= ELITE_HISTORIC_MAIN_OVERALL;
+}
+
+function isHistoricStrongTeam(team) {
+  return isHistoricTeam(team) && getTeamOverallValue(team) >= ELITE_HISTORIC_FALLBACK_OVERALL;
+}
+/* ===================================================== */
+/* TIMES PERMITIDOS NA LIGA GERAL DO MODO ELITE */
+/*
+  No Modo Elite, a classificação geral deve usar apenas:
+  - campeões;
+  - vices;
+  - históricos elite.
+
+  Não entram:
+  - azarões;
+  - históricos comuns.
+*/
+/* ===================================================== */
+function isEliteLeagueTeam(team) {
+  const category = getTeamCategory(team);
+
+  return (
+    category === "champion" ||
+    category === "runnerUp" ||
+    isHistoricStrongTeam(team)
+  );
+}
+
+function isElitePrimaryTeam(team) {
+  const category = getTeamCategory(team);
+
+  return category === "champion" || category === "runnerUp";
+}
 /* ===================================================== */
 /* PEGA OS JOGADORES ESCALADOS NO CAMPO */
 /* ===================================================== */
@@ -263,6 +344,37 @@ function pickTeamsFromPool(pool, amount, usedIds, usedClubs) {
 }
 
 /* ===================================================== */
+/* SELECIONA TIMES SEM REPETIR CLUBE */
+/*
+  Usado no Modo Elite para os 8 jogos do DRAFT.
+
+  Diferença para pickTeamsFromPool:
+  - aqui NÃO existe segunda tentativa repetindo clube;
+  - se faltar time, retorna menos times;
+  - isso evita repetir Real Madrid, Milan, Liverpool etc.
+*/
+/* ===================================================== */
+
+function pickTeamsWithoutClubRepeat(pool, amount, usedIds, usedClubs) {
+  const selected = [];
+  const shuffledPool = shuffleArray(pool);
+
+  shuffledPool.forEach((team) => {
+    if (selected.length >= amount) return;
+
+    const clubKey = normalizeText(team.club);
+
+    if (usedIds.has(team.id)) return;
+    if (usedClubs.has(clubKey)) return;
+
+    selected.push(team);
+    usedIds.add(team.id);
+    usedClubs.add(clubKey);
+  });
+
+  return selected;
+}
+/* ===================================================== */
 /* SELECIONA OS 8 ADVERSÁRIOS DA FASE DE LIGA */
 /* Modelo inicial:
    - 2 campeões
@@ -293,7 +405,20 @@ function shuffleCampaignTeams(teams) {
 
   return shuffledTeams;
 } 
-function selectLeagueOpponents() {
+/* ===================================================== */
+/* SELECIONA ADVERSÁRIOS NORMAIS DA FASE DE LIGA */
+/*
+  Modo Normal:
+  - 2 campeões;
+  - 2 vices;
+  - 2 históricos;
+  - 2 azarões.
+
+  Mantém a regra atual do jogo.
+*/
+/* ===================================================== */
+
+function selectNormalLeagueOpponents() {
   const database = getCampaignDatabase();
 
   if (database.length < LEAGUE_MATCHES_TOTAL) {
@@ -306,13 +431,12 @@ function selectLeagueOpponents() {
 
   const opponents = [];
 
-  const selectionRules = [
-    { category: "champion", amount: 2 },
-    { category: "runnerUp", amount: 2 },
-    { category: "historic", amount: 2 },
-    { category: "underdog", amount: 2 }
-  ];
-
+const selectionRules = [
+  { category: "champion", amount: 2 },
+  { category: "runnerUp", amount: 1 },
+  { category: "historic", amount: 3 },
+  { category: "underdog", amount: 2 }
+];
   selectionRules.forEach((rule) => {
     const categoryPool = database.filter((team) => {
       return getTeamCategory(team) === rule.category;
@@ -328,7 +452,6 @@ function selectLeagueOpponents() {
     opponents.push(...selected);
   });
 
-  /* Caso alguma categoria não tenha quantidade suficiente */
   if (opponents.length < LEAGUE_MATCHES_TOTAL) {
     const remainingAmount = LEAGUE_MATCHES_TOTAL - opponents.length;
 
@@ -346,9 +469,135 @@ function selectLeagueOpponents() {
     opponents.push(...fallbackTeams);
   }
 
-  const shuffledOpponents = shuffleCampaignTeams(opponents);
+  return shuffleCampaignTeams(opponents).slice(0, LEAGUE_MATCHES_TOTAL);
+}
 
-  return shuffledOpponents.slice(0, LEAGUE_MATCHES_TOTAL);
+/* ===================================================== */
+/* MONTA OS 36 TIMES - MODO ELITE */
+/*
+  Regras:
+  - DRAFT entra sempre;
+  - os 8 adversários diretos entram sempre;
+  - completa com campeões, vices e históricos fortes;
+  - históricos principais: teamOverall >= 86;
+  - fallback histórico: teamOverall >= 85;
+  - não entra azarão;
+  - não repete clube.
+
+  Meta aproximada:
+  - 10 campeões;
+  - 8 vices;
+  - 17 históricos;
+  - 1 DRAFT.
+*/
+/* ===================================================== */
+function selectEliteLeagueOpponents() {
+  const database = getCampaignDatabase();
+
+  const usedIds = new Set();
+  const usedClubs = new Set();
+
+  const opponents = [];
+
+  const selectionRules = [
+    { category: "champion", amount: 3 },
+    { category: "runnerUp", amount: 2 },
+    { category: "historicElite", amount: 3 }
+  ];
+
+  selectionRules.forEach((rule) => {
+    let categoryPool = [];
+
+    if (rule.category === "historicElite") {
+      categoryPool = database.filter((team) => {
+        return isHistoricEliteTeam(team);
+      });
+    } else {
+      categoryPool = database.filter((team) => {
+        return getTeamCategory(team) === rule.category;
+      });
+    }
+
+    const selected = pickTeamsWithoutClubRepeat(
+      categoryPool,
+      rule.amount,
+      usedIds,
+      usedClubs
+    );
+
+    opponents.push(...selected);
+  });
+
+  /*
+    Fallback do Elite:
+    se faltar histórico over 86, completa com histórico over 85.
+    Continua sem azarão e sem repetir clube.
+  */
+  if (opponents.length < LEAGUE_MATCHES_TOTAL) {
+    const remainingAmount = LEAGUE_MATCHES_TOTAL - opponents.length;
+
+    const historicStrongPool = database.filter((team) => {
+      return isHistoricStrongTeam(team);
+    });
+
+    const fallbackHistoricTeams = pickTeamsWithoutClubRepeat(
+      historicStrongPool,
+      remainingAmount,
+      usedIds,
+      usedClubs
+    );
+
+    opponents.push(...fallbackHistoricTeams);
+  }
+
+  /*
+    Fallback final:
+    se ainda faltar, completa com qualquer time permitido no Elite:
+    campeão, vice ou histórico over 85.
+  */
+  if (opponents.length < LEAGUE_MATCHES_TOTAL) {
+    const remainingAmount = LEAGUE_MATCHES_TOTAL - opponents.length;
+
+    const eliteFallbackPool = database.filter((team) => {
+      return isEliteLeagueTeam(team);
+    });
+
+    const fallbackTeams = pickTeamsWithoutClubRepeat(
+      eliteFallbackPool,
+      remainingAmount,
+      usedIds,
+      usedClubs
+    );
+
+    opponents.push(...fallbackTeams);
+  }
+
+  if (opponents.length < LEAGUE_MATCHES_TOTAL) {
+    alert(
+      "Não foi possível montar a fase de liga Elite sem repetir clubes. Verifique se há campeões, vices e históricos com over 85+ suficientes."
+    );
+
+    return [];
+  }
+
+  return shuffleCampaignTeams(opponents).slice(0, LEAGUE_MATCHES_TOTAL);
+}
+
+/* ===================================================== */
+/* SELECIONA OS 8 ADVERSÁRIOS DA FASE DE LIGA */
+/*
+  Decide automaticamente entre:
+  - Modo Normal;
+  - Modo Elite.
+*/
+/* ===================================================== */
+
+function selectLeagueOpponents() {
+  if (isEliteCampaignMode()) {
+    return selectEliteLeagueOpponents();
+  }
+
+  return selectNormalLeagueOpponents();
 }
 
 /* ===================================================== */
@@ -426,14 +675,40 @@ function createInitialStandings(teams) {
 }
 /* ===================================================== */
 /* MONTA OS 36 TIMES DA FASE DE LIGA */
-/* Inclui:
-   - DRAFT
-   - 8 adversários dos jogos do DRAFT
-   - 27 times extras divididos por categoria
+/*
+  Modo Normal:
+  - mantém a distribuição atual.
+
+  Modo Elite:
+  - DRAFT;
+  - 8 adversários diretos já selecionados;
+  - completa com campeões e vices primeiro;
+  - usa históricos elite apenas se precisar;
+  - não usa azarões;
+  - não usa históricos comuns;
+  - não repete clube.
 */
 /* ===================================================== */
 
 function buildLeagueTeamsForCampaign(draftTeam, opponents) {
+  if (isEliteCampaignMode()) {
+    return buildEliteLeagueTeamsForCampaign(draftTeam, opponents);
+  }
+
+  return buildNormalLeagueTeamsForCampaign(draftTeam, opponents);
+}
+
+/* ===================================================== */
+/* MONTA OS 36 TIMES - MODO NORMAL */
+/*
+  Mantém a regra original:
+  - DRAFT;
+  - 8 adversários;
+  - extras por categoria.
+*/
+/* ===================================================== */
+
+function buildNormalLeagueTeamsForCampaign(draftTeam, opponents) {
   const database = getCampaignDatabase();
 
   const usedIds = new Set();
@@ -457,18 +732,14 @@ function buildLeagueTeamsForCampaign(draftTeam, opponents) {
 
   /*
     Completa os 27 times extras da classificação
-    dividindo entre as 4 categorias:
-    - 7 campeões
-    - 7 vices/finalistas
-    - 7 históricos
-    - 6 azarões
+    dividindo entre as categorias do modo normal.
   */
-  const extraSelectionRules = [
-    { category: "champion", amount: 5 },
-    { category: "runnerUp", amount: 7 },
-    { category: "historic", amount: 9 },
-    { category: "underdog", amount: 6 }
-  ];
+const extraSelectionRules = [
+  { category: "champion", amount: 5 },
+  { category: "runnerUp", amount: 5 },
+  { category: "historic", amount: 11 },
+  { category: "underdog", amount: 6 }
+];
 
   extraSelectionRules.forEach((rule) => {
     if (leagueTeams.length >= 36) return;
@@ -491,7 +762,7 @@ function buildLeagueTeamsForCampaign(draftTeam, opponents) {
   });
 
   /*
-    Fallback de segurança:
+    Fallback normal:
     se alguma categoria não tiver times suficientes,
     completa com qualquer time disponível da database.
   */
@@ -515,6 +786,153 @@ function buildLeagueTeamsForCampaign(draftTeam, opponents) {
   return leagueTeams.slice(0, 36);
 }
 
+/* ===================================================== */
+/* MONTA OS 36 TIMES - MODO ELITE */
+/*
+  Regras:
+  - DRAFT entra sempre;
+  - os 8 adversários diretos entram sempre;
+  - completa primeiro com campeões e vices;
+  - usa históricos elite apenas para completar;
+  - não entra azarão;
+  - não entra histórico comum;
+  - não repete clube.
+
+  Se não houver 36 clubes únicos válidos, retorna [].
+*/
+/* ===================================================== */
+function buildEliteLeagueTeamsForCampaign(draftTeam, opponents) {
+  const database = getCampaignDatabase();
+
+  const usedIds = new Set();
+  const usedClubs = new Set();
+
+  const leagueTeams = [];
+
+  function addUniqueTeam(team) {
+    if (!team) return false;
+
+    const clubKey = normalizeText(team.club);
+
+    if (!clubKey) return false;
+    if (usedIds.has(team.id)) return false;
+    if (usedClubs.has(clubKey)) return false;
+
+    leagueTeams.push(team);
+    usedIds.add(team.id);
+    usedClubs.add(clubKey);
+
+    return true;
+  }
+
+  function addTeamsFromPool(pool, amount) {
+    const shuffledPool = shuffleArray(pool);
+    let added = 0;
+
+    shuffledPool.forEach((team) => {
+      if (leagueTeams.length >= 36) return;
+      if (added >= amount) return;
+
+      const wasAdded = addUniqueTeam(team);
+
+      if (wasAdded) {
+        added++;
+      }
+    });
+
+    return added;
+  }
+
+  /* Adiciona o DRAFT */
+  leagueTeams.push(draftTeam);
+  usedIds.add(draftTeam.id);
+  usedClubs.add(normalizeText(draftTeam.club));
+
+  /* Adiciona os 8 adversários diretos do DRAFT */
+  opponents.forEach((team) => {
+    addUniqueTeam(team);
+  });
+
+  /*
+    Completa a Classificação Geral Elite.
+    Meta aproximada dos 35 adversários:
+    - 10 campeões;
+    - 8 vices;
+    - 17 históricos fortes;
+    - 0 azarões.
+    
+    Como os 8 adversários diretos já entram antes,
+    aqui completamos os extras.
+  */
+  const extraSelectionRules = [
+    {
+      amount: 7,
+      pool: database.filter((team) => {
+        return getTeamCategory(team) === "champion";
+      })
+    },
+    {
+      amount: 6,
+      pool: database.filter((team) => {
+        return getTeamCategory(team) === "runnerUp";
+      })
+    },
+    {
+      amount: 14,
+      pool: database.filter((team) => {
+        return isHistoricEliteTeam(team);
+      })
+    }
+  ];
+
+  extraSelectionRules.forEach((rule) => {
+    if (leagueTeams.length >= 36) return;
+
+    const remainingSlots = 36 - leagueTeams.length;
+    const amountToPick = Math.min(rule.amount, remainingSlots);
+
+    addTeamsFromPool(rule.pool, amountToPick);
+  });
+
+  /*
+    Fallback 1:
+    se faltarem históricos over 86, completa com históricos over 85.
+  */
+  if (leagueTeams.length < 36) {
+    const remainingAmount = 36 - leagueTeams.length;
+
+    const historicStrongPool = database.filter((team) => {
+      return isHistoricStrongTeam(team);
+    });
+
+    addTeamsFromPool(historicStrongPool, remainingAmount);
+  }
+
+  /*
+    Fallback 2:
+    se ainda faltar, completa com qualquer time permitido no Elite.
+    Ainda não entra azarão.
+  */
+  if (leagueTeams.length < 36) {
+    const remainingAmount = 36 - leagueTeams.length;
+
+    const eliteFallbackPool = database.filter((team) => {
+      return isEliteLeagueTeam(team);
+    });
+
+    addTeamsFromPool(eliteFallbackPool, remainingAmount);
+  }
+
+  if (leagueTeams.length < 36) {
+    alert(
+      "Não foi possível montar a Classificação Geral Elite com 36 clubes únicos. Adicione mais campeões, vices ou históricos com over 85+."
+    );
+
+    return [];
+  }
+
+  return leagueTeams.slice(0, 36);
+}
 /* ===================================================== */
 /* CRIA UMA LINHA ZERADA DA CLASSIFICAÇÃO */
 /* ===================================================== */
@@ -960,8 +1378,13 @@ function startLeagueCampaign() {
   const previousSpeedMode = state.campaign?.speedMode || "normal";
   const matchDuration = CAMPAIGN_SPEEDS[previousSpeedMode].duration;
 const campaignTeams = buildLeagueTeamsForCampaign(draftTeam, opponents);
-const matches = createLeagueMatches(draftTeam, opponents);
 
+if (campaignTeams.length < 36) {
+  alert("Não foi possível montar a Classificação Geral da campanha.");
+  return null;
+}
+
+const matches = createLeagueMatches(draftTeam, opponents);
 state.campaign = {
   phase: "league",
 

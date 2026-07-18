@@ -51,7 +51,7 @@
         <span>·</span>
         <span id="styleLabel">Equilibrado</span>
         <span>·</span>
-        <span>Clássico</span>
+       <span id="draftModeLabel">Normal</span>
       </div>
 
       <button id="themeToggle" class="theme-toggle" type="button">
@@ -85,15 +85,42 @@
             <button class="formation-btn" data-formation="5-3-2">5-3-2</button>
             <button class="formation-btn" data-formation="5-4-1">5-4-1</button>
           </div>
+<h3>ESTILO</h3>
 
-          <h3>ESTILO</h3>
+<div class="style-grid" id="styleButtons">
+  <button class="style-btn" data-style="Defensivo">Defensivo</button>
+  <button class="style-btn active" data-style="Equilibrado">Equilibrado</button>
+  <button class="style-btn" data-style="Ofensivo">Ofensivo</button>
+</div>
 
-          <div class="style-grid" id="styleButtons">
-            <button class="style-btn" data-style="Defensivo">Defensivo</button>
-            <button class="style-btn active" data-style="Equilibrado">Equilibrado</button>
-            <button class="style-btn" data-style="Ofensivo">Ofensivo</button>
-          </div>
-        </section>
+<h3>MODO</h3>
+
+<div class="draft-mode-grid" id="draftModeButtons">
+  <button
+    class="draft-mode-btn active"
+    data-draft-mode="normal"
+    type="button"
+  >
+    NORMAL
+  </button>
+
+  <button
+    class="draft-mode-btn"
+    data-draft-mode="elite"
+    type="button"
+  >
+    ELITE
+  </button>
+</div>
+
+<div class="draft-mode-info" id="draftModeInfo">
+  <small id="draftModeDescriptionTitle">MODO NORMAL</small>
+
+  <p class="draft-mode-description" id="draftModeDescription">
+    Usa campeões, vices, históricos e azarões para gerar uma campanha variada.
+  </p>
+</div>
+</section>
 
         <!-- ===================================================== -->
         <!-- PAINEL DE SORTEIO -->

@@ -25,7 +25,8 @@
 */
 /* ===================================================== */
 
-const DRAFT_CLUB_COOLDOWN = 3;
+const NORMAL_DRAFT_CLUB_COOLDOWN = 3;
+const ELITE_DRAFT_CLUB_COOLDOWN = 5;
 
 function normalizeClubName(name) {
   if (!name) return "";
@@ -44,7 +45,150 @@ function getTeamClubKey(team) {
 
   return normalizeClubName(team.club || team.name || team.id || "");
 }
+/* ===================================================== */
+/* MODO DO DRAFT - NORMAL / ELITE */
+/*
+  Controla quais times podem aparecer no sorteio do Draft.
 
+  Regras:
+  - normal = usa toda a database;
+  - elite  = usa apenas campeões e vices.
+
+  Importante:
+  - ainda não altera campanha;
+  - ainda não altera simulação;
+  - ainda não altera mata-mata;
+  - apenas filtra a pool do sorteio do Draft.
+*/
+/* ===================================================== */
+
+function normalizeDraftText(value) {
+  if (!value) return "";
+
+  return value
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "")
+    .trim();
+}
+
+function getTeamDraftCategory(team) {
+  const category = normalizeDraftText(team?.categoryType || team?.type || "");
+
+  if (
+    category.includes("runner") ||
+    category.includes("runnerup") ||
+    category.includes("vice") ||
+    category.includes("finalista")
+  ) {
+    return "runnerUp";
+  }
+
+  if (
+    category.includes("champion") ||
+    category.includes("campeao")
+  ) {
+    return "champion";
+  }
+
+  if (
+    category.includes("underdog") ||
+    category.includes("azarao")
+  ) {
+    return "underdog";
+  }
+
+  if (
+    category.includes("historic") ||
+    category.includes("historico")
+  ) {
+    return "historic";
+  }
+
+  return "historic";
+}
+
+function getDraftMode() {
+  return window.gameState?.selectedDraftMode || "normal";
+}
+
+function isEliteDraftMode() {
+  return getDraftMode() === "elite";
+}
+function getDraftClubCooldown() {
+  if (isEliteDraftMode()) {
+    return ELITE_DRAFT_CLUB_COOLDOWN;
+  }
+
+  return NORMAL_DRAFT_CLUB_COOLDOWN;
+}
+function getDraftTeamOverallValue(team) {
+  const overall = Number(team?.teamOverall || team?.finalPower || 0);
+
+  if (!Number.isFinite(overall)) {
+    return 0;
+  }
+
+  return overall;
+}
+
+function isHistoricEliteForDraft(team) {
+  return (
+    getTeamDraftCategory(team) === "historic" &&
+    getDraftTeamOverallValue(team) >= 86
+  );
+}
+
+function isHistoricStrongForDraft(team) {
+  const overall = getDraftTeamOverallValue(team);
+
+  return (
+    getTeamDraftCategory(team) === "historic" &&
+    overall >= 85 &&
+    overall < 86
+  );
+}
+
+function isEliteUnderdogForDraft(team) {
+  return (
+    getTeamDraftCategory(team) === "underdog" &&
+    getDraftTeamOverallValue(team) >= 82
+  );
+}
+
+function isTeamAllowedInEliteDraftMode(team) {
+  const category = getTeamDraftCategory(team);
+
+  return (
+    category === "champion" ||
+    category === "runnerUp" ||
+    isHistoricEliteForDraft(team) ||
+    isHistoricStrongForDraft(team) ||
+    isEliteUnderdogForDraft(team)
+  );
+}
+
+function isTeamAllowedInDraftMode(team) {
+  if (!isEliteDraftMode()) {
+    return true;
+  }
+
+  return isTeamAllowedInEliteDraftMode(team);
+}
+
+function getTeamsDatabaseForDraftMode() {
+  const database = window.teamsDatabase || [];
+
+  if (!isEliteDraftMode()) {
+    return database;
+  }
+
+  return database.filter((team) => {
+    return isTeamAllowedInDraftMode(team);
+  });
+}
 function getRecentDraftClubs() {
   const state = window.gameState;
 
@@ -69,9 +213,101 @@ function rememberDraftClub(team) {
 
   recentClubs.push(clubKey);
 
-  while (recentClubs.length > DRAFT_CLUB_COOLDOWN) {
-    recentClubs.shift();
+while (recentClubs.length > getDraftClubCooldown()) {
+  recentClubs.shift();
+}
+}
+/* ===================================================== */
+/* PERFIL DE SORTEIO POR MODO */
+/*
+  Define a chance de cada tipo de time sair no botão ROLAR.
+
+  Normal:
+  - 25% campeões;
+  - 25% vices;
+  - 40% históricos;
+  - 10% azarões.
+
+  Elite:
+  - 27% campeões;
+  - 25% vices;
+  - 35% históricos over >= 86;
+  - 10% históricos over >= 85 e menor que 86;
+  - 3% azarões over >= 82.
+*/
+/* ===================================================== */
+
+function getDraftDrawModeProfile() {
+  if (isEliteDraftMode()) {
+    return [
+      {
+        key: "champion",
+        chance: 27,
+        filter: (team) => getTeamDraftCategory(team) === "champion"
+      },
+      {
+        key: "runnerUp",
+        chance: 25,
+        filter: (team) => getTeamDraftCategory(team) === "runnerUp"
+      },
+      {
+        key: "historicElite",
+        chance: 35,
+        filter: (team) => isHistoricEliteForDraft(team)
+      },
+      {
+        key: "historicStrong",
+        chance: 10,
+        filter: (team) => isHistoricStrongForDraft(team)
+      },
+      {
+        key: "underdog",
+        chance: 3,
+        filter: (team) => isEliteUnderdogForDraft(team)
+      }
+    ];
   }
+
+  return [
+    {
+      key: "champion",
+      chance: 25,
+      filter: (team) => getTeamDraftCategory(team) === "champion"
+    },
+    {
+      key: "runnerUp",
+      chance: 25,
+      filter: (team) => getTeamDraftCategory(team) === "runnerUp"
+    },
+    {
+      key: "historic",
+      chance: 40,
+      filter: (team) => getTeamDraftCategory(team) === "historic"
+    },
+    {
+      key: "underdog",
+      chance: 10,
+      filter: (team) => getTeamDraftCategory(team) === "underdog"
+    }
+  ];
+}
+
+function pickDraftDrawRule(profile) {
+  const totalChance = profile.reduce((total, rule) => {
+    return total + rule.chance;
+  }, 0);
+
+  let randomChance = Math.random() * totalChance;
+
+  for (const rule of profile) {
+    randomChance -= rule.chance;
+
+    if (randomChance <= 0) {
+      return rule;
+    }
+  }
+
+  return profile[profile.length - 1];
 }
 /* ===================================================== */
 /* PESO DE SORTEIO POR FORÇA DO TIME */
@@ -178,7 +414,9 @@ function pickTeamAvoidingRecentClubs(teams) {
     return null;
   }
 
-  const recentClubs = new Set(getRecentDraftClubs());
+const recentClubs = new Set(
+  getRecentDraftClubs().slice(-getDraftClubCooldown())
+);
 
   const filteredTeams = teams.filter((team) => {
     const clubKey = getTeamClubKey(team);
@@ -204,6 +442,55 @@ function pickTeamAvoidingRecentClubs(teams) {
   */
   return pickWeightedDraftTeam(finalPool);
 }
+
+/* ===================================================== */
+/* SORTEIA TIME DE ACORDO COM O MODO */
+/*
+  Primeiro escolhe uma categoria pela porcentagem do modo.
+  Depois sorteia dentro daquela categoria usando:
+  - anti-repetição de clube;
+  - peso por jogador 95+;
+  - peso por força geral do time.
+*/
+/* ===================================================== */
+
+function pickDraftTeamByMode(availableTeams) {
+  if (!Array.isArray(availableTeams) || availableTeams.length === 0) {
+    return null;
+  }
+
+  const profile = getDraftDrawModeProfile();
+  const selectedRule = pickDraftDrawRule(profile);
+
+  const selectedPool = availableTeams.filter((team) => {
+    return selectedRule.filter(team);
+  });
+
+  if (selectedPool.length > 0) {
+    return pickTeamAvoidingRecentClubs(selectedPool);
+  }
+
+  /*
+    Fallback:
+    se a categoria sorteada não tiver time útil para a posição atual,
+    tenta as outras categorias do mesmo modo.
+  */
+  const fallbackRules = profile.filter((rule) => {
+    return rule.key !== selectedRule.key;
+  });
+
+  for (const rule of fallbackRules) {
+    const fallbackPool = availableTeams.filter((team) => {
+      return rule.filter(team);
+    });
+
+    if (fallbackPool.length > 0) {
+      return pickTeamAvoidingRecentClubs(fallbackPool);
+    }
+  }
+
+  return pickTeamAvoidingRecentClubs(availableTeams);
+}
 /* ===================================================== */
 /* RETORNA TIMES QUE AINDA TÊM JOGADORES ÚTEIS */
 /*
@@ -213,7 +500,7 @@ function pickTeamAvoidingRecentClubs(teams) {
 /* ===================================================== */
 
 function getAvailableTeamsForDraft() {
-  const database = window.teamsDatabase || [];
+  const database = getTeamsDatabaseForDraftMode();
 
   return database.filter((team) => {
     const availablePlayers = getAvailablePlayersFromTeam(team);
@@ -242,8 +529,7 @@ function drawRandomTeam() {
     return null;
   }
 
-  const team = pickTeamAvoidingRecentClubs(availableTeams);
-
+const team = pickDraftTeamByMode(availableTeams);
   if (!team) {
     alert("Não foi possível sortear um time válido.");
     return null;
@@ -424,15 +710,30 @@ function markPlayerAsUsed(player) {
 /* ===================================================== */
 /* EXPORTA FUNÇÕES */
 /* ===================================================== */
-
 window.drawRandomTeam = drawRandomTeam;
 window.getAvailableTeamsForDraft = getAvailableTeamsForDraft;
 window.getAvailablePlayersFromTeam = getAvailablePlayersFromTeam;
 window.canPlayerFitAnyEmptySlot = canPlayerFitAnyEmptySlot;
 window.getEmptyFieldSlots = getEmptyFieldSlots;
 
+window.getDraftMode = getDraftMode;
+window.isEliteDraftMode = isEliteDraftMode;
+window.getTeamDraftCategory = getTeamDraftCategory;
+window.isTeamAllowedInDraftMode = isTeamAllowedInDraftMode;
+window.getTeamsDatabaseForDraftMode = getTeamsDatabaseForDraftMode;
+
 window.normalizePlayerName = normalizePlayerName;
 window.isPlayerAlreadyUsed = isPlayerAlreadyUsed;
 window.markPlayerAsUsed = markPlayerAsUsed;
 window.canPlayerFitSlot = canPlayerFitSlot;
 window.getAcceptedPositionsForSlot = getAcceptedPositionsForSlot;
+window.getDraftTeamOverallValue = getDraftTeamOverallValue;
+window.isHistoricEliteForDraft = isHistoricEliteForDraft;
+window.isHistoricStrongForDraft = isHistoricStrongForDraft;
+window.isEliteUnderdogForDraft = isEliteUnderdogForDraft;
+window.getDraftDrawModeProfile = getDraftDrawModeProfile;
+window.pickDraftTeamByMode = pickDraftTeamByMode;
+window.getDraftClubCooldown = getDraftClubCooldown;
+window.getRecentDraftClubs = getRecentDraftClubs;
+window.getTeamClubKey = getTeamClubKey;
+window.rememberDraftClub = rememberDraftClub;

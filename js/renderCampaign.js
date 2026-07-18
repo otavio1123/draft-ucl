@@ -61,6 +61,57 @@ function initCampaignFromDraft() {
 
   renderCampaignPage();
 }
+/* ===================================================== */
+/* IDENTIDADE VISUAL DO MODO DA CAMPANHA */
+/*
+  Mostra visualmente se a campanha foi iniciada
+  no modo Normal ou Elite.
+
+  Importante:
+  - não altera sorteio;
+  - não altera simulação;
+  - não altera campanha;
+  - apenas diferencia a tela visualmente.
+*/
+/* ===================================================== */
+
+function getCampaignDraftMode() {
+  return window.gameState?.selectedDraftMode === "elite"
+    ? "elite"
+    : "normal";
+}
+
+function getCampaignModeLabel() {
+  const mode = getCampaignDraftMode();
+
+  if (mode === "elite") {
+    return "CAMPANHA ELITE";
+  }
+
+  return "MODO NORMAL";
+}
+
+function getCampaignModeDescription() {
+  const mode = getCampaignDraftMode();
+
+  if (mode === "elite") {
+    return "Campeões, vices e históricos elite. Sem azarões na liga.";
+  }
+
+  return "Campanha variada com campeões, vices, históricos e azarões.";
+}
+function renderCampaignModeBadge() {
+  const mode = getCampaignDraftMode();
+
+  return `
+    <div class="campaign-mode-badge campaign-mode-${mode}">
+      <strong>${getCampaignModeLabel()}</strong>
+      <span>${getCampaignModeDescription()}</span>
+    </div>
+  `;
+}
+
+
 
 /* ===================================================== */
 /* RENDERIZA A TELA PRINCIPAL DA CAMPANHA */
@@ -76,12 +127,13 @@ function renderCampaignPage() {
 
   campaignPage.innerHTML = `
     <section class="campaign-header">
-      <div class="campaign-title-block">
-        <small>DRAFT UCL</small>
-        <h1>A CAMPANHA</h1>
-        <p>Fase de Liga · 8 jogos</p>
-      </div>
+<div class="campaign-title-block">
+  <small>DRAFT UCL</small>
+  <h1>A CAMPANHA</h1>
+  <p>Fase de Liga · 8 jogos</p>
 
+  ${renderCampaignModeBadge()}
+</div>
       ${renderCampaignSpeedSelector()}
     </section>
 
@@ -130,7 +182,7 @@ function renderCampaignSpeedSelector() {
 
   return `
     <div class="campaign-speed-box">
-      <span>Modo de jogo:</span>
+     <span>Velocidade:</span>
 
       <div class="campaign-speed-buttons">
         <button
@@ -211,11 +263,11 @@ return `
         <span>${statusText}</span>
       </div>
 
-      <div class="match-teams-line">
-        ${renderTeamName(match.homeTeam)}
-        <strong class="match-versus">x</strong>
-        ${renderTeamName(match.awayTeam)}
-      </div>
+<div class="match-teams-line">
+  ${renderTeamName(match.homeTeam)}
+  <strong class="match-versus">x</strong>
+  ${renderTeamName(match.awayTeam)}
+</div>
 
       ${liveArea}
 
@@ -800,7 +852,7 @@ function renderKnockoutSpeedSelector() {
 
   return `
     <div class="knockout-speed-box">
-      <small>MODO DE JOGO</small>
+      <small>VELOCIDADE</small>
 
       <div class="knockout-speed-buttons">
         <button
@@ -839,17 +891,24 @@ function renderKnockoutPage() {
 
   const knockout = state.campaign.knockout;
   const tie = knockout.currentTie;
-
+const isEliteMode = getCampaignDraftMode() === "elite"; 
   if (!tie) {
     return;
   }
 
-  campaignPage.innerHTML = `
-    <section class="knockout-page">
-      <section class="knockout-header">
-        <small>DRAFT UCL</small>
-        <h1>${tie.stageLabel}</h1>
-<p>${tie.isSingleMatch ? "Final em jogo único" : "Confronto eliminatório · Ida e volta"}</p>      </section>
+campaignPage.innerHTML = `
+  <section class="knockout-page ${isEliteMode ? "elite" : ""}">
+<section class="knockout-header">
+  <small>DRAFT UCL</small>
+  <h1>${tie.stageLabel}</h1>
+  <p>${tie.isSingleMatch ? "Final em jogo único" : "Confronto eliminatório · Ida e volta"}</p>
+
+  ${isEliteMode ? `
+    <div class="knockout-mode-badge">
+      CAMPANHA ELITE
+    </div>
+  ` : ""}
+</section>
 
       ${renderKnockoutSpeedSelector()}
 
@@ -1856,17 +1915,27 @@ function renderCampaignCardPage() {
     alert("Não foi possível montar o card da campanha.");
     return;
   }
-  const isChampion = stats.statusLabel === "CAMPEÃO DA CHAMPIONS";
+const isChampion = stats.statusLabel === "CAMPEÃO DA CHAMPIONS";
+const isEliteMode = getCampaignDraftMode() === "elite";
 
-  campaignPage.innerHTML = `
-   <section class="campaign-card-page ${isChampion ? "champion" : ""}">
-<div class="campaign-card-capture ${isChampion ? "champion" : ""}" id="finalCard">
-        <header class="campaign-card-header">
-          <small>DRAFT UCL</small>
-<h1 class="campaign-card-title">
-  MEU CARD
-</h1>        <strong>${stats.statusLabel}</strong>
-        </header>
+campaignPage.innerHTML = `
+   <section class="campaign-card-page ${isChampion ? "champion" : ""} ${isEliteMode ? "elite" : ""}">
+<div class="campaign-card-capture ${isChampion ? "champion" : ""} ${isEliteMode ? "elite" : ""}" id="finalCard">
+<header class="campaign-card-header">
+  <small>DRAFT UCL</small>
+
+  <h1 class="campaign-card-title">
+    MEU CARD
+  </h1>
+
+  <strong>${stats.statusLabel}</strong>
+
+  ${isEliteMode ? `
+    <span class="campaign-card-mode-badge">
+      MODO ELITE
+    </span>
+  ` : ""}
+</header>
 
         <section class="campaign-card-squad">
           <small>ELENCO DRAFT</small>
