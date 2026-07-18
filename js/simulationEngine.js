@@ -144,26 +144,26 @@ const DRAFT_FINAL_DEFENSE_REDUCTION = 0.070;
   O Modo Elite usa adversários mais fortes.
 
   Por isso:
-  - mantém uma ajuda para o DRAFT;
+  - mantém uma ajuda menor para o DRAFT;
   - reduz o bônus em relação ao Normal;
   - deixa a campanha Elite mais difícil;
-  - evita que Normal e Elite tenham a mesma dificuldade.
+  - principalmente no mata-mata e na final.
 */
 /* ===================================================== */
 
-const ELITE_DRAFT_ATTACK_XG_BONUS = 0.14;
-const ELITE_DRAFT_DEFENSE_XG_REDUCTION = 0.10;
+const ELITE_DRAFT_ATTACK_XG_BONUS = 0.13;
+const ELITE_DRAFT_DEFENSE_XG_REDUCTION = 0.08;
 
-const ELITE_DRAFT_HOME_ATTACK_BONUS = 0.070;
-const ELITE_DRAFT_AWAY_ATTACK_BONUS = 0.030;
+const ELITE_DRAFT_HOME_ATTACK_BONUS = 0.050;
+const ELITE_DRAFT_AWAY_ATTACK_BONUS = 0.020;
 
-const ELITE_DRAFT_HOME_DEFENSE_BONUS = 0.050;
-const ELITE_DRAFT_AWAY_DEFENSE_BONUS = 0.025;
+const ELITE_DRAFT_HOME_DEFENSE_BONUS = 0.035;
+const ELITE_DRAFT_AWAY_DEFENSE_BONUS = 0.018;
 
-const ELITE_DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.56;
+const ELITE_DRAFT_KNOCKOUT_BONUS_MULTIPLIER = 0.48;
 
-const ELITE_DRAFT_FINAL_ATTACK_BONUS = 0.055;
-const ELITE_DRAFT_FINAL_DEFENSE_REDUCTION = 0.050;
+const ELITE_DRAFT_FINAL_ATTACK_BONUS = 0.035;
+const ELITE_DRAFT_FINAL_DEFENSE_REDUCTION = 0.030;
 /* ===================================================== */
 /* DELAY DO FIM DA PARTIDA */
 /*
