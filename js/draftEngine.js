@@ -594,18 +594,71 @@ function canPlayerFitAnyEmptySlot(player) {
     return canPlayerFitSlot(player, slot);
   });
 }
-
 function canPlayerFitSlot(player, slot) {
-  if (!player || !slot) {
-    return false;
-  }
+  if (!player || !slot) return false;
 
   const playerPositions = getPlayerPositions(player);
-  const acceptedPositions = getAcceptedPositionsForSlot(slot.code);
+  const slotCode = slot.code;
 
-  return playerPositions.some((position) => {
-    return acceptedPositions.includes(position);
-  });
+  /*
+    Se o jogador tem exatamente a posição da vaga,
+    ele pode jogar nela normalmente.
+  */
+  if (playerPositions.includes(slotCode)) {
+    return true;
+  }
+
+  /*
+    ALA continua sendo tratado pela regra própria.
+    Laterais podem fazer ALA pelo motor do draft,
+    sem precisar ter ALA no banco.
+  */
+  if (slotCode === "ALA") {
+    const acceptedPositions = getAcceptedPositionsForSlot(slotCode);
+    return playerPositions.some((position) => acceptedPositions.includes(position));
+  }
+
+  /*
+    Ponta pode recuar para meia.
+    PE pode jogar ME.
+    PD pode jogar MD.
+  */
+  if (slotCode === "ME") {
+    return playerPositions.includes("PE");
+  }
+
+  if (slotCode === "MD") {
+    return playerPositions.includes("PD");
+  }
+
+  /*
+    Meia pode avançar para ponta,
+    mas só se o jogador NÃO tiver origem defensiva.
+
+    Isso bloqueia:
+    LD + MD virar PD
+    LE + ME virar PE
+    VOL + MD virar PD
+    VOL + ME virar PE
+    ZAG + MD virar PD
+    ZAG + ME virar PE
+  */
+  if (slotCode === "PE") {
+    return playerPositions.includes("ME") && !hasDefensivePosition(playerPositions);
+  }
+
+  if (slotCode === "PD") {
+    return playerPositions.includes("MD") && !hasDefensivePosition(playerPositions);
+  }
+
+  const acceptedPositions = getAcceptedPositionsForSlot(slotCode);
+  return playerPositions.some((position) => acceptedPositions.includes(position));
+}
+
+function hasDefensivePosition(playerPositions) {
+  const defensivePositions = ["LD", "LE", "ZAG", "VOL"];
+
+  return playerPositions.some((position) => defensivePositions.includes(position));
 }
 /* ===================================================== */
 /* VERIFICA SE UM TIME CONSEGUE COBRIR TODAS AS VAGAS FINAIS */
@@ -669,7 +722,8 @@ function canAssignPlayersToSlots(slots, players, slotIndex, usedPlayerIndexes) {
   }
 
   return false;
-}function getAcceptedPositionsForSlot(slotCode) {
+}
+function getAcceptedPositionsForSlot(slotCode) {
   const state = window.gameState;
   const selectedStyle = state?.selectedStyle || "Equilibrado";
 
@@ -710,11 +764,11 @@ function canAssignPlayersToSlots(slots, players, slotIndex, usedPlayerIndexes) {
     MC: ["MC"],
     MEI: ["MEI"],
 
-    ME: ["ME", "PE"],
-    PE: ["PE", "ME"],
+ME: ["ME"],
+MD: ["MD"],
 
-    MD: ["MD", "PD"],
-    PD: ["PD", "MD"],
+PE: ["PE"],
+PD: ["PD"],
 
     CA: ["CA"]
   };
