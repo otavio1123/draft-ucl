@@ -501,11 +501,27 @@ function pickDraftTeamByMode(availableTeams) {
 
 function getAvailableTeamsForDraft() {
   const database = getTeamsDatabaseForDraftMode();
+  const emptySlots = getEmptyFieldSlots();
+
+  /*
+    No começo/meio do draft, basta o time ter 1 jogador útil.
+    No fim do draft, quando restarem 2 vagas ou menos,
+    o time precisa conseguir preencher todas as vagas restantes.
+  */
+  const requireFullCoverage = emptySlots.length > 1 && emptySlots.length <= 2;
 
   return database.filter((team) => {
     const availablePlayers = getAvailablePlayersFromTeam(team);
 
-    return availablePlayers.length > 0;
+    if (availablePlayers.length === 0) {
+      return false;
+    }
+
+    if (!requireFullCoverage) {
+      return true;
+    }
+
+    return canTeamCoverAllEmptySlots(team);
   });
 }
 /* ===================================================== */
@@ -591,30 +607,97 @@ function canPlayerFitSlot(player, slot) {
     return acceptedPositions.includes(position);
   });
 }
+/* ===================================================== */
+/* VERIFICA SE UM TIME CONSEGUE COBRIR TODAS AS VAGAS FINAIS */
+/*
+  Usado no fim do draft.
 
-function getAcceptedPositionsForSlot(slotCode) {
+  Exemplo:
+  - se faltam LD e CA;
+  - o time precisa ter 1 jogador para LD e 1 jogador para CA;
+  - o mesmo jogador não pode contar para duas vagas.
+*/
+/* ===================================================== */
+
+function canTeamCoverAllEmptySlots(team) {
+  const emptySlots = getEmptyFieldSlots();
+
+  if (!team || !Array.isArray(team.players)) {
+    return false;
+  }
+
+  if (emptySlots.length === 0) {
+    return false;
+  }
+
+  const availablePlayers = team.players.filter((player) => {
+    return !isPlayerAlreadyUsed(player);
+  });
+
+  if (availablePlayers.length < emptySlots.length) {
+    return false;
+  }
+
+  return canAssignPlayersToSlots(emptySlots, availablePlayers, 0, new Set());
+}
+
+function canAssignPlayersToSlots(slots, players, slotIndex, usedPlayerIndexes) {
+  if (slotIndex >= slots.length) {
+    return true;
+  }
+
+  const slot = slots[slotIndex];
+
+  for (let playerIndex = 0; playerIndex < players.length; playerIndex++) {
+    if (usedPlayerIndexes.has(playerIndex)) {
+      continue;
+    }
+
+    const player = players[playerIndex];
+
+    if (!canPlayerFitSlot(player, slot)) {
+      continue;
+    }
+
+    usedPlayerIndexes.add(playerIndex);
+
+    if (canAssignPlayersToSlots(slots, players, slotIndex + 1, usedPlayerIndexes)) {
+      return true;
+    }
+
+    usedPlayerIndexes.delete(playerIndex);
+  }
+
+  return false;
+}function getAcceptedPositionsForSlot(slotCode) {
   const state = window.gameState;
   const selectedStyle = state?.selectedStyle || "Equilibrado";
 
   /*
-    ALA é a única posição mais flexível.
-    Laterais e pontas podem virar ala.
+    ALA é uma vaga flexível.
+    Laterais e pontas podem jogar como ala,
+    mas o jogador não precisa ter ALA no banco.
   */
   if (slotCode === "ALA") {
     if (selectedStyle === "Defensivo") {
-      return ["ALA", "LD", "LE"];
+      return ["LD", "LE"];
     }
 
     if (selectedStyle === "Ofensivo") {
-      return ["ALA", "PE", "PD", "LD", "LE"];
+      return ["PE", "PD", "LD", "LE"];
     }
 
-    return ["ALA", "LD", "LE", "PE", "PD"];
+    return ["LD", "LE", "PE", "PD"];
   }
 
   /*
-    Regra mais difícil:
-    cada posição aceita praticamente só ela mesma.
+    Compatibilidade por função.
+
+    ME e PE fazem o lado esquerdo.
+    MD e PD fazem o lado direito.
+
+    Isso não muda o que aparece no card.
+    Só muda quem pode encaixar em cada vaga.
   */
   const compatibility = {
     GOL: ["GOL"],
@@ -627,19 +710,17 @@ function getAcceptedPositionsForSlot(slotCode) {
     MC: ["MC"],
     MEI: ["MEI"],
 
-    ME: ["ME"],
-    MD: ["MD"],
+    ME: ["ME", "PE"],
+    PE: ["PE", "ME"],
 
-    PE: ["PE"],
-    PD: ["PD"],
+    MD: ["MD", "PD"],
+    PD: ["PD", "MD"],
 
-  CA: ["CA", "ATA"],
-ATA: ["ATA", "CA"]
+    CA: ["CA"]
   };
 
   return compatibility[slotCode] || [slotCode];
 }
-
 /* ===================================================== */
 /* PEGA SOMENTE OS SLOTS VAZIOS DO CAMPO */
 /* ===================================================== */
