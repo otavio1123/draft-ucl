@@ -2349,6 +2349,8 @@
   grid-column: 1 / -1;
 }
 /* Saldo centralizado quando sobra sozinho */
+/* Posição na Liga e Saldo centralizados quando ficam sozinhos */
+.campaign-card-summary div:nth-child(1),
 .campaign-card-summary div:nth-child(5) {
   grid-column: 1 / -1;
   width: calc(50% - 5px);
