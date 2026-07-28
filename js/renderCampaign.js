@@ -1190,7 +1190,7 @@ function renderKnockoutResultCard(tie) {
   */
   if (tie.winnerTeamId === "draft_user_team") {
     const title = tie.stage === "final"
-      ? "DRAFT É CAMPEÃO DA CHAMPIONS"
+      ? "DRAFT É CAMPEÃO DO DRAFT"
       : `DRAFT passou para ${tie.nextLabel || "A PRÓXIMA FASE"}`;
 
     const smallText = tie.stage === "final"
@@ -1795,7 +1795,7 @@ function getCampaignCardStatusLabel() {
   }
 
   if (tie?.stage === "final" && tie.finished && tie.winnerTeamId === "draft_user_team") {
-    return "CAMPEÃO DA CHAMPIONS";
+    return "CAMPEÃO DO DRAFT";
   }
 
   if (tie?.stage === "final" && tie.finished && tie.winnerTeamId !== "draft_user_team") {
@@ -1915,7 +1915,7 @@ function renderCampaignCardPage() {
     alert("Não foi possível montar o card da campanha.");
     return;
   }
-const isChampion = stats.statusLabel === "CAMPEÃO DA CHAMPIONS";
+const isChampion = stats.statusLabel === "CAMPEÃO DO DRAFT";
 const isEliteMode = getCampaignDraftMode() === "elite";
 
 campaignPage.innerHTML = `

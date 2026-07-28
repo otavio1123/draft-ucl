@@ -415,9 +415,9 @@ function getStyleAttackModifier(team) {
 function getStyleDefenseExposureModifier(team) {
   if (!team || !team.style) return 0;
 
-  if (team.style === "Ofensivo") return 0.13;
-  if (team.style === "Equilibrado") return -0.02;
-  if (team.style === "Defensivo") return -0.15;
+if (team.style === "Ofensivo") return 0.07;
+if (team.style === "Equilibrado") return -0.02;
+if (team.style === "Defensivo") return -0.13;
 
   return 0;
 }
