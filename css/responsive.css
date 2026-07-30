@@ -2728,7 +2728,6 @@
     font-size: 19px;
   }
 }
-
 /* ===================================================== */
 /* DRAFT MOBILE - HEADER NO MODO ELITE */
 /*
@@ -2772,85 +2771,140 @@
     letter-spacing: 2px;
   }
 }
+
 /* ===================================================== */
-/* DRAFT MOBILE - JOGADOR NO CAMPO APENAS NO ELITE */
+/* DRAFT RESPONSIVO - JOGADOR NO CAMPO PADRONIZADO */
 /*
-  Ajusta somente o jogador preenchido no campo quando
-  o modo Elite estiver ativo no mobile.
-  Não altera o modo Normal.
+  Padroniza tamanho do jogador preenchido no campo
+  no modo Normal e no modo Elite.
+
+  O Elite mantém a cor própria.
+  O tamanho fica igual nos dois modos.
 */
 /* ===================================================== */
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .pitch-slot.filled,
   .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled {
-    width: 64px;
-    height: 64px;
+    width: 86px;
+    height: 86px;
   }
 
+  .pitch-slot.filled .pitch-player-card,
   .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-card {
-    width: 62px;
-    height: 62px;
+    width: 84px;
+    height: 84px;
   }
 
+  .pitch-slot.filled .pitch-rating-ball,
   .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
-    width: 52px;
-    height: 52px;
+    width: 66px;
+    height: 66px;
 
+    font-size: 23px;
+  }
+
+  .pitch-slot.filled .pitch-player-name,
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    max-width: 124px;
+
+    font-size: 13.2px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* Visual do Elite: mantém cor, não tamanho diferente */
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
     background: rgba(8, 18, 34, 0.96);
     border: none;
-
     color: #fbbf24;
-
-    font-size: 20px;
 
     box-shadow:
       0 4px 8px rgba(0, 0, 0, 0.26),
       inset 0 -2px 0 rgba(0, 0, 0, 0.16);
   }
 
-.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
-  top: 63px;
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+    color: #ffffff;
 
-  max-width: 104px;
-
-  color: #ffffff;
-
-  font-size: 12.2px;
-  font-weight: 900;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-
-  text-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.72),
-    0 0 6px rgba(0, 0, 0, 0.45);
-}
+    text-shadow:
+      0 2px 0 rgba(0, 0, 0, 0.72),
+      0 0 6px rgba(0, 0, 0, 0.45);
+  }
 }
 
-/* Celular muito estreito */
-@media (max-width: 380px) {
+@media (max-width: 480px) {
+  .pitch-slot.filled,
   .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled {
-    width: 58px;
-    height: 58px;
+    width: 76px;
+    height: 76px;
   }
 
+  .pitch-slot.filled .pitch-player-card,
   .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-card {
+    width: 74px;
+    height: 74px;
+  }
+
+  .pitch-slot.filled .pitch-rating-ball,
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
     width: 56px;
     height: 56px;
+
+    font-size: 21px;
   }
 
-  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
-    width: 48px;
-    height: 48px;
+  .pitch-slot.filled .pitch-player-name,
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+    top: 72px;
+    left: 50%;
+    transform: translateX(-50%);
 
-    font-size: 18.5px;
+    max-width: 108px;
+
+    font-size: 11.6px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
   }
-
-.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
-  top: 59px;
-
-  max-width: 92px;
-
-  font-size: 11px;
 }
+
+@media (max-width: 380px) {
+  .pitch-slot.filled,
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled {
+    width: 70px;
+    height: 70px;
+  }
+
+  .pitch-slot.filled .pitch-player-card,
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-card {
+    width: 68px;
+    height: 68px;
+  }
+
+  .pitch-slot.filled .pitch-rating-ball,
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
+    width: 54px;
+    height: 54px;
+
+    font-size: 20px;
+  }
+
+  .pitch-slot.filled .pitch-player-name,
+  .draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+    top: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    max-width: 96px;
+
+    font-size: 10.6px;
+  }
 }

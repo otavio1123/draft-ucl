@@ -1751,3 +1751,76 @@ opacity: 1;
     0 0 14px rgba(217, 119, 6, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
+
+/* ===================================================== */
+/* AJUSTE FINAL - JOGADOR SELECIONADO NO CAMPO */
+/* Padroniza tamanho no modo Normal e Elite */
+/* ===================================================== */
+
+.pitch-slot.filled {
+  width: 84px;
+  height: 84px;
+}
+
+.pitch-player-card {
+  width: 80px;
+  height: 80px;
+}
+
+.pitch-rating-ball {
+  width: 68px;
+  height: 68px;
+
+  font-size: 25px;
+}
+
+.pitch-player-name {
+  top: 82px;
+
+  max-width: 140px;
+
+  font-size: 15.7px;
+  line-height: 1;
+}
+
+/* Mantém o Elite com a mesma proporção */
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
+  width: 68px;
+  height: 68px;
+
+  font-size: 25px;
+}
+
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+  top: 82px;
+
+  font-size: 15.7px;
+}
+
+/* ===================================================== */
+/* CORREÇÃO - MANTER ELITE ORIGINAL E AJUSTAR SÓ NORMAL */
+/* ===================================================== */
+
+/* NORMAL - jogador selecionado maior */
+.pitch-slot.filled .pitch-rating-ball {
+  width: 68px;
+  height: 68px;
+  font-size: 25px;
+}
+
+.pitch-slot.filled .pitch-player-name {
+  top: 82px;
+  font-size: 15.7px;
+}
+
+/* ELITE - volta para o padrão original */
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-rating-ball {
+  width: 68px;
+  height: 68px;
+  font-size: 25px;
+}
+
+.draft-page:has(.draft-mode-info.elite) .pitch-slot.filled .pitch-player-name {
+  top: 77px;
+  font-size: 15.7px;
+}

@@ -4494,7 +4494,7 @@ const runnerUpTeams = [
     { position: "LE", positions: ["LE"], name: "Andrew Robertson", rating: 87 },
     { position: "ZAG", positions: ["ZAG"], name: "Virgil van Dijk", rating: 90 },
     { position: "ZAG", positions: ["ZAG"], name: "Ibrahima Konaté", rating: 84 },
-    { position: "LD", positions: ["LD", "MD"], name: "Trent Alexander-Arnold", rating: 88 },
+    { position: "LD", positions: ["LD", "MD"], name: "Alexander-Arnold", rating: 88 },
     { position: "GOL", positions: ["GOL"], name: "Alisson Becker", rating: 90 }
   ]
 },
@@ -4600,7 +4600,7 @@ const championTeams = [
   style: "Posse ofensiva",
 
   players: [
-    { position: "PE", positions: ["PE", "MEI"], name: "Khvicha Kvaratskhelia", rating: 92 },
+    { position: "PE", positions: ["PE", "MEI"], name: "Kvaratskhelia", rating: 92 },
     { position: "CA", positions: ["CA", "PD", "PE"], name: "Ousmane Dembélé", rating: 91 },
     { position: "PD", positions: ["PD", "PE", "MEI"], name: "Désiré Doué", rating: 87 },
 
@@ -5832,7 +5832,7 @@ const championTeams = [
     { position: "LE", positions: ["LE"], name: "Andrew Robertson", rating: 89 },
     { position: "ZAG", positions: ["ZAG"], name: "Virgil van Dijk", rating: 95 },
     { position: "ZAG", positions: ["ZAG"], name: "Joël Matip", rating: 86 },
-    { position: "LD", positions: ["LD", "MD"], name: "Trent Alexander-Arnold", rating: 89 },
+    { position: "LD", positions: ["LD", "MD"], name: "Alexander-Arnold", rating: 89 },
     { position: "GOL", positions: ["GOL"], name: "Alisson Becker", rating: 92 }
   ]
 },
